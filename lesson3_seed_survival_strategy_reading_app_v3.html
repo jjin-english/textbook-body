@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Lesson 3 Seeds - English Reading Coach</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;background:#f5f7fb;color:#172033}
+header{background:#243b64;color:white;padding:18px 16px;position:sticky;top:0;z-index:10}
+h1{font-size:21px;margin:0 0 6px}.sub{font-size:13px;opacity:.85}
+.wrap{max-width:850px;margin:auto;padding:14px}
+.controls{background:white;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 2px 10px #0000000d}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row button,.speed button,.mainbtn{border:0;border-radius:10px;padding:10px 13px;background:#e8edf6;font-weight:700;cursor:pointer}
+.speed button.active{background:#243b64;color:#fff}.tabs{display:flex;gap:7px;overflow-x:auto;padding:8px;position:sticky;top:76px;z-index:9;background:#fff}.tabs button{white-space:nowrap;flex:0 0 auto}
+.tabs button.active{background:#243b64;color:white}
+.progress{height:8px;background:#e2e6ee;border-radius:20px;overflow:hidden;margin-top:10px}.bar{height:100%;width:0;background:#3f7bdc;transition:.2s}
+.section{background:white;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px #0000000d}
+.section h2{font-size:19px;margin:0 0 14px;padding:12px 14px;border-left:6px solid #243b64;background:#eef3fb;border-radius:10px}.sentence{border:1px solid #e1e6ef;border-radius:14px;padding:13px;margin:9px 0}
+.en{font-size:17px;line-height:1.55;font-weight:700}.ko{font-size:15px;line-height:1.5;color:#566173;margin-top:6px}
+.actions{display:flex;gap:7px;margin-top:9px}.actions button{border:0;border-radius:9px;padding:8px 10px;background:#eef3fb;cursor:pointer}
+.match{margin-top:18px;padding-top:16px;border-top:2px dashed #dce2ec}.match h3{margin:0 0 8px;font-size:17px}.hint{font-size:13px;color:#667085;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice{padding:11px;border:1px solid #d8deea;border-radius:11px;background:#fff;text-align:left;cursor:pointer;line-height:1.4}
+.choice.selected{border:2px solid #3f7bdc;background:#eef5ff}.choice.correct{background:#e7f7ec;border-color:#36a05c}.choice.wrong{background:#fff0f0;border-color:#d9534f}
+.result{font-weight:700;margin-top:9px}.score{font-size:14px;color:#536070}
+.orderBox{margin-top:18px}.orderList{display:flex;flex-direction:column;gap:8px}.orderChoice{text-align:left}.orderChoice.selected{background:#eef5ff;border-color:#3f7bdc}.orderProgress{font-size:13px;color:#667085;margin-bottom:9px}
+@media(max-width:600px){
+      body{padding-bottom:76px}
+      header{padding:14px 12px}
+      h1{font-size:19px}
+      .tabs{top:67px;padding:8px 6px;border-bottom:1px solid #dfe5ef}
+      .tabs button{font-size:13px;padding:9px 11px}
+      .en{font-size:16px}
+      .grid{grid-template-columns:1fr}
+      .section{padding:12px;margin-top:10px}
+      .section h2{font-size:18px;line-height:1.35}
+      .mobileNav{display:flex}
+    }
+    @media(min-width:601px){.mobileNav{display:none}}
+.mobileBottomNav{display:none}
+@media(max-width:600px){
+  .mobileBottomNav{
+    position:fixed;left:0;right:0;bottom:0;z-index:20;
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;
+    padding:8px;background:#fff;border-top:1px solid #d9e0ea;
+    box-shadow:0 -3px 12px #00000012;
+  }
+  .mobileBottomNav button{
+    border:0;border-radius:10px;padding:11px 6px;
+    background:#e8edf6;font-weight:700;font-size:14px;
+  }
+  .mobileBottomNav button:last-child{background:#243b64;color:#fff}
+  .mobileNav{
+    margin:10px 0 0;
+    align-items:center;justify-content:space-between;gap:8px;
+    padding:10px 12px;background:#fff;border-radius:14px;
+    border:1px solid #dfe5ef;
+  }
+  .mobileNav button{
+    border:0;border-radius:10px;padding:9px 10px;
+    background:#e8edf6;font-weight:700;white-space:nowrap;
+  }
+  #mobileSectionTitle{
+    display:block;font-size:11px;color:#667085;
+    max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    margin-top:2px;
+  }
+}
+</style>
+</head>
+<body>
+<header><h1>Lesson 3. Seeds as the Best Survival Strategy</h1><div class="sub">보고 · 듣고 · 따라 읽기 + 문장 매칭 연습</div></header>
+<div class="wrap">
+<div class="controls">
+  <div class="row"><b>읽기 속도</b>
+    <div class="speed">
+      <button data-speed=".6">0.6×</button><button data-speed=".8">0.8×</button>
+      <button data-speed="1" class="active">1.0×</button><button data-speed="1.2">1.2×</button><button data-speed="1.5">1.5×</button>
+    </div>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <button class="mainbtn" onclick="playAll()">▶ 현재 단락 전체 듣기</button>
+    <button class="mainbtn" onclick="stopSpeech()">■ 정지</button>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <label for="voiceSelect"><b>영어 음성</b></label>
+    <select id="voiceSelect" style="padding:9px;border-radius:9px;border:1px solid #d8deea;max-width:100%">
+      <option>음성 불러오는 중...</option>
+    </select>
+    <button class="mainbtn" onclick="testVoice()">🔈 음성 테스트</button>
+  </div>
+  <div id="voiceNote" style="font-size:12px;color:#667085;margin-top:7px"></div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+</div>
+<div class="controls tabs" id="tabs"></div>
+<div class="mobileNav" id="mobileNav">
+  <button onclick="prevSection()">← 이전 단락</button>
+  <div><b id="mobileSectionNo">1 / 7</b><span id="mobileSectionTitle"></span></div>
+  <button onclick="nextSection()">다음 단락 →</button>
+</div>
+<div id="app"></div>
+</div>
+<script>
+const sections = [{"title": "Lesson 3. Seeds as the Best Survival Strategy", "sentences": [["Plants are amazing.", "식물은 놀랍습니다."], ["Throughout their long existence, they have created diverse survival strategies.", "식물은 오랜 세월 동안 다양한 생존 전략을 만들어 왔습니다."], ["Seeds, in particular, are one of the strongest survival techniques they have developed.", "특히 씨앗은 식물이 발달시킨 가장 강력한 생존 방법 중 하나입니다."], ["Let’s discover the fascinating and mysterious world of seeds.", "매혹적이고 신비로운 씨앗의 세계를 알아봅시다."]]}, {"title": "Help Yourself and Help Me", "sentences": [["Plants will do anything to spread their seeds.", "식물은 씨앗을 퍼뜨리기 위해서라면 무엇이든 합니다."], ["They offer tasty food to animals in return for distributing their seeds.", "식물은 동물에게 맛있는 먹이를 주고 그 대가로 씨앗을 퍼뜨리게 합니다."], ["Jackfruit, the world’s largest tree fruit, has a sweet smell that attracts animals, similar to pineapples and bananas.", "세계에서 가장 큰 나무 열매인 잭프루트는 파인애플과 바나나처럼 동물을 끌어들이는 달콤한 냄새가 납니다."], ["It tempts animals to eat delicious fruit meat, thereby getting them to eat the seeds.", "그것은 동물들이 맛있는 과육을 먹도록 유혹하여 씨앗도 먹게 합니다."], ["The fruit meat is digested by the animals that consume it, but the seeds are not digested and pass through the animals’ digestive tracts untouched.", "동물이 먹은 과육은 소화되지만 씨앗은 소화되지 않고 동물의 소화기관을 그대로 통과합니다."], ["When these animals poop out the seeds, the seeds begin to sprout and grow, and jackfruit spreads.", "이 동물들이 씨앗을 배설하면 씨앗은 싹을 틔우고 자라기 시작하며, 잭프루트가 퍼집니다."], ["In exchange for a satisfying meal, the animals spread the jackfruit seeds.", "동물들은 만족스러운 한 끼 식사를 받는 대신 잭프루트 씨앗을 퍼뜨립니다."]]}, {"title": "The Worst Free Rider", "sentences": [["Many plants opt to scatter their seeds by providing food to animals, but not all of them do.", "많은 식물은 동물에게 먹이를 제공하여 씨앗을 퍼뜨리지만, 모든 식물이 그런 것은 아닙니다."], ["Some plants attach their seeds to passing animals, spreading them without any return benefit.", "어떤 식물은 지나가는 동물에게 씨앗을 붙여 아무런 보상 없이 씨앗을 퍼뜨립니다."], ["Instead of tempting sweet fruits, these seeds are equipped with sharp hooks or needles.", "이 씨앗들은 달콤한 과일로 유혹하는 대신 날카로운 갈고리나 가시를 갖고 있습니다."], ["Devil’s claw stands out as the most vicious of these plants.", "악마의 발톱은 이런 식물 중에서도 가장 사나운 식물로 두드러집니다."], ["Devil’s claw primarily inhabits the Kalahari Desert in South Africa, Namibia, and Botswana.", "악마의 발톱은 주로 남아프리카 공화국, 나미비아, 보츠와나의 칼라하리 사막에 서식합니다."], ["Its blossoms resembling pink trumpets eventually transform into fruits with many hooks.", "분홍색 나팔을 닮은 꽃은 결국 많은 갈고리가 달린 열매로 변합니다."], ["As these fruits dry, they become solid, and their hooks become tough enough to attach to the bodies of animals.", "이 열매들이 마르면 단단해지고, 갈고리는 동물의 몸에 붙을 만큼 강해집니다."], ["As animals pass by, the hooks extending in all directions will keep the dried fruit firmly attached to their fur.", "동물들이 지나갈 때 사방으로 뻗은 갈고리가 마른 열매를 동물의 털에 단단히 붙어 있게 합니다."], ["As the animals move away, the seeds from the fruit will be scattered in various locations.", "동물들이 이동하면 열매의 씨앗이 여러 장소에 흩어집니다."], ["The attached hooks cause severe pain to the animals, making them feel like the devil is scratching them with its horrifying claws.", "붙어 있는 갈고리는 동물에게 심한 통증을 일으켜, 마치 악마가 무서운 발톱으로 자신들을 할퀴는 것처럼 느끼게 합니다."], ["That is how devil’s claw became known as the worst free rider.", "그래서 악마의 발톱은 최악의 무임승차자로 알려지게 되었습니다."]]}, {"title": "Deceptive Seeds", "sentences": [["Out of numerous creative methods for spreading seeds, silver arrow-reed in South Africa has a particularly unique one.", "수많은 창의적인 씨앗 확산 방법 중에서 남아프리카의 silver arrow-reed는 특히 독특한 방법을 사용합니다."], ["Silver arrow-reed spreads its seeds by deceiving dung beetles.", "Silver arrow-reed는 쇠똥구리를 속여 씨앗을 퍼뜨립니다."], ["Dung beetles, by nature, roll antelope dung and bury it in the ground to eat or lay eggs in.", "쇠똥구리는 본래 영양의 배설물을 굴려 땅에 묻고, 그것을 먹거나 그 안에 알을 낳습니다."], ["Silver arrow-reed seeds are dark brown, round, and slightly larger than 1 cm in size.", "Silver arrow-reed의 씨앗은 짙은 갈색이고 둥글며 크기가 1cm보다 약간 큽니다."], ["Their visual appearance and smell are quite similar to antelope dung.", "그것들의 생김새와 냄새는 영양의 배설물과 매우 비슷합니다."], ["So when a seed falls onto the ground, dung beetles will approach the fallen seed within minutes.", "그래서 씨앗 하나가 땅에 떨어지면 쇠똥구리들이 몇 분 안에 떨어진 씨앗으로 다가옵니다."], ["Then, they carefully roll the seed away as if it were antelope dung.", "그러고 나서 쇠똥구리들은 그것이 영양의 배설물인 것처럼 조심스럽게 씨앗을 굴려 옮깁니다."], ["That is why dung beetles are often spotted rolling silver arrow-reed seeds that look and smell like dung balls.", "그래서 쇠똥구리들이 배설물 덩어리처럼 보이고 냄새 나는 silver arrow-reed 씨앗을 굴리는 모습이 자주 발견됩니다."], ["When they try to eat the seeds or lay eggs inside of them, however, the confused beetles will realize they cannot.", "하지만 쇠똥구리들이 그 씨앗을 먹거나 그 안에 알을 낳으려 할 때, 혼란스러운 쇠똥구리들은 그것이 불가능하다는 것을 깨닫습니다."], ["They have no choice but to abort and search for real dung balls.", "그들은 어쩔 수 없이 포기하고 진짜 배설물 덩어리를 찾아야 합니다."], ["By tricking dung beetles to roll away and bury the seeds, silver arrow-reed is able to spread and plant its seeds better.", "쇠똥구리를 속여 씨앗을 굴려 옮기고 묻게 함으로써, silver arrow-reed는 씨앗을 더 잘 퍼뜨리고 심을 수 있습니다."]]}, {"title": "The Wind Beneath My Wings", "sentences": [["Not all seeds are transported by animals.", "모든 씨앗이 동물에 의해 운반되는 것은 아닙니다."], ["Some are carried by the wind.", "일부는 바람에 의해 운반됩니다."], ["This approach is used by maple trees.", "단풍나무는 이러한 방법을 사용합니다."], ["Maple seeds are shaped like a boomerang with irregular ridges on the surface.", "단풍나무 씨앗은 표면에 불규칙한 능선이 있는 부메랑 모양입니다."], ["When a maple seed falls from the tree, it spins around.", "단풍나무 씨앗이 나무에서 떨어지면 빙글빙글 회전합니다."], ["This rotation makes the seed stay in the air longer and fly farther.", "이 회전은 씨앗이 공중에 더 오래 머물고 더 멀리 날아가게 합니다."], ["It is similar to how helicopters get lifted and stay in the air using their propellers.", "이는 헬리콥터가 프로펠러를 이용해 떠서 공중에 머무는 방식과 비슷합니다."], ["The rotation caused by its wings allows the maple seed to elevate twice as high as non-rotating seeds.", "날개로 인해 생기는 회전은 단풍나무 씨앗이 회전하지 않는 씨앗보다 두 배나 높이 올라가게 합니다."], ["As a result, it can travel much farther from the parent tree.", "그 결과 씨앗은 어미 나무에서 훨씬 더 멀리 이동할 수 있습니다."], ["The rotation also slows down the speed of the fall, and the seed softly lands on the ground.", "회전은 또한 낙하 속도를 늦추어 씨앗이 땅에 부드럽게 떨어지게 합니다."], ["This helps reduce the damage to the seed during the fall.", "이는 씨앗이 떨어지는 동안 입는 손상을 줄이는 데 도움이 됩니다."]]}, {"title": "Rising from the Ashes", "sentences": [["In most cases, mature seeds are automatically separated from the parent plant.", "대부분의 경우, 다 자란 씨앗은 자동으로 모체 식물에서 분리됩니다."], ["However, some plants only release their seeds after enduring an extreme experience.", "하지만 일부 식물은 극심한 상황을 겪은 후에야 씨앗을 방출합니다."], ["Eucalyptus is one such example.", "유칼립투스가 그러한 예 중 하나입니다."], ["Eucalyptus seeds are as tiny as grains of sand, but they are bound together in firm capsules.", "유칼립투스 씨앗은 모래알만큼 작지만 단단한 캡슐 안에 함께 들어 있습니다."], ["Birds cannot eat them because they are securely protected by a strong shell.", "씨앗은 단단한 껍질로 안전하게 보호되어 있기 때문에 새들이 먹을 수 없습니다."], ["In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.", "덥고 건조한 날씨가 오랫동안 지속되면 유칼립투스 잎에는 불이 잘 붙는 기름이 들어 있기 때문에 잎들이 서로 비벼져 자연스럽게 불이 붙습니다."], ["The extreme heat from the fire causes the shell to crack open.", "불에서 발생하는 극심한 열은 껍질이 갈라져 열리게 합니다."], ["Finally, the seeds come out of the shell, hit the ground, and begin to grow.", "마침내 씨앗은 껍질 밖으로 나와 땅에 떨어지고 자라기 시작합니다."], ["The fallen seeds are conveniently concealed in the soft ash left over after the fire, which protects them from the harsh environment.", "떨어진 씨앗은 불이 지나간 뒤 남은 부드러운 재 속에 잘 숨겨져 가혹한 환경으로부터 보호됩니다."], ["Wildfire, often started by the parent tree, also burns practically everything on the ground, destroying other plants that would compete with the seeds for the water and sunlight needed for growth.", "흔히 모체 나무에 의해 시작되는 산불은 땅 위의 거의 모든 것을 태워 버리며, 씨앗이 자라는 데 필요한 물과 햇빛을 두고 경쟁할 다른 식물들도 없앱니다."], ["As you can see, eucalyptus is only able to reproduce provided that there is fire.", "보시다시피 유칼립투스는 불이 있을 때에만 번식할 수 있습니다."]]}, {"title": "Read More: The Tallest Tree on Earth", "sentences": [["Where would you find the tallest tree in the world?", "세계에서 가장 키가 큰 나무를 어디에서 찾을 수 있을까요?"], ["You will have to visit Redwood National Park in the United States to find it.", "그 나무를 찾으려면 미국의 레드우드 국립공원을 방문해야 합니다."], ["Redwoods are known as the tallest plants in the world.", "레드우드는 세계에서 가장 키가 큰 식물로 알려져 있습니다."], ["Typically, redwoods grow over 60 m, and it is easy to find them exceeding 90 m.", "보통 레드우드는 60m 이상 자라며, 90m를 넘는 나무도 쉽게 찾을 수 있습니다."], ["Among them, a redwood named Hyperion stands enormously tall, reaching over 115 m.", "그중 Hyperion이라는 레드우드는 115m가 넘을 정도로 엄청나게 높이 자랐습니다."], ["It holds the record as the world’s tallest tree.", "그것은 세계에서 가장 키가 큰 나무라는 기록을 가지고 있습니다."], ["Before it was discovered, Helios, which was 114 m, was considered to be the tallest tree.", "그것이 발견되기 전에는 높이가 114m인 Helios가 가장 키가 큰 나무로 여겨졌습니다."], ["However, in 2006, two naturalists found a tree taller than Helios.", "하지만 2006년에 두 명의 자연 관찰가가 Helios보다 더 큰 나무를 발견했습니다."], ["They were so overwhelmed by its height that they named it after one of the Titans from Greek myths, Hyperion.", "그들은 그 나무의 높이에 매우 놀라서 그리스 신화의 티탄 중 하나의 이름을 따서 Hyperion이라고 이름 지었습니다."], ["Hyperion was the name of the Titan of the Sun, meaning “the highest one.”", "Hyperion은 태양의 티탄의 이름으로, ‘가장 높은 것’을 의미합니다."], ["However, the odds of you seeing Hyperion at the park are slim to none.", "하지만 공원에서 Hyperion을 볼 가능성은 거의 없습니다."], ["The park keeps its precise location a secret to protect it from potential harm caused by visitors.", "공원은 방문객으로 인해 생길 수 있는 피해로부터 나무를 보호하기 위해 정확한 위치를 비밀로 하고 있습니다."], ["You may assume you can easily find it among the redwoods, but it is harder than you think.", "레드우드 숲에서 쉽게 찾을 수 있다고 생각할 수 있지만, 생각보다 훨씬 어렵습니다."], ["The height difference between Hyperion and its neighboring redwoods is merely a few meters, making it nearly impossible to identify from the ground.", "Hyperion과 주변 레드우드의 높이 차이는 불과 몇 미터여서 지상에서는 거의 구별하기 어렵습니다."], ["Every redwood in the park will look like a giant from the bottom.", "공원의 모든 레드우드는 아래에서 보면 거인처럼 보일 것입니다."]]}];
+let speed=1, current=0, selectedEn=null, matchScore=0, matchDone=0;
+const synth=window.speechSynthesis;
+
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+function speak(text){
+  if(!('speechSynthesis' in window)){alert('이 브라우저에서는 음성 기능을 지원하지 않습니다. Chrome 또는 Edge를 사용해 주세요.');return;}
+  synth.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang=selectedVoice?.lang || 'en-US';
+  if(selectedVoice) u.voice=selectedVoice;
+  u.rate=speed; u.pitch=1;
+  synth.speak(u);
+}
+function stopSpeech(){synth.cancel();}
+function playAll(){
+  synth.cancel();
+  let i=0; const arr=sections[current].sentences;
+  function next(){
+    if(i>=arr.length)return;
+    const u=new SpeechSynthesisUtterance(arr[i][0]);
+    u.lang=selectedVoice?.lang || 'en-US';
+    if(selectedVoice) u.voice=selectedVoice;
+    u.rate=speed; u.pitch=1;
+    u.onend=()=>{i++;next()};
+    synth.speak(u);
+  }
+  next();
+}
+document.querySelectorAll('[data-speed]').forEach(b=>b.onclick=()=>{
+  speed=parseFloat(b.dataset.speed);
+  document.querySelectorAll('[data-speed]').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+});
+
+function renderTabs(){
+  document.getElementById('tabs').innerHTML=sections.map((s,i)=>
+    `<button class="${i===current?'active':''}" onclick="go(${i})">${i+1}. ${esc(s.title)}</button>`).join('');
+  const no=document.getElementById('mobileSectionNo');
+  const title=document.getElementById('mobileSectionTitle');
+  if(no) no.textContent=`${current+1} / ${sections.length}`;
+  if(title) title.textContent=sections[current].title;
+}
+function go(i){
+  stopSpeech();
+  current=Math.max(0,Math.min(sections.length-1,i));
+  selectedEn=null; orderSelected=[]; matchScore=0; matchDone=0;
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function prevSection(){ if(current>0) go(current-1); }
+function nextSection(){ if(current<sections.length-1) go(current+1); }
+
+function orderHTML(s){
+  const nums = s.sentences.map((_,i)=>i);
+  const shuffled = [...nums].sort(()=>Math.random()-.5);
+  return `<div class="match orderBox">
+    <h3>본문 순서 배열 연습</h3>
+    <div class="hint">앞의 매칭 문제를 끝낸 뒤, 영어 문장을 <b>본문에 나온 순서</b>대로 눌러 보세요. 문장에는 번호가 표시되지 않습니다.</div>
+    <div class="orderProgress" id="orderProgress">선택한 순서: 없음</div>
+    <div class="orderList" id="orderList">
+      ${shuffled.map(i=>`<button class="choice orderChoice" data-i="${i}" onclick="chooseOrder(${i},this)">
+        ${esc(s.sentences[i][0])}
+      </button>`).join('')}
+    </div>
+    <div class="actions" style="margin-top:10px">
+      <button onclick="resetOrder()">↺ 다시 하기</button>
+      <button onclick="checkOrder()">✓ 순서 확인</button>
+    </div>
+    <div class="result" id="orderResult"></div>
+  </div>`;
+}
+let orderSelected=[];
+function chooseOrder(i,b){
+  if(orderSelected.includes(i)) return;
+  orderSelected.push(i); b.classList.add('selected'); b.disabled=true;
+  document.getElementById('orderProgress').textContent='선택한 순서: '+orderSelected.map((x,i)=>i+1).join(' → ');
+}
+function resetOrder(){
+  orderSelected=[];
+  const s=sections[current];
+  document.getElementById('orderList').innerHTML=shuffle([...s.sentences.keys()])
+   .map(i=>`<button class="choice orderChoice" data-i="${i}" onclick="chooseOrder(${i},this)">${esc(s.sentences[i][0])}</button>`).join('');
+  document.getElementById('orderProgress').textContent='선택한 순서: 없음';
+  document.getElementById('orderResult').textContent='';
+}
+function checkOrder(){
+  const correct=sections[current].sentences.map((_,i)=>i);
+  const result=document.getElementById('orderResult');
+  if(orderSelected.length<correct.length){
+    result.textContent=`아직 ${correct.length-orderSelected.length}문장이 남았습니다.`;
+    return;
+  }
+  const ok=orderSelected.every((v,i)=>v===correct[i]);
+  result.textContent=ok ? '정답! 본문의 흐름을 정확하게 기억했습니다.' : '아직 순서가 다릅니다. 다시 읽고 시도해 보세요.';
+  result.style.color=ok?'#2f8f4e':'#c23b3b';
+}
+
+/* Voice selection: prefer high-quality Microsoft/Google/Apple English voices when the
+   operating system/browser exposes them. This does not require an API key. */
+let availableVoices=[], selectedVoice=null;
+function loadVoices(){
+  availableVoices=synth.getVoices().filter(v=>/^en(-|_)/i.test(v.lang));
+  const sel=document.getElementById('voiceSelect');
+  if(!sel) return;
+  sel.innerHTML='';
+  if(!availableVoices.length){
+    sel.innerHTML='<option value="">브라우저 영어 음성이 없습니다</option>';
+    document.getElementById('voiceNote').textContent='Windows/Mac/휴대폰의 영어 음성을 설치하거나 Edge/Chrome에서 다시 열어 주세요.';
+    return;
+  }
+  const preferred=[
+    /Microsoft.*(Jenny|Aria|Sonia|Emma|Zira)/i,
+    /Google.*(US English|UK English|English)/i,
+    /Samantha|Karen|Moira|Daniel/i,
+    /Natural|Neural|Premium/i
+  ];
+  availableVoices.sort((a,b)=>{
+    const score=v=>preferred.reduce((n,r,i)=>n+(r.test(v.name)?(20-i*3):0),0)
+      +(/female|zira|jenny|aria|samantha|karen|sonia|emma/i.test(v.name)?3:0)
+      +(/en-US/i.test(v.lang)?2:0);
+    return score(b)-score(a);
+  });
+  availableVoices.forEach((v,i)=>{
+    const o=document.createElement('option');
+    o.value=i;
+    o.textContent=`${v.name} (${v.lang})`;
+    sel.appendChild(o);
+  });
+  selectedVoice=availableVoices[0];
+  sel.value='0';
+  document.getElementById('voiceNote').textContent=
+    '가능한 경우 여성·미국식 영어 음성을 우선 선택했습니다. 표시되는 음성의 품질은 기기/브라우저에 따라 달라집니다.';
+  sel.onchange=()=>selectedVoice=availableVoices[Number(sel.value)];
+}
+function testVoice(){
+  const u=new SpeechSynthesisUtterance('Plants are amazing. Let’s discover the fascinating and mysterious world of seeds.');
+  u.lang=selectedVoice?.lang || 'en-US';
+  if(selectedVoice) u.voice=selectedVoice;
+  u.rate=speed; synth.cancel(); synth.speak(u);
+}
+if('speechSynthesis' in window){
+  loadVoices();
+  speechSynthesis.onvoiceschanged=loadVoices;
+}
+
+function render(){
+ renderTabs();
+ const s=sections[current];
+ let html=`<div class="section"><h2>${esc(s.title)}</h2>`;
+ s.sentences.forEach((x,i)=>{
+   html+=`<div class="sentence">
+      <div class="en">${i+1}. ${esc(x[0])}</div>
+      <div class="ko">${esc(x[1])}</div>
+      <div class="actions">
+        <button onclick="speak(${JSON.stringify(x[0])})">🔊 듣기</button>
+        <button onclick="speak(${JSON.stringify(x[0])})">🔁 따라 읽기</button>
+      </div>
+   </div>`;
+ });
+ html+=matchHTML(s);
+ html+=orderHTML(s);
+ html+=`</div>`;
+ document.getElementById('app').innerHTML=html;
+ document.getElementById('bar').style.width=((current+1)/sections.length*100)+'%';
+}
+function matchHTML(s){
+ const enOrder=shuffle(s.sentences.map((_,i)=>i));
+ const koOrder=shuffle(s.sentences.map((_,i)=>i));
+ return `<div class="match"><h3>문장 ↔ 한글 해석 매칭</h3>
+ <div class="hint">영어와 한글이 모두 섞여 있습니다. 영어 문장을 하나 고른 뒤 맞는 한글 해석을 찾아보세요.</div>
+ <div class="grid" id="matchGrid">
+ ${enOrder.map(i=>`<button class="choice enChoice" data-i="${i}" onclick="selectEn(${i})">${esc(s.sentences[i][0])}</button>`).join('')}
+ ${koOrder.map(i=>`<button class="choice koChoice" data-i="${i}" data-text="${encodeURIComponent(s.sentences[i][1])}" onclick="selectKo(decodeURIComponent(this.dataset.text),this)">${esc(s.sentences[i][1])}</button>`).join('')}
+ </div><div class="result" id="matchResult"></div></div>`;
+}
+function selectEn(i){
+ document.querySelectorAll('.enChoice').forEach(b=>b.classList.remove('selected'));
+ const b=document.querySelector(`.enChoice[data-i="${i}"]`); if(b)b.classList.add('selected'); selectedEn=i;
+}
+function selectKo(k,b){
+ if(selectedEn===null){document.getElementById('matchResult').textContent='먼저 영어 문장을 선택하세요.';return;}
+ const correct=sections[current].sentences[selectedEn][1];
+ if(k===correct){
+   b.classList.add('correct');
+   const e=document.querySelector(`.enChoice[data-i="${selectedEn}"]`);e.classList.add('correct');e.disabled=true;b.disabled=true;
+   matchScore++; matchDone++; selectedEn=null;
+   document.getElementById('matchResult').textContent=`정답! ${matchScore} / ${matchDone}`;
+ }else{
+   b.classList.add('wrong');setTimeout(()=>b.classList.remove('wrong'),500);
+   document.getElementById('matchResult').textContent='다시 찾아보세요.';
+ }
+}
+render();
+</script>
+
+<div class="mobileBottomNav">
+  <button onclick="prevSection()">← 이전</button>
+  <button onclick="go(0)">목차</button>
+  <button onclick="nextSection()">다음 →</button>
+</div>
+</body></html>
