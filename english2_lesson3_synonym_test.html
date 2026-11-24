@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>영어Ⅱ 3과 유의어 집중 테스트</title>
+<style>
+:root{--bg:#eef3ee;--c:#fff;--t:#1d2b22;--p:#2f7d4f;--ok:#1a9d5c;--no:#c9372c;--b:#cfdcd2;--m:#fff1a8}
+@media(prefers-color-scheme:dark){:root{--bg:#141a16;--c:#1e2721;--t:#e8f0ea;--p:#4fae78;--b:#33423a;--m:#6b5d12}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:16px/1.65 'Noto Sans KR','Malgun Gothic',system-ui,sans-serif}
+#app{max-width:640px;margin:auto;padding:16px}h2{margin:.4em 0}
+.card{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:14px;margin:10px 0}
+button{font:inherit;cursor:pointer;border:1px solid var(--b);background:var(--c);color:var(--t);border-radius:10px;padding:10px 14px;width:100%;text-align:left;margin:5px 0}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--p)}
+.p{background:var(--p);color:#fff;border:0;text-align:center;font-weight:700}
+.ok{border-color:var(--ok)!important;background:rgba(26,157,92,.16)}.no{border-color:var(--no)!important;background:rgba(201,55,44,.14)}
+.tag{display:inline-block;background:var(--p);color:#fff;border-radius:6px;padding:0 8px;font-size:13px}
+input{font:inherit;width:100%;padding:10px;border-radius:10px;border:1px solid var(--b);background:var(--c);color:var(--t)}
+.bar{height:6px;background:var(--b);border-radius:4px;margin:6px 0}.bar i{display:block;height:100%;background:var(--p);border-radius:4px}
+p{white-space:pre-wrap;margin:.6em 0}.ex{font-size:15px;border-left:4px solid var(--p);padding-left:10px}
+.ps{background:rgba(47,125,79,.09);border-radius:10px;padding:10px 12px;margin:8px 0;font-family:Georgia,serif;font-size:17px}
+mark{background:var(--m);color:inherit;padding:0 3px;border-radius:4px;text-decoration:underline;font-weight:700}
+details{margin:8px 0}summary{cursor:pointer;color:var(--p);font-weight:700}
+</style></head><body><div id="app"></div><script>
+const M=(t,n,w,q,o,a,e)=>({t,n,w,q,o,a,e}),T=(t,n,s,q,a,e)=>({t,n,s,q,a,e});
+const P=[[
+'Plants will do anything to spread their seeds.',
+'They offer tasty food to animals in return for distributing their seeds.',
+'Jackfruit, the world’s largest tree fruit, has a sweet smell that attracts animals, similar to pineapples and bananas.',
+'It tempts animals to eat delicious fruit meat, thereby getting them to eat the seeds.',
+'The fruit meat is digested by the animals that consume it, but the seeds are not digested and pass through the animals’ digestive tracts untouched.',
+'When these animals poop out the seeds, the seeds begin to sprout and grow, and jackfruit spreads.',
+'In exchange for a satisfying meal, the animals spread the jackfruit seeds.'],[
+'Redwoods are known as the tallest plants in the world.',
+'Typically, redwoods grow over 60 m, and it is easy to find them exceeding 90 m.',
+'Among them, a redwood named Hyperion stands enormously tall, reaching over 115 m.',
+'It holds the record as the world’s tallest tree.',
+'Before it was discovered, Helios, which was 114 m, was considered to be the tallest tree.',
+'However, in 2006, two naturalists found a tree taller than Helios.',
+'They were so overwhelmed by its height that they named it after one of the Titans from Greek myths, Hyperion.',
+'Hyperion was the name of the Titan of the Sun, meaning “the highest one.”',
+'However, the odds of you seeing Hyperion at the park are slim to none.',
+'The park keeps its precise location a secret to protect it from potential harm caused by visitors.',
+'You may assume you can easily find it among the redwoods, but it is harder than you think.',
+'The height difference between Hyperion and its neighboring redwoods is merely a few meters, making it nearly impossible to identify from the ground.',
+'Every redwood in the park will look like a giant from the bottom.']];
+const U='유의어 · 밑줄',W='유의어 · 서술형',Y='유의어 · 영영풀이',R='유의어 · 짝짓기',X='유의어 · 바꿔 쓸 수 없는 것';
+const D=[
+{n:'Help Yourself and Help Me',k:'본문 2번 · Jackfruit',q:[
+M(U,4,'tempts','밑줄 친 tempts와 의미가 가장 가까운 단어를 지문에서 고르시오.',['attracts','digested','sprout','poop'],0,'tempt(유혹하다) ≈ attract(끌어들이다). 3번 문장 “a sweet smell that attracts animals”.'),
+M(U,3,'attracts','밑줄 친 attracts와 의미가 가장 가까운 단어를 지문에서 고르시오.',['tempts','digested','consume','spreads'],0,'attract(끌어들이다) ≈ tempt(유혹하다). 4번 문장 “It tempts animals”.'),
+M(U,5,'consume','밑줄 친 consume과 의미가 가장 가까운 단어를 지문에서 고르시오.',['eat','offer','sprout','spread'],0,'consume(먹다) ≈ eat. 4번 문장 “tempts animals to eat”.'),
+M(U,2,'distributing','밑줄 친 distributing과 의미가 가장 가까운 단어를 지문에서 고르시오.',['spread','digested','attracts','consume'],0,'distribute(퍼뜨리다) ≈ spread. 1번 문장 “to spread their seeds”.'),
+M(U,7,'spread','밑줄 친 spread와 의미가 가장 가까운 단어를 고르시오.',['distribute','digest','consume','sprout'],0,'spread = distribute(퍼뜨리다). 2번 문장의 distributing과 같은 뜻입니다.'),
+M(U,2,'tasty','밑줄 친 tasty와 의미가 가장 가까운 단어를 지문에서 고르시오.',['delicious','sweet','largest','satisfying'],0,'tasty(맛있는) ≈ delicious. 4번 문장 “delicious fruit meat”.'),
+M(U,2,'in return for','밑줄 친 in return for와 의미가 가장 가까운 표현을 지문에서 고르시오.',['in exchange for','similar to','pass through','begin to'],0,'in return for = in exchange for(~의 대가로). 7번 문장에 쓰였습니다.'),
+M(U,7,'In exchange for','밑줄 친 In exchange for와 바꿔 쓸 수 있는 것은?',['In return for','Similar to','Thereby getting','Instead of'],0,'In exchange for = In return for. 2번 문장 “in return for distributing their seeds”.'),
+T(W,3,'Jackfruit, the world’s largest tree fruit, has a sweet smell that ____ animals, similar to pineapples and bananas.','attracts 대신 쓸 수 있는 단어를 4번 문장에서 찾아 쓰시오. (t로 시작)',['tempts','tempt'],'attracts ≈ tempts. 4번 문장 “It tempts animals to eat ...”.'),
+T(W,5,'The fruit meat is digested by the animals that ____ it, but the seeds are not digested ...','밑줄이었던 consume 대신 쓸 수 있는 단어를 4번 문장에서 찾아 쓰시오. (e로 시작)',['eat'],'consume = eat(먹다).'),
+T(W,2,'They offer ____ food to animals in return for distributing their seeds.','tasty 대신 쓸 수 있는 단어를 4번 문장에서 찾아 쓰시오. (d로 시작)',['delicious'],'tasty ≈ delicious.'),
+T(W,2,'They offer tasty food to animals in ____ for distributing their seeds.','in return for와 같은 뜻이 되도록 7번 문장을 참고하여 빈칸에 알맞은 단어를 쓰시오.',['exchange'],'in return for = in exchange for.'),
+T(W,7,'In ____ for a satisfying meal, the animals spread the jackfruit seeds.','In exchange for와 같은 뜻이 되도록 2번 문장을 참고하여 빈칸에 알맞은 단어를 쓰시오.',['return'],'In exchange for = In return for.'),
+T(W,1,'Plants will do anything to ____ their seeds.','distribute와 같은 뜻이 되도록 빈칸에 알맞은 단어를 쓰시오. (s로 시작)',['spread','distribute'],'distribute = spread(퍼뜨리다). 1번과 7번 문장에 spread가 쓰였습니다.'),
+M(Y,null,null,'다음 영영풀이에 해당하는 단어를 지문에서 고르시오.\n“to make someone want to do something, often something unwise”',['tempts','digested','sprout','poop'],0,'tempt = 유혹하다. 4번 문장의 tempts입니다.'),
+M(Y,null,null,'다음 영영풀이에 해당하는 단어를 지문에서 고르시오.\n“to eat or drink something”',['consume','offer','spread','sprout'],0,'consume = 먹다/마시다. 5번 문장.'),
+M(Y,null,null,'다음 영영풀이에 해당하는 단어를 지문에서 고르시오.\n“giving something out to many people or places”',['distributing','digested','attracts','sprout'],0,'distribute = 나누어 주다, 퍼뜨리다. 2번 문장.'),
+M(R,null,null,'지문에서 의미가 서로 비슷한 단어끼리 짝지은 것은?',['tasty – delicious','sweet – digested','poop – grow','offer – untouched'],0,'tasty(2번 문장)와 delicious(4번 문장)는 모두 “맛있는”입니다.'),
+M(X,4,'tempts','밑줄 친 tempts와 바꿔 쓸 수 없는 것은?',['attracts','lures','digests','draws'],2,'digest는 “소화하다”로 tempt(유혹하다)와 의미가 다릅니다. 지문의 digested와 구별하세요.'),
+M(X,1,'spread','밑줄 친 spread와 바꿔 쓸 수 없는 것은?',['distribute','scatter','digest','disperse'],2,'digest(소화하다)는 spread(퍼뜨리다)와 뜻이 다릅니다.')]},
+{n:'The Tallest Tree on Earth',k:'본문 7번 · Hyperion',q:[
+M(U,5,'discovered','밑줄 친 discovered와 의미가 가장 가까운 단어를 지문에서 고르시오.',['found','named','holds','keeps'],0,'discover ≈ find. 6번 문장 “two naturalists found a tree taller than Helios”.'),
+M(U,6,'found','밑줄 친 found와 의미가 가장 가까운 단어를 지문에서 고르시오.',['discovered','named','considered','assume'],0,'found(발견했다) ≈ discovered. 5번 문장 “Before it was discovered”.'),
+M(U,1,'tallest','밑줄 친 tallest와 의미가 가장 가까운 단어를 지문에서 고르시오.',['highest','neighboring','precise','potential'],0,'tall ≈ high. 8번 문장 “the highest one”.'),
+M(U,8,'highest','밑줄 친 highest와 의미가 가장 가까운 단어를 지문에서 고르시오.',['tallest','secret','giant','harm'],0,'highest ≈ tallest. 1번·4번·5번 문장에 쓰였습니다.'),
+M(U,2,'exceeding','밑줄 친 exceeding과 의미가 가장 가까운 단어를 같은 문장에서 고르시오.',['over','among','from','after'],0,'exceed(넘다) ≈ over(~이상). 같은 문장 “grow over 60 m”.'),
+M(U,11,'assume','밑줄 친 assume과 의미가 가장 가까운 단어를 같은 문장에서 고르시오.',['think','find','keep','look'],0,'assume ≈ think(생각하다). “harder than you think”.'),
+M(U,12,'identify','밑줄 친 identify와 의미가 가장 가까운 단어를 지문에서 고르시오.',['find','name','keep','look'],0,'identify(식별하다) ≈ find(찾아내다). 2번·6번·11번 문장에 find가 쓰였습니다.'),
+M(U,9,'slim to none','밑줄 친 slim to none과 의미가 가장 가까운 표현을 지문에서 고르시오.',['nearly impossible','easy to find','a few meters','over 90 m'],0,'slim to none(가능성이 거의 없는) ≈ nearly impossible. 12번 문장.'),
+M(U,12,'nearly impossible','밑줄 친 nearly impossible과 의미가 가장 가까운 표현을 지문에서 고르시오.',['slim to none','harder than you think','so overwhelmed','a secret'],0,'nearly impossible ≈ slim to none. 9번 문장.'),
+M(U,5,'considered','밑줄 친 considered와 의미가 가장 가까운 단어를 지문에서 고르시오. (be considered ≈ be ___ as)',['known','named','found','kept'],0,'be considered (to be) ≈ be known as(~로 알려지다). 1번 문장 “are known as the tallest plants”.'),
+T(W,5,'Before it was ____, Helios, which was 114 m, was considered to be the tallest tree.','discovered와 같은 뜻의 단어를 6번 문장에서 찾아 쓰시오. (f로 시작)',['found','discovered'],'discovered ≈ found.'),
+T(W,11,'You may ____ you can easily find it among the redwoods, but it is harder than you think.','assume 대신 쓸 수 있는 단어를 같은 문장에서 찾아 쓰시오. (t로 시작)',['think'],'assume ≈ think(생각하다).'),
+T(W,12,'..., making it nearly impossible to ____ from the ground.','identify 대신 쓸 수 있는 단어를 2번·6번·11번 문장에서 찾아 쓰시오. (f로 시작)',['find','identify'],'identify ≈ find.'),
+T(W,9,'However, the odds of you seeing Hyperion at the park are nearly ____.','slim to none과 같은 뜻이 되도록 12번 문장을 참고하여 빈칸에 쓰시오.',['impossible'],'slim to none ≈ nearly impossible.'),
+M(Y,null,null,'다음 영영풀이에 해당하는 단어를 지문에서 고르시오.\n“to find out who someone is or what something is”',['identify','assume','exceeding','protect'],0,'identify = 식별하다. 12번 문장.'),
+M(Y,null,null,'다음 영영풀이에 해당하는 단어를 지문에서 고르시오.\n“to think that something is true without having proof”',['assume','protect','identify','discovered'],0,'assume = 가정하다. 11번 문장.'),
+M(Y,null,null,'다음 영영풀이에 해당하는 단어를 지문에서 고르시오.\n“being more than a particular number or amount”',['exceeding','reaching','holds','keeps'],0,'exceed = ~을 넘다. 2번 문장.'),
+M(Y,null,null,'다음 영영풀이에 해당하는 단어를 지문에서 고르시오.\n“to find something for the first time”',['discovered','identify','assume','protect'],0,'discover = 처음으로 발견하다. 5번 문장.'),
+M(R,null,null,'지문에서 의미가 서로 비슷한 단어끼리 짝지은 것은?',['discovered – found','overwhelmed – named','protect – harm','secret – giant'],0,'discovered(5번)와 found(6번)는 모두 “발견했다”입니다.'),
+M(R,null,null,'지문에서 의미가 서로 비슷한 단어끼리 짝지은 것은?',['tallest – highest','precise – neighboring','potential – visitors','merely – harder'],0,'tallest(1번)와 highest(8번)는 모두 “가장 높은”입니다.'),
+M(X,6,'found','밑줄 친 found와 바꿔 쓸 수 없는 것은?',['discovered','identified','spotted','protected'],3,'protect(보호하다)는 found(발견했다)와 의미가 다릅니다.'),
+M(X,11,'assume','밑줄 친 assume과 바꿔 쓸 수 없는 것은?',['think','guess','suppose','identify'],3,'identify(식별하다)는 assume(가정하다)과 의미가 다릅니다.')]}
+];
+const K='eng2_l3_syn';let S={};try{S=JSON.parse(localStorage.getItem(K))||{}}catch(e){}
+const sv=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}},$=document.getElementById('app'),
+nm=x=>String(x).toLowerCase().replace(/[^a-z0-9가-힣]/g,''),esc=x=>String(x).replace(/</g,'&lt;'),
+st=i=>S[i]||(S[i]={f:{},q:D[i].q.map((_,j)=>j)}),cnt=i=>S[i]?Object.values(S[i].f).filter(Boolean).length:0,
+sh=(i,q)=>{const x=q.s!==undefined?q.s:q.n?P[i][q.n-1].replace(q.w,'<mark>'+q.w+'</mark>'):'';return x?`<div class=ps><small>지문 ${q.n}번 문장</small><br>${x}</div>`:''},
+pv=i=>`<details><summary>📖 전체 지문 보기</summary><div class=ps>${P[i].map((x,k)=>`<b>${k+1}</b> ${x}`).join(' ')}</div></details>`;
+function home(){let t=0,n=0,h='<h2>영어Ⅱ 3과 유의어 집중 테스트</h2><small>문장을 읽고 같은 단락 안의 유의어를 찾아보세요.</small>';
+D.forEach((d,i)=>{const s=S[i],a=s?Object.keys(s.f).length:0,c=cnt(i),N=d.q.length,dn=s&&!s.q.length;t+=c;n+=N;
+h+=`<div class=card><small>${d.k}</small><br><b>${d.n}</b><div class=bar><i style="width:${a/N*100}%"></i></div><small>${a}/${N} 풀이 · ${dn?'완료 · 점수 '+c+'/'+N:'첫 시도 정답 '+c}</small><button class=p onclick="ask(${i})">${dn?'결과 보기':a?'이어서 풀기':'시작'}</button>${a?`<button onclick="rs(${i})">처음부터 다시</button>`:''}</div>`});
+$.innerHTML=h+`<div class=card>전체 점수(첫 시도 기준): <b>${t}/${n}</b></div>`}
+function rs(i){if(confirm('이 섹션의 기록을 지우고 처음부터 할까요?')){delete S[i];sv();home()}}
+function ask(i){const d=D[i],s=st(i);
+if(!s.q.length){$.innerHTML=`<div class=card><h2>${d.n}</h2><h1>${cnt(i)} / ${d.q.length}</h1><p>모든 문제를 맞혔습니다. 틀린 문제도 다시 풀어 정답을 확인했어요.</p><button class=p onclick=home()>홈으로</button></div>`;return}
+const j=s.q[0],q=d.q[j],r=s.f[j]===false;
+let h=`<div class=card><small>${d.n} · 남은 문제 ${s.q.length}</small><br><span class=tag>${q.t}</span>${r?' <span class=tag style="background:var(--no)">다시 풀기</span>':''}${sh(i,q)}<p>${q.q}</p>`;
+h+=q.o?q.o.map((o,k)=>`<button onclick="ans(${i},${j},${k})">${'①②③④⑤'[k]} ${o}</button>`).join(''):`<input id=v autocomplete=off autocapitalize=off placeholder="정답 입력"><button class=p onclick="ans(${i},${j},document.getElementById('v').value)">확인</button>`;
+$.innerHTML=h+pv(i)+'<button onclick=home()>← 홈으로 (진행 상황 저장됨)</button></div>'}
+function ans(i,j,v){const q=D[i].q[j],s=st(i),ok=q.o?v===q.a:q.a.some(x=>nm(x)==nm(v));
+if(s.f[j]===undefined)s.f[j]=ok;s.q.shift();if(!ok)s.q.push(j);sv();
+let h=`<div class=card><span class=tag>${q.t}</span>${sh(i,q)}<p>${q.q}</p>`;
+if(q.o)h+=q.o.map((o,k)=>`<div class="card ${k==q.a?'ok':k==v?'no':''}" style="padding:8px 12px;margin:5px 0">${'①②③④⑤'[k]} ${o}</div>`).join('');
+h+=`<h3>${ok?'⭕ 정답입니다!':'❌ 오답입니다'}</h3>`;
+if(!ok)h+=`<p>${q.o?'':'내 답: '+esc(v)+'\n'}정답: <b>${q.o?'①②③④⑤'[q.a]+' '+q.o[q.a]:q.a[0]}</b></p>`;
+h+=`<p class=ex>${q.e}</p>${ok?'':'<small>이 문제는 섹션 끝에서 다시 나옵니다.</small>'}<button class=p onclick="ask(${i})">${s.q.length?'다음 문제':'결과 보기'}</button></div>`;$.innerHTML=h}
+home();
+</script></body></html>
