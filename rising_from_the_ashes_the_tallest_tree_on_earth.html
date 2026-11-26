@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>영어Ⅱ 3과 · Rising from the Ashes & The Tallest Tree on Earth</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --primary-border: #93c5fd;
+      --sec1-accent: #d97706;
+      --sec1-soft: #fffbeb;
+      --sec1-border: #fde68a;
+      --sec2-accent: #059669;
+      --sec2-soft: #ecfdf5;
+      --sec2-border: #a7f3d0;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --success-border: #6ee7b7;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --danger-border: #fca5a5;
+      --hl-bg: #fef3c7;
+      --hl-border: #f59e0b;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0 0 72px 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+
+    /* 상단 고정 헤더 */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .header-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .header-title {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-soft);
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-top {
+      appearance: none;
+      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-top:hover {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    .btn-top.share-btn {
+      background: #fef08a;
+      border-color: #eab308;
+      color: #422006;
+      font-weight: 700;
+    }
+
+    .btn-top.share-btn:hover {
+      background: #fde047;
+    }
+
+    /* 메인 컨테이너 */
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 18px 16px 0 16px;
+    }
+
+    /* 토스트 알림 */
+    .toast {
+      display: none;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    /* 섹션 필터 탭 */
+    .filter-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .tab-btn {
+      appearance: none;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 11px 8px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-align: center;
+      line-height: 1.35;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    /* 섹션 구분 블록 */
+    .quiz-section {
+      margin-bottom: 34px;
+    }
+
+    .quiz-section.hidden {
+      display: none;
+    }
+
+    .section-header {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-header.sec1 {
+      border-left: 6px solid var(--sec1-accent);
+    }
+
+    .section-header.sec2 {
+      border-left: 6px solid var(--sec2-accent);
+    }
+
+    .section-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      width: fit-content;
+      font-size: 12.5px;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+
+    .sec1 .section-badge {
+      background: var(--sec1-soft);
+      color: #92400e;
+      border: 1px solid var(--sec1-border);
+    }
+
+    .sec2 .section-badge {
+      background: var(--sec2-soft);
+      color: #065f46;
+      border: 1px solid var(--sec2-border);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .section-score {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-sub);
+      background: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    /* 문제 리스트 & 카드 */
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .q-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      transition: border-color 0.2s ease;
+    }
+
+    .q-card.is-correct {
+      border-color: var(--success-border);
+    }
+
+    .q-card.is-wrong {
+      border-color: var(--danger-border);
+    }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .q-num {
+      display: inline-block;
+      background: var(--text);
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 6px;
+    }
+
+    .q-type-tag {
+      display: inline-block;
+      background: #f1f5f9;
+      color: var(--text-sub);
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 6px;
+    }
+
+    .q-prompt {
+      margin: 0 0 14px 0;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .passage-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 16px;
+      font-size: 16.5px;
+      line-height: 1.8;
+      color: #1e293b;
+      word-break: normal;
+    }
+
+    .hl {
+      background: var(--hl-bg);
+      border-bottom: 2px solid var(--hl-border);
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-weight: 700;
+      color: #92400e;
+    }
+
+    /* 객관식 선택지 */
+    .mc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .mc-btn {
+      appearance: none;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 15.5px;
+      font-weight: 500;
+      line-height: 1.55;
+      padding: 13px 15px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mc-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .mc-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: #1e3a8a;
+      font-weight: 700;
+    }
+
+    .mc-btn.correct-opt {
+      border-color: var(--success);
+      background: var(--success-bg);
+      color: #064e3b;
+      font-weight: 700;
+    }
+
+    .mc-btn.wrong-opt {
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      color: #7f1d1d;
+      font-weight: 700;
+    }
+
+    .mc-btn:disabled {
+      cursor: default;
+    }
+
+    .mc-num {
+      flex-shrink: 0;
+      font-weight: 800;
+    }
+
+    /* 서술형 입력창 */
+    .subj-wrap {
+      margin-bottom: 16px;
+    }
+
+    .subj-input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 16px;
+      color: var(--text);
+      background: #ffffff;
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      line-height: 1.6;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .subj-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .subj-input:disabled {
+      background: #f8fafc;
+      color: var(--text-sub);
+    }
+
+    textarea.subj-input {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    /* 하단 버튼 행 */
+    .q-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      appearance: none;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-retry {
+      appearance: none;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 11px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-retry:hover {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    /* 정답 및 해설 박스 (정답 확인 후에만 표시) */
+    .result-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .result-box.correct {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+      color: #064e3b;
+    }
+
+    .result-box.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: #7f1d1d;
+    }
+
+    .result-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .result-item {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .result-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .result-label {
+      display: inline-block;
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    /* 하단 종합 결과 카드 */
+    .summary-card {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .summary-score {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .summary-sub {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--text-sub);
+    }
+
+    .summary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 520px) {
+      .header-title {
+        font-size: 15.5px;
+      }
+      .tab-btn {
+        font-size: 12.5px;
+        padding: 10px 6px;
+      }
+      .q-card {
+        padding: 18px 15px;
+      }
+      .passage-box {
+        font-size: 15.5px;
+        padding: 14px;
+      }
+      .mc-btn {
+        font-size: 15px;
+        padding: 12px 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 상단 고정 점수 및 도구 바 -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="header-top-row">
+        <h1 class="header-title">영어Ⅱ 3과 · 핵심 유형 연습</h1>
+        <div id="top-score-pill" class="score-pill">0 / 13문제 · 0점</div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn-top" onclick="retryWrongAll()">틀린 문제 다시 풀기</button>
+        <button type="button" class="btn-top" onclick="resetAll()">전체 초기화</button>
+        <button type="button" class="btn-top share-btn" onclick="copyShareLink()">링크 복사 (카톡 공유)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 토스트 알림 -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- 섹션 필터 탭 -->
+    <nav class="filter-tabs" aria-label="단락 선택 탭">
+      <button type="button" id="tab-all" class="tab-btn active" onclick="setSectionFilter('all')">
+        전체 보기 (13)
+      </button>
+      <button type="button" id="tab-sec1" class="tab-btn" onclick="setSectionFilter('sec1')">
+        Section 1<br />Rising from the Ashes
+      </button>
+      <button type="button" id="tab-sec2" class="tab-btn" onclick="setSectionFilter('sec2')">
+        Section 2<br />The Tallest Tree on Earth
+      </button>
+    </nav>
+
+    <!-- Section 1: Rising from the Ashes -->
+    <section id="section-1" class="quiz-section" aria-label="Section 1: Rising from the Ashes">
+      <div class="section-header sec1">
+        <div class="section-title-group">
+          <span class="section-badge">Section 1 · 우리말 해석 연습 (6문항)</span>
+          <h2 class="section-title">Rising from the Ashes</h2>
+        </div>
+        <div id="sec1-score" class="section-score">0 / 6 정답</div>
+      </div>
+      <div id="sec1-list" class="question-list"></div>
+    </section>
+
+    <!-- Section 2: The Tallest Tree on Earth -->
+    <section id="section-2" class="quiz-section" aria-label="Section 2: The Tallest Tree on Earth">
+      <div class="section-header sec2">
+        <div class="section-title-group">
+          <span class="section-badge">Section 2 · 지시대상 & 문맥이해 연습 (7문항)</span>
+          <h2 class="section-title">The Tallest Tree on Earth</h2>
+        </div>
+        <div id="sec2-score" class="section-score">0 / 7 정답</div>
+      </div>
+      <div id="sec2-list" class="question-list"></div>
+    </section>
+
+    <!-- 하단 종합 결과 카드 -->
+    <section class="summary-card" aria-label="학습 결과 요약">
+      <p id="bottom-score" class="summary-score">전체 성적: 0 / 13문제 정답 (0점)</p>
+      <p id="bottom-detail" class="summary-sub">
+        Section 1: 0 / 6 정답 · Section 2: 0 / 7 정답
+      </p>
+      <div class="summary-actions">
+        <button type="button" class="btn-retry" onclick="retryWrongAll()">틀린 문제 다시 풀기</button>
+        <button type="button" class="btn-retry" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const CIRCLED = ['', '①', '②', '③', '④', '⑤'];
+
+    /**
+     * 전체 13문항 데이터
+     * Section 1 (s1-1 ~ s1-6): Rising from the Ashes (우리말 해석 연습)
+     * Section 2 (s2-1 ~ s2-7): The Tallest Tree on Earth (지시대상 & 문맥이해 연습)
+     */
+    const QUESTIONS = [
+      // ================= SECTION 1: Rising from the Ashes =================
+      {
+        id: 's1-1',
+        section: 'sec1',
+        numLabel: '1-1',
+        typeTag: '우리말 해석 · 객관식',
+        kind: 'mc',
+        prompt: '다음 문장의 우리말 해석으로 가장 적절한 것을 고르시오.',
+        passageHtml:
+          'However, some plants <span class="hl">only</span> release their seeds <span class="hl">after enduring</span> an extreme experience.',
+        options: [
+          '그러나 일부 식물들은 극심한 경험을 견딘 후에야 씨앗을 방출한다.',
+          '그러나 대부분의 식물들은 극심한 경험을 피한 후에 씨앗을 방출한다.',
+          '그러나 일부 식물들은 씨앗을 방출한 뒤에야 극심한 경험을 견뎌낸다.',
+          '그러나 일부 식물들은 극심한 경험을 겪는 동안 씨앗을 방출하지 못한다.',
+          '그러나 모든 식물들은 극심한 경험 없이도 씨앗을 자동으로 방출한다.'
+        ],
+        answer: 1,
+        explanation:
+          '「only + 동사 ~ after -ing」 구문은 "~한 후에야 비로소 …하다"라는 뜻입니다. release는 "(씨앗을) 방출하다", endure는 "견디다"를 의미하므로 ①이 가장 정확한 해석입니다.'
+      },
+      {
+        id: 's1-2',
+        section: 'sec1',
+        numLabel: '1-2',
+        typeTag: '우리말 해석 · 객관식',
+        kind: 'mc',
+        prompt: '다음 문장의 우리말 해석으로 가장 적절한 것을 고르시오.',
+        passageHtml:
+          'Eucalyptus seeds are <span class="hl">as tiny as grains of sand</span>, but they are <span class="hl">bound together in firm capsules</span>.',
+        options: [
+          '유칼립투스 씨앗은 모래 알갱이보다 더 크며, 단단한 캡슐 밖에 흩어져 있다.',
+          '유칼립투스 씨앗은 모래 알갱이만큼 작지만, 단단한 캡슐 안에 함께 묶여 있다.',
+          '유칼립투스 씨앗은 모래 알갱이처럼 단단하지만, 부드러운 캡슐 안에 들어 있다.',
+          '유칼립투스 씨앗은 모래 알갱이만큼 가볍지만, 캡슐에서 쉽게 분리된다.',
+          '유칼립투스 씨앗은 모래 알갱이만큼 작아서, 단단한 캡슐을 뚫고 나온다.'
+        ],
+        answer: 2,
+        explanation:
+          '「as + 형용사 + as」 원급 비교(as tiny as grains of sand = 모래 알갱이만큼 작은)와 수동태 표현(are bound together in firm capsules = 단단한 캡슐 안에 함께 묶여 있다)을 정확히 살린 ②가 정답입니다.'
+      },
+      {
+        id: 's1-3',
+        section: 'sec1',
+        numLabel: '1-3',
+        typeTag: '우리말 해석 · 서술형',
+        kind: 'subj-ko',
+        multiline: true,
+        placeholder: '문장의 우리말 해석을 직접 입력하세요.',
+        prompt: '다음 문장을 우리말로 자연스럽게 해석하시오.',
+        passageHtml:
+          'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.',
+        // 필수 의미 그룹 (각 그룹 내 동의어 중 1개 이상 포함 시 정답 인정)
+        keywordGroups: [
+          ['덥고 건조', '뜨겁고 건조', '고온 건조'],
+          ['마찰', '비벼', '비비', '부딪', '스치'],
+          ['자연적', '저절로', '스스로'],
+          ['불이 붙', '불이 나', '화재가 발생', '발화'],
+          ['인화성', '불이 잘 붙는', '가연성'],
+          ['기름', '오일']
+        ],
+        minGroups: 4,
+        modelAnswer:
+          '덥고 건조한 날씨가 길게 이어지는 시기에, 유칼립투스 잎들은 인화성이 매우 높은 기름을 포함하고 있기 때문에 서로 마찰하면서 자연적으로 불이 붙는다.',
+        explanation:
+          '핵심 어구인 ① In long periods of hot and dry weather(덥고 건조한 날씨가 길게 이어지는 시기에), ② rub together(서로 마찰하다/비비다), ③ naturally catch fire(자연적으로 불이 붙다), ④ contain highly flammable oil(인화성이 매우 높은 기름을 포함하다)의 인과관계를 살려 해석합니다.'
+      },
+      {
+        id: 's1-4',
+        section: 'sec1',
+        numLabel: '1-4',
+        typeTag: '우리말 해석 · 객관식',
+        kind: 'mc',
+        prompt: '다음 문장의 우리말 해석으로 가장 적절한 것을 고르시오.',
+        passageHtml:
+          'The fallen seeds are <span class="hl">conveniently concealed</span> in the soft ash <span class="hl">left over</span> after the fire, <span class="hl">which protects them</span> from the harsh environment.',
+        options: [
+          '떨어진 씨앗들은 불이 난 뒤 남은 부드러운 재 속에 편리하게 숨겨지는데, 이는 가혹한 환경으로부터 씨앗들을 보호한다.',
+          '떨어진 씨앗들은 불이 나기 전 쌓인 거친 재 위에 드러나며, 이는 가혹한 환경에 씨앗들을 노출시킨다.',
+          '떨어진 씨앗들은 불이 난 뒤 남은 재를 편리하게 덮어주며, 이는 거친 환경을 보호하는 역할을 한다.',
+          '떨어진 씨앗들은 불이 난 뒤 남은 부드러운 재 속에서 타버리는데, 이는 가혹한 환경에서 살아남기 위함이다.',
+          '떨어진 씨앗들은 불이 난 뒤 남은 재 속에 숨겨지지만, 가혹한 환경으로부터 씨앗들을 보호하지는 못한다.'
+        ],
+        answer: 1,
+        explanation:
+          'be concealed(숨겨지다/감춰지다), left over(남겨진), 그리고 앞 절 전체를 선행사로 받는 계속적 용법의 관계대명사 「, which protects them ~」(그리고 그것은 씨앗들을 보호한다)을 정확히 반영한 ①이 정답입니다.'
+      },
+      {
+        id: 's1-5',
+        section: 'sec1',
+        numLabel: '1-5',
+        typeTag: '우리말 해석 · 서술형',
+        kind: 'subj-ko',
+        multiline: true,
+        placeholder: '문장의 우리말 해석을 직접 입력하세요.',
+        prompt: '다음 문장을 우리말로 자연스럽게 해석하시오.',
+        passageHtml:
+          'Wildfire, often started by the parent tree, also burns practically everything on the ground, destroying other plants that would compete with the seeds for the water and sunlight needed for growth.',
+        keywordGroups: [
+          ['모체', '어미 나무', '부모 나무', '모수'],
+          ['거의 모든', '사실상 모든', '땅 위의 모든'],
+          ['태워', '태우', '불태'],
+          ['경쟁', '다툴'],
+          ['물과 햇빛', '물과 햇볕', '수분과 햇빛', '햇빛과 물']
+        ],
+        minGroups: 4,
+        modelAnswer:
+          '종종 모체 나무에 의해 시작되는 산불은 또한 지상의 거의 모든 것을 태워, 성장에 필요한 물과 햇빛을 두고 씨앗들과 경쟁할 다른 식물들을 파괴한다.',
+        explanation:
+          '핵심 구조인 ① often started by the parent tree(종종 모체 나무에 의해 시작되는), ② burns practically everything on the ground(지상의 거의 모든 것을 태우다), ③ 분사구문 destroying other plants ~(다른 식물들을 파괴하면서), ④ compete with the seeds for the water and sunlight(물과 햇빛을 두고 씨앗들과 경쟁하다)를 연결해 해석합니다.'
+      },
+      {
+        id: 's1-6',
+        section: 'sec1',
+        numLabel: '1-6',
+        typeTag: '우리말 해석 · 객관식',
+        kind: 'mc',
+        prompt: '다음 문장의 밑줄 친 부분에 유의하여 가장 적절한 우리말 해석을 고르시오.',
+        passageHtml:
+          'As you can see, eucalyptus is only able to reproduce <span class="hl">provided that there is fire</span>.',
+        options: [
+          '보시다시피, 유칼립투스는 불이 없을 경우에만 번식할 수 있다.',
+          '보시다시피, 유칼립투스는 불이 있을 경우에만 번식할 수 있다.',
+          '보시다시피, 유칼립투스는 불을 피할 수 있다면 언제든 번식한다.',
+          '보시다시피, 유칼립투스는 불이 나기 전에 미리 번식을 마친다.',
+          '보시다시피, 유칼립투스는 불이 있더라도 번식하기 어렵다.'
+        ],
+        answer: 2,
+        explanation:
+          '접속사 「provided (that) ~」는 "만약 ~라면, ~이라는 조건하에"라는 조건의 의미를 나타냅니다. 따라서 only able to reproduce provided that there is fire는 "불(화재)이 있을 경우에만 번식할 수 있다"라는 뜻의 ②가 정답입니다.'
+      },
+
+      // ================= SECTION 2: The Tallest Tree on Earth =================
+      {
+        id: 's2-1',
+        section: 'sec2',
+        numLabel: '2-1',
+        typeTag: '지시대상 · 서술형',
+        kind: 'subj-en',
+        multiline: false,
+        placeholder: '본문에서 찾아 영어로 입력하세요 (3~6단어)',
+        prompt: '다음 글에서 밑줄 친 it이 가리키는 대상을 본문에서 찾아 영어로 쓰시오.',
+        passageHtml:
+          'Where would you find the tallest tree in the world? You will have to visit Redwood National Park in the United States to find <span class="hl">it</span>.',
+        answers: ['the tallest tree in the world', 'the tallest tree'],
+        modelAnswer: 'the tallest tree in the world',
+        explanation:
+          '앞 문장의 의문문("Where would you find the tallest tree in the world?")에 대한 대답으로, 미국 레드우드 국립공원에 가야 찾을 수 있는 대상인 "the tallest tree in the world"(세계에서 가장 높은 나무)를 단수 대명사 it으로 받았습니다.'
+      },
+      {
+        id: 's2-2',
+        section: 'sec2',
+        numLabel: '2-2',
+        typeTag: '지시대상 · 객관식',
+        kind: 'mc',
+        prompt: '다음 글에서 밑줄 친 them이 문맥상 가리키는 대상으로 가장 적절한 것을 고르시오.',
+        passageHtml:
+          'Redwoods are known as the tallest plants in the world. Typically, redwoods grow over 60 m, and it is easy to find them exceeding 90 m. Among <span class="hl">them</span>, a redwood named Hyperion stands enormously tall, reaching over 115 m.',
+        options: [
+          '60m 이상 자라는 일반 redwood 나무들(redwoods)',
+          '세계에서 가장 작은 식물들',
+          'Hyperion을 발견한 두 명의 자연학자들',
+          '그리스 신화에 등장하는 티탄 신들',
+          '레드우드 국립공원을 찾은 방문객들'
+        ],
+        answer: 1,
+        explanation:
+          '앞 문장에서 "일반적으로 redwood들은 60m 이상 자라며, 90m를 넘는 것들도 쉽게 볼 수 있다"고 말한 뒤, "그들(Among them) 중에서 Hyperion이라는 이름의 redwood는 115m 이상에 달한다"고 이어지므로 them은 60m 이상 자라는 redwood 나무들을 가리킵니다. (앞 절의 it은 가주어입니다.)'
+      },
+      {
+        id: 's2-3',
+        section: 'sec2',
+        numLabel: '2-3',
+        typeTag: '지시대상 · 객관식',
+        kind: 'mc',
+        prompt: '다음 글에서 밑줄 친 (A) it, (B) its, (C) it이 공통으로 가리키는 대상으로 가장 적절한 것을 고르시오.',
+        passageHtml:
+          'Before <span class="hl">(A) it</span> was discovered, Helios, which was 114 m, was considered to be the tallest tree. However, in 2006, two naturalists found a tree taller than Helios. They were so overwhelmed by <span class="hl">(B) its</span> height that they named <span class="hl">(C) it</span> after one of the Titans from Greek myths, Hyperion.',
+        options: [
+          '114m 높이의 나무인 Helios',
+          '2006년에 발견된 가장 높은 redwood 나무(Hyperion)',
+          '그리스 신화에 나오는 태양의 신',
+          '미국의 레드우드 국립공원',
+          '두 명의 자연학자가 작성한 기록'
+        ],
+        answer: 2,
+        explanation:
+          '(A) 그것(Hyperion)이 발견되기 전에는 114m인 Helios가 가장 높은 나무로 여겨졌으며, 두 자연학자가 Helios보다 더 높은 나무를 발견해 (B) 그 나무의 높이에 압도되어 (C) 그 나무를 Hyperion이라 이름 지었습니다. 따라서 (A), (B), (C) 모두 Hyperion을 가리킵니다.'
+      },
+      {
+        id: 's2-4',
+        section: 'sec2',
+        numLabel: '2-4',
+        typeTag: '지시대상 · 객관식',
+        kind: 'mc',
+        prompt: '다음 글에서 밑줄 친 (A) its와 (B) it이 가리키는 대상이 바르게 짝지어진 것을 고르시오.',
+        passageHtml:
+          'However, the odds of you seeing Hyperion at the park are slim to none. The park keeps <span class="hl">(A) its</span> precise location a secret to protect <span class="hl">(B) it</span> from potential harm caused by visitors.',
+        options: [
+          '(A) the park — (B) Hyperion',
+          '(A) Hyperion — (B) the park',
+          '(A) Hyperion — (B) Hyperion',
+          '(A) the park — (B) visitors',
+          '(A) Helios — (B) Hyperion'
+        ],
+        answer: 3,
+        explanation:
+          '공원은 방문객들에 의해 발생할 수 있는 잠재적 피해로부터 "(B) 그것(Hyperion)"을 보호하기 위해 "(A) 그것(Hyperion)의 정확한 위치"를 비밀로 유지합니다. 따라서 (A)와 (B) 모두 Hyperion을 가리킵니다.'
+      },
+      {
+        id: 's2-5',
+        section: 'sec2',
+        numLabel: '2-5',
+        typeTag: '문맥이해 · 객관식',
+        kind: 'mc',
+        prompt: '다음 글에서 밑줄 친 부분이 문맥상 의미하는 바로 가장 적절한 것을 고르시오.',
+        passageHtml:
+          'However, <span class="hl">the odds of you seeing Hyperion at the park are slim to none</span>. The park keeps its precise location a secret to protect it from potential harm caused by visitors.',
+        options: [
+          '공원에서 Hyperion을 직접 볼 가능성은 거의 없다.',
+          '공원 안내 센터에 문의하면 Hyperion의 위치를 바로 알 수 있다.',
+          'Hyperion은 다른 나무보다 작아서 방문객의 눈에 띄지 않는다.',
+          '공원 방문객은 누구나 Hyperion 근처까지 자유롭게 접근할 수 있다.',
+          'Hyperion이 있는 구역은 방문객이 너무 많아 관람이 제한된다.'
+        ],
+        answer: 1,
+        explanation:
+          '「the odds of ~ are slim to none」은 "~할 가능성이 거의 없다(희박하다)"라는 관용 표현입니다. 바로 뒤에 공원이 나무 보호를 위해 정확한 위치를 비밀로 유지한다는 근거가 이어지므로 ①이 문맥상 가장 정확합니다.'
+      },
+      {
+        id: 's2-6',
+        section: 'sec2',
+        numLabel: '2-6',
+        typeTag: '문맥이해 · 객관식',
+        kind: 'mc',
+        prompt: '다음 글에 나타난 Hyperion을 지상에서 구별하기 거의 불가능한 문맥상 이유로 가장 적절한 것을 고르시오.',
+        passageHtml:
+          'You may assume you can easily find it among the redwoods, but it is harder than you think. The height difference between Hyperion and its neighboring redwoods is merely a few meters, making it nearly impossible to identify from the ground. Every redwood in the park will look like a giant from the bottom.',
+        options: [
+          '주변의 다른 redwood 나무들과의 높이 차이가 겨우 몇 미터에 불과하기 때문에',
+          'Hyperion이 다른 redwood 나무들보다 훨씬 깊은 계곡 아래에 자라기 때문에',
+          '안개와 짙은 구름 때문에 나무의 꼭대기가 일 년 내내 보이지 않기 때문에',
+          'Hyperion의 잎과 줄기 색깔이 주변 나무들과 완전히 다르기 때문에',
+          '공원 내 모든 redwood 나무의 높이가 60m 이하로 비슷하기 때문에'
+        ],
+        answer: 1,
+        explanation:
+          '본문에서 Hyperion과 인접한 redwood 나무들 사이의 높이 차이가 겨우 몇 미터(merely a few meters)에 불과해서 아래에서 보면 모든 나무가 거인처럼 보이므로 지상에서 식별하기가 거의 불가능하다고 설명하고 있습니다.'
+      },
+      {
+        id: 's2-7',
+        section: 'sec2',
+        numLabel: '2-7',
+        typeTag: '문맥이해 · 객관식',
+        kind: 'mc',
+        prompt: 'The Tallest Tree on Earth 전체 문맥에 비추어 글의 내용과 일치하지 않는 것을 고르시오.',
+        passageHtml:
+          'Before it was discovered, Helios, which was 114 m, was considered to be the tallest tree. However, in 2006, two naturalists found a tree taller than Helios. They were so overwhelmed by its height that they named it after one of the Titans from Greek myths, Hyperion. ... The park keeps its precise location a secret to protect it from potential harm caused by visitors.',
+        options: [
+          'Hyperion이 발견되기 전에는 114m 높이의 Helios가 가장 높은 나무로 여겨졌다.',
+          '2006년에 두 명의 자연학자가 Helios보다 더 높은 나무를 발견했다.',
+          'Hyperion이라는 이름은 그리스 신화 속 태양의 티탄 이름에서 따온 것이다.',
+          '방문객들이 쉽게 찾아올 수 있도록 공원 측이 Hyperion의 정확한 위치를 공개하고 있다.',
+          '아래에서 올려다보면 공원에 있는 모든 redwood가 거인처럼 보인다.'
+        ],
+        answer: 4,
+        explanation:
+          '본문 10번 문장("The park keeps its precise location a secret to protect it from potential harm caused by visitors.")에 따르면, 공원은 방문객에 의한 잠재적 피해로부터 나무를 보호하기 위해 정확한 위치를 비밀로 유지하고 있으므로 ④는 글의 내용과 일치하지 않습니다.'
+      }
+    ];
+
+    /**
+     * 문항별 상태
+     * selected: null | 1..5 (객관식)
+     * text: '' (서술형)
+     * checked: boolean
+     * isCorrect: boolean
+     */
+    const state = {};
+    QUESTIONS.forEach((q) => {
+      state[q.id] = {
+        selected: null,
+        text: '',
+        checked: false,
+        isCorrect: false
+      };
+    });
+
+    let currentFilter = 'all';
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.classList.remove('show');
+      }, 3000);
+    }
+
+    /**
+     * 카카오톡 공유용 링크 복사
+     */
+    function copyShareLink() {
+      const url = window.location.href && window.location.href !== 'about:blank'
+        ? window.location.href
+        : '영어Ⅱ 3과 · Rising from the Ashes & The Tallest Tree on Earth 연습';
+
+      const input = document.createElement('input');
+      input.value = url;
+      document.body.appendChild(input);
+      input.select();
+      input.setSelectionRange(0, 99999);
+
+      let copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (e) {
+        copied = false;
+      }
+      document.body.removeChild(input);
+
+      if (copied) {
+        showToast('링크가 복사되었습니다. 카카오톡에 붙여넣어 바로 공유하세요.');
+      } else {
+        showToast('주소창의 링크를 길게 눌러 복사한 뒤 카카오톡에 붙여넣어 주세요.');
+      }
+    }
+
+    /**
+     * 섹션 필터 탭 전환
+     */
+    function setSectionFilter(filter) {
+      currentFilter = filter;
+
+      document.getElementById('tab-all').classList.toggle('active', filter === 'all');
+      document.getElementById('tab-sec1').classList.toggle('active', filter === 'sec1');
+      document.getElementById('tab-sec2').classList.toggle('active', filter === 'sec2');
+
+      const sec1El = document.getElementById('section-1');
+      const sec2El = document.getElementById('section-2');
+
+      if (filter === 'all') {
+        sec1El.classList.remove('hidden');
+        sec2El.classList.remove('hidden');
+      } else if (filter === 'sec1') {
+        sec1El.classList.remove('hidden');
+        sec2El.classList.add('hidden');
+      } else if (filter === 'sec2') {
+        sec1El.classList.add('hidden');
+        sec2El.classList.remove('hidden');
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str).replace(/'/g, '&#39;');
+    }
+
+    /**
+     * 영어 문자열 정규화
+     */
+    function normalizeEn(str) {
+      return String(str || '')
+        .toLowerCase()
+        .replace(/[.?!,;:"'()]+/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    /**
+     * 한국어 해석 키워드 채점
+     */
+    function evaluateKoreanTranslation(userText, q) {
+      const cleaned = String(userText || '').replace(/\s+/g, '').toLowerCase();
+      if (cleaned.length < 6) return false;
+
+      let matchedCount = 0;
+      for (const group of q.keywordGroups) {
+        const hit = group.some((kw) => cleaned.includes(kw.replace(/\s+/g, '').toLowerCase()));
+        if (hit) matchedCount += 1;
+      }
+      return matchedCount >= q.minGroups;
+    }
+
+    /**
+     * 전체 문제 렌더링
+     */
+    function renderAll() {
+      const sec1List = document.getElementById('sec1-list');
+      const sec2List = document.getElementById('sec2-list');
+      sec1List.innerHTML = '';
+      sec2List.innerHTML = '';
+
+      QUESTIONS.forEach((q) => {
+        const s = state[q.id];
+        const card = document.createElement('article');
+        card.id = `card-${q.id}`;
+        card.className = 'q-card';
+        if (s.checked) {
+          card.classList.add(s.isCorrect ? 'is-correct' : 'is-wrong');
+        }
+
+        // 문제 입력 영역 (객관식 vs 서술형)
+        let interactiveHtml = '';
+        if (q.kind === 'mc') {
+          const optsHtml = q.options
+            .map((opt, idx) => {
+              const num = idx + 1;
+              let btnClass = 'mc-btn';
+              if (!s.checked) {
+                if (s.selected === num) btnClass += ' selected';
+              } else {
+                if (num === q.answer) {
+                  btnClass += ' correct-opt';
+                } else if (num === s.selected && s.selected !== q.answer) {
+                  btnClass += ' wrong-opt';
+                }
+              }
+
+              return `
+                <button
+                  type="button"
+                  class="${btnClass}"
+                  ${s.checked ? 'disabled' : ''}
+                  onclick="selectMc('${q.id}', ${num})"
+                >
+                  <span class="mc-num">${CIRCLED[num]}</span>
+                  <span>${escapeHtml(opt)}</span>
+                </button>
+              `;
+            })
+            .join('');
+
+          interactiveHtml = `<div class="mc-list" role="group" aria-label="선택지">${optsHtml}</div>`;
+        } else {
+          if (q.multiline) {
+            interactiveHtml = `
+              <div class="subj-wrap">
+                <textarea
+                  id="input-${q.id}"
+                  class="subj-input"
+                  placeholder="${escapeAttr(q.placeholder)}"
+                  ${s.checked ? 'disabled' : ''}
+                  oninput="onTextInput('${q.id}', this.value)"
+                >${escapeHtml(s.text)}</textarea>
+              </div>
+            `;
+          } else {
+            interactiveHtml = `
+              <div class="subj-wrap">
+                <input
+                  id="input-${q.id}"
+                  class="subj-input"
+                  type="text"
+                  value="${escapeAttr(s.text)}"
+                  placeholder="${escapeAttr(q.placeholder)}"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  ${s.checked ? 'disabled' : ''}
+                  oninput="onTextInput('${q.id}', this.value)"
+                  onkeydown="onTextKeyDown(event, '${q.id}')"
+                />
+              </div>
+            `;
+          }
+        }
+
+        // 정답 확인 후에만 나타나는 정답 및 해설 박스
+        let resultHtml = '';
+        if (s.checked) {
+          const correctText =
+            q.kind === 'mc'
+              ? `${CIRCLED[q.answer]} ${q.options[q.answer - 1]}`
+              : q.modelAnswer;
+
+          resultHtml = `
+            <div class="result-box ${s.isCorrect ? 'correct' : 'wrong'}">
+              <div class="result-title">
+                ${s.isCorrect ? '정답입니다!' : '오답입니다. 아래 정답 및 해설을 확인해 보세요.'}
+              </div>
+              <div class="result-item">
+                <span class="result-label">정답</span>${escapeHtml(correctText)}
+              </div>
+              <div class="result-item">
+                <span class="result-label">해설</span>${escapeHtml(q.explanation)}
+              </div>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="q-meta">
+            <span class="q-num">Q${q.numLabel}</span>
+            <span class="q-type-tag">${escapeHtml(q.typeTag)}</span>
+          </div>
+          <h3 class="q-prompt">${escapeHtml(q.prompt)}</h3>
+          <div class="passage-box">${q.passageHtml}</div>
+          ${interactiveHtml}
+          <div class="q-actions">
+            ${
+              !s.checked
+                ? `<button type="button" class="btn-primary" onclick="checkQuestion('${q.id}')">정답 확인</button>`
+                : ''
+            }
+            ${
+              s.checked
+                ? `<button type="button" class="btn-retry" onclick="retryOne('${q.id}')">이 문제 다시 풀기</button>`
+                : ''
+            }
+          </div>
+          ${resultHtml}
+        `;
+
+        if (q.section === 'sec1') {
+          sec1List.appendChild(card);
+        } else {
+          sec2List.appendChild(card);
+        }
+      });
+    }
+
+    function selectMc(id, num) {
+      if (state[id].checked) return;
+      state[id].selected = num;
+      renderAll();
+    }
+
+    function onTextInput(id, val) {
+      state[id].text = val;
+    }
+
+    function onTextKeyDown(e, id) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        checkQuestion(id);
+      }
+    }
+
+    /**
+     * 개별 문항 채점
+     */
+    function checkQuestion(id) {
+      const q = QUESTIONS.find((item) => item.id === id);
+      if (!q) return;
+
+      const s = state[id];
+      if (q.kind === 'mc') {
+        if (s.selected === null) {
+          showToast('보기(①~⑤) 중 하나를 먼저 선택해 주세요.');
+          return;
+        }
+        s.isCorrect = s.selected === q.answer;
+      } else {
+        const el = document.getElementById(`input-${id}`);
+        const raw = el ? el.value : s.text;
+        s.text = raw;
+        if (!raw.trim()) {
+          showToast('답안을 먼저 입력해 주세요.');
+          return;
+        }
+
+        if (q.kind === 'subj-en') {
+          const norm = normalizeEn(raw);
+          s.isCorrect = q.answers.some((ans) => normalizeEn(ans) === norm);
+        } else {
+          s.isCorrect = evaluateKoreanTranslation(raw, q);
+        }
+      }
+
+      s.checked = true;
+      updateScores();
+      renderAll();
+    }
+
+    /**
+     * 개별 문항 다시 풀기
+     */
+    function retryOne(id) {
+      state[id].selected = null;
+      state[id].text = '';
+      state[id].checked = false;
+      state[id].isCorrect = false;
+      updateScores();
+      renderAll();
+    }
+
+    /**
+     * 틀린 문제만 일괄 다시 풀기
+     */
+    function retryWrongAll() {
+      const wrongQuestions = QUESTIONS.filter(
+        (q) => state[q.id].checked && !state[q.id].isCorrect
+      );
+
+      if (wrongQuestions.length === 0) {
+        showToast('현재 틀린 문제가 없습니다.');
+        return;
+      }
+
+      wrongQuestions.forEach((q) => {
+        state[q.id].selected = null;
+        state[q.id].text = '';
+        state[q.id].checked = false;
+        state[q.id].isCorrect = false;
+      });
+
+      // 필터가 걸려 있어 오답 문항이 숨겨져 있다면 전체 보기로 전환
+      if (currentFilter !== 'all') {
+        const hasInCurrent = wrongQuestions.some((q) => q.section === currentFilter);
+        if (!hasInCurrent) {
+          setSectionFilter('all');
+        }
+      }
+
+      updateScores();
+      renderAll();
+
+      const firstCard = document.getElementById(`card-${wrongQuestions[0].id}`);
+      if (firstCard) {
+        firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      showToast(`틀린 ${wrongQuestions.length}문제를 초기화했습니다.`);
+    }
+
+    /**
+     * 전체 초기화
+     */
+    function resetAll() {
+      QUESTIONS.forEach((q) => {
+        state[q.id].selected = null;
+        state[q.id].text = '';
+        state[q.id].checked = false;
+        state[q.id].isCorrect = false;
+      });
+      updateScores();
+      renderAll();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('모든 문제를 초기화했습니다.');
+    }
+
+    /**
+     * 전체 및 섹션별 점수 갱신
+     */
+    function updateScores() {
+      const total = QUESTIONS.length;
+      const sec1Qs = QUESTIONS.filter((q) => q.section === 'sec1');
+      const sec2Qs = QUESTIONS.filter((q) => q.section === 'sec2');
+
+      const totalCorrect = QUESTIONS.filter((q) => state[q.id].checked && state[q.id].isCorrect).length;
+      const sec1Correct = sec1Qs.filter((q) => state[q.id].checked && state[q.id].isCorrect).length;
+      const sec2Correct = sec2Qs.filter((q) => state[q.id].checked && state[q.id].isCorrect).length;
+
+      const pct = Math.round((totalCorrect / total) * 100);
+
+      document.getElementById('top-score-pill').textContent = `${totalCorrect} / ${total}문제 · ${pct}점`;
+      document.getElementById('sec1-score').textContent = `${sec1Correct} / ${sec1Qs.length} 정답`;
+      document.getElementById('sec2-score').textContent = `${sec2Correct} / ${sec2Qs.length} 정답`;
+      document.getElementById('bottom-score').textContent = `전체 성적: ${totalCorrect} / ${total}문제 정답 (${pct}점)`;
+      document.getElementById('bottom-detail').textContent =
+        `Section 1 (Rising from the Ashes): ${sec1Correct} / ${sec1Qs.length} 정답 · Section 2 (The Tallest Tree on Earth): ${sec2Correct} / ${sec2Qs.length} 정답`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateScores();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
