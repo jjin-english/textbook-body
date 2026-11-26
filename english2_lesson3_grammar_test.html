@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>영어Ⅱ 3과 어법 집중 테스트</title>
+<style>
+:root{--bg:#eef3ee;--c:#fff;--t:#1d2b22;--p:#2f7d4f;--ok:#1a9d5c;--no:#c9372c;--b:#cfdcd2;--m:#fff1a8}
+@media(prefers-color-scheme:dark){:root{--bg:#141a16;--c:#1e2721;--t:#e8f0ea;--p:#4fae78;--b:#33423a;--m:#6b5d12}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:16px/1.65 'Noto Sans KR','Malgun Gothic',system-ui,sans-serif}
+#app{max-width:640px;margin:auto;padding:16px}h2{margin:.4em 0}
+.card{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:14px;margin:10px 0}
+button{font:inherit;cursor:pointer;border:1px solid var(--b);background:var(--c);color:var(--t);border-radius:10px;padding:10px 14px;width:100%;text-align:left;margin:5px 0}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--p)}
+.p{background:var(--p);color:#fff;border:0;text-align:center;font-weight:700}
+.ok{border-color:var(--ok)!important;background:rgba(26,157,92,.16)}.no{border-color:var(--no)!important;background:rgba(201,55,44,.14)}
+.tag{display:inline-block;background:var(--p);color:#fff;border-radius:6px;padding:0 8px;font-size:13px;margin-right:4px}
+input{font:inherit;width:100%;padding:10px;border-radius:10px;border:1px solid var(--b);background:var(--c);color:var(--t)}
+.bar{height:6px;background:var(--b);border-radius:4px;margin:6px 0}.bar i{display:block;height:100%;background:var(--p);border-radius:4px}
+p{white-space:pre-wrap;margin:.6em 0}.ex{font-size:15px;border-left:4px solid var(--p);padding-left:10px}
+.ps{background:rgba(47,125,79,.09);border-radius:10px;padding:10px 12px;margin:8px 0;font-family:Georgia,serif;font-size:17px}
+mark{background:var(--m);color:inherit;padding:0 3px;border-radius:4px;font-weight:700}
+details{margin:8px 0}summary{cursor:pointer;color:var(--p);font-weight:700}
+</style></head><body><div id="app"></div><script>
+const G=(t,n,f,to,q,o,a,e)=>({t,n,r:[f,to],q,o,a,e}),T=(t,n,f,to,q,a,e)=>({t,n,r:[f,to],q,a,e});
+const P=[[
+'Not all seeds are transported by animals.',
+'Some are carried by the wind.',
+'This approach is used by maple trees.',
+'Maple seeds are shaped like a boomerang with irregular ridges on the surface.',
+'When a maple seed falls from the tree, it spins around.',
+'This rotation makes the seed stay in the air longer and fly farther.',
+'It is similar to how helicopters get lifted and stay in the air using their propellers.',
+'The rotation caused by its wings allows the maple seed to elevate twice as high as non-rotating seeds.',
+'As a result, it can travel much farther from the parent tree.',
+'The rotation also slows down the speed of the fall, and the seed softly lands on the ground.',
+'This helps reduce the damage to the seed during the fall.'],[
+'In most cases, mature seeds are automatically separated from the parent plant.',
+'However, some plants only release their seeds after enduring an extreme experience.',
+'Eucalyptus is one such example.',
+'Eucalyptus seeds are as tiny as grains of sand, but they are bound together in firm capsules.',
+'Birds cannot eat them because they are securely protected by a strong shell.',
+'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.',
+'The extreme heat from the fire causes the shell to crack open.',
+'Finally, the seeds come out of the shell, hit the ground, and begin to grow.',
+'The fallen seeds are conveniently concealed in the soft ash left over after the fire, which protects them from the harsh environment.',
+'Wildfire, often started by the parent tree, also burns practically everything on the ground, destroying other plants that would compete with the seeds for the water and sunlight needed for growth.',
+'As you can see, eucalyptus is only able to reproduce provided that there is fire.',
+'Where would you find the tallest tree in the world?',
+'You will have to visit Redwood National Park in the United States to find it.']];
+const B='빈칸에 알맞은 것은?',W='밑줄 친 ①~④ 중 어법상 틀린 것은?',N=['①','②','③','④'];
+const D=[
+{n:'The Wind Beneath My Wings',k:'본문 5번 · Maple seed',q:[
+G('수동태',1,'Not all seeds are transported','Not all seeds ____ transported',B,['is','are','been','being'],1,'주어 seeds가 복수이고 “이동되다”는 수동태이므로 are transported.'),
+G('부분부정',1,'Not all seeds are transported by animals.','<mark>Not all seeds are transported by animals.</mark>','이 문장의 의미로 알맞은 것은?',['모든 씨앗이 동물에 의해 이동되는 것은 아니다','모든 씨앗은 동물에 의해 이동되지 않는다','어떤 씨앗도 동물에 의해 이동되지 않는다','모든 동물이 씨앗을 이동시킨다'],0,'not all = 부분부정(모두 ~인 것은 아니다). 전체부정은 no/none입니다.'),
+G('수동태',2,'Some are carried','Some are ____',B+' (carry)',['carried','carrying','carry','to carry'],0,'일부(씨앗)가 바람에 의해 “운반되는” 것이므로 be + 과거분사.'),
+T('수동태',3,'This approach is used','This approach ____ ____','use를 알맞은 형태로 바꿔 빈칸에 쓰시오. (2단어)',['is used'],'수동태는 be + p.p. 형태이므로 is used by maple trees.'),
+G('수동태 전환',3,'This approach is used by maple trees.','This approach is used by maple trees.','다음 문장을 능동태로 바르게 바꾼 것은?',['Maple trees use this approach.','Maple trees are used this approach.','Maple trees used by this approach.','This approach uses maple trees.'],0,'수동태의 by + 행위자가 능동태의 주어가 됩니다.'),
+G('분사 · shaped like',4,'Maple seeds are shaped like a boomerang with irregular ridges','Maple seeds ① are ② shaping ③ like a boomerang ④ with irregular ridges',W,N,1,'씨앗이 “~모양으로 만들어진/생긴” 수동 의미이므로 shaping → shaped.'),
+G('전치사 like',4,'shaped like','shaped ____',B,['like','alike','likely','liking'],0,'be shaped like + 명사 = ~처럼 생기다. like는 전치사입니다.'),
+G('시제',5,'When a maple seed falls','When a maple seed ____',B+' (fall)',['falls','fall','fell','is fallen'],0,'일반적 사실이므로 현재시제, 주어가 3인칭 단수이므로 falls.'),
+G('시간 부사절',5,'When a maple seed falls from the tree, it spins around.','① When a maple seed ② will fall from the tree, it ③ spins ④ around.',W,N,1,'시간 부사절(When)에서는 미래의 의미라도 현재시제를 쓰므로 will fall → falls.'),
+G('사역동사',6,'makes the seed stay','makes the seed ____',B+' (stay)',['stay','to stay','staying','stays'],0,'사역동사 make + 목적어 + 동사원형.'),
+T('사역동사',6,'makes the seed stay','<mark>makes the seed to stay</mark>','밑줄 친 부분에서 틀린 단어를 바르게 고쳐 쓰시오. (to stay → ?)',['stay'],'사역동사 make 뒤 목적격보어는 동사원형이므로 to를 쓰지 않고 stay.'),
+G('병렬',6,'and fly farther','and ____ farther',B+' (fly)',['fly','to fly','flying','flies'],0,'makes the seed stay ... and fly에서 stay와 fly가 병렬이므로 동사원형 fly.'),
+G('전치사 similar to',7,'similar to how helicopters','similar ____ how helicopters',B,['to','with','for','as'],0,'be similar to ~ = ~와 비슷하다.'),
+T('관계부사 how',7,'similar to how helicopters','similar to ____ helicopters','빈칸에 알맞은 단어를 쓰시오. (~하는 방식)',['how'],'how helicopters get lifted = 헬리콥터가 떠오르는 방식. 선행사 the way와 how 중 하나만 씁니다.'),
+G('get + p.p.',7,'get lifted','get ____',B+' (lift)',['lifted','lifting','lift','to lift'],0,'헬리콥터가 “들어 올려지는” 수동 의미이므로 get + 과거분사.'),
+G('분사구문',7,'using their propellers','____ their propellers',B+' (use)',['using','used','use','to use'],0,'헬리콥터가 프로펠러를 “사용하면서”라는 능동 의미 → 현재분사.'),
+G('과거분사 후치수식',8,'The rotation caused by','The rotation ____ by',B+' (cause)',['caused','causing','causes','to cause'],0,'회전은 날개에 의해 “야기된” 것이므로 수동 의미의 과거분사가 rotation을 뒤에서 수식.'),
+G('allow + O + to V',8,'allows the maple seed to elevate','allows the maple seed ____ elevate',B,['to','for','that','of'],0,'allow + 목적어 + to부정사.'),
+G('to부정사',8,'The rotation caused by its wings allows the maple seed to elevate twice as high as non-rotating seeds.','The rotation ① caused by its wings allows the maple seed ② elevate ③ twice as high ④ as non-rotating seeds.',W,N,1,'allow + 목적어 + to부정사이므로 elevate → to elevate.'),
+G('배수 비교',8,'twice as high as','twice as ____ as',B,['high','higher','highly','height'],0,'배수 + as + 원급 + as. 원급 형용사/부사 high.'),
+G('배수 전환',8,'twice as high as non-rotating seeds','<mark>twice as high as</mark> non-rotating seeds','twice as high as와 같은 의미의 표현은?',['twice the height of','twice more high than','twice as height as','two as high than'],0,'배수 + as + 원급 + as = 배수 + the + 명사 + of.'),
+G('비교급 강조',9,'much farther','____ farther',B,['much','very','more','most'],0,'비교급 farther는 much/even/still/far로 강조하며, very는 원급을 강조합니다.'),
+G('수일치',10,'The rotation also slows down','The rotation also ____ down',B+' (slow)',['slows','slow','slowing','to slow'],0,'주어 The rotation은 3인칭 단수이므로 slows.'),
+G('부사',10,'softly lands','____ lands',B+' (soft)',['softly','soft','softer','softness'],0,'동사 lands를 수식하므로 부사 softly.'),
+G('help + 동사원형',11,'helps reduce','helps ____',B+' (reduce)',['reduce','reducing','reduced','reduces'],0,'help + (to) 동사원형. 보기에는 원형 reduce만 알맞습니다.'),
+G('전치사 vs 접속사',11,'during the fall','____ the fall',B,['during','while','when','because'],0,'뒤에 명사구(the fall)가 오므로 전치사 during. while/when/because는 절을 이끕니다.')]},
+{n:'Rising from the Ashes',k:'본문 6번 · Eucalyptus',q:[
+G('수동태',1,'seeds are automatically separated','seeds ____ automatically separated',B,['are','is','been','being'],0,'mature seeds(복수) + 수동태 → are separated.'),
+G('부사',1,'are automatically separated','are ____ separated',B+' (automatic)',['automatically','automatic','automation','automate'],0,'과거분사 separated를 수식하는 것은 부사.'),
+G('전치사 + 동명사',2,'after enduring','after ____',B+' (endure)',['enduring','to endure','endure','endured'],0,'전치사 after 뒤에는 동명사.'),
+T('동명사',2,'after enduring','after ____','endure를 알맞은 형태로 바꿔 쓰시오.',['enduring'],'전치사 뒤에는 동명사(-ing)가 옵니다.'),
+G('one such',3,'one such example','one such ____',B+' (example)',['example','examples','exemplify','exemplary'],0,'one + 단수명사이므로 example.'),
+G('원급 비교',4,'as tiny as','as ____ as',B,['tiny','tinier','tinily','tiniest'],0,'as + 원급 + as에서는 형용사 원급 tiny.'),
+G('불규칙 변화',4,'they are bound together','they are ____ together',B+' (bind)',['bound','binded','binding','bind'],0,'bind–bound–bound. be bound together = 함께 묶여 있다.'),
+G('접속사',5,'because they are securely protected','____ they are securely protected',B,['because','because of','although','despite'],0,'뒤에 주어 + 동사(절)가 오므로 접속사 because. because of는 명사구와 씁니다.'),
+G('수동태',5,'securely protected by','securely ____ by',B+' (protect)',['protected','protecting','protect','protects'],0,'껍질에 의해 “보호되는” 수동태이므로 are securely protected.'),
+G('병렬',6,'and naturally catch fire','and naturally ____ fire',B+' (catch)',['catch','catches','catching','caught'],0,'주어 leaves(복수)에 맞춰 rub ... and catch로 현재형이 병렬됩니다.'),
+G('부사',6,'highly flammable oil','____ flammable oil',B+' (high)',['highly','high','higher','height'],0,'형용사 flammable을 수식하므로 부사 highly.'),
+G('cause + O + to V',7,'causes the shell to crack open','causes the shell ____ crack open',B,['to','for','that','of'],0,'cause + 목적어 + to부정사.'),
+G('주어-동사 수일치',7,'The extreme heat from the fire causes the shell to crack open.','The extreme heat ① from the fire ② cause ③ the shell ④ to crack open.',W,N,1,'주어 The extreme heat는 단수이므로 cause → causes.'),
+G('병렬 구조',8,'hit the ground','____ the ground',B+' (hit)',['hit','hits','hitting','to hit'],0,'the seeds come out, hit, and begin이 병렬. 주어가 복수이므로 현재형 hit.'),
+G('과거분사 형용사',9,'The fallen seeds','The ____ seeds',B+' (fall)',['fallen','falling','fell','falls'],0,'이미 “떨어진” 씨앗이므로 완료 의미의 과거분사 fallen.'),
+G('과거분사 후치수식',9,'left over','____ over',B+' (leave)',['left','leaving','leave','leaves'],0,'ash를 뒤에서 수식하는 과거분사: 화재 후 “남겨진” 재.'),
+G('계속적 용법',9,', which protects',', ____ protects',B,['which','that','what','who'],0,'콤마(,) 뒤 계속적 용법에는 that을 쓰지 않고 which를 씁니다.'),
+T('계속적 용법',9,', which protects',', ____ protects','빈칸에 알맞은 관계대명사를 쓰시오.',['which'],'ash(또는 앞 내용)를 설명하는 계속적 용법의 주격 관계대명사 which.'),
+G('protect A from B',9,'protects them from','protects them ____',B,['from','of','with','to'],0,'protect A from B = A를 B로부터 보호하다.'),
+G('분사구문',10,'often started by','often ____ by',B+' (start)',['started','starting','starts','to start'],0,'산불은 모체 나무에 의해 “시작되는” 수동 의미이므로 과거분사.'),
+G('분사구문',10,', destroying other plants',', ____ other plants',B+' (destroy)',['destroying','destroyed','destroy','to destroy'],0,'산불이 식물을 “파괴하면서”라는 능동 의미의 현재분사.'),
+G('관계대명사',10,'plants that would compete','plants ____ would compete',B,['that','what','whose','whom'],0,'선행사 plants 뒤 주격 관계대명사 that.'),
+G('compete with A for B',10,'compete with the seeds for','compete ____ the seeds for',B,['with','to','at','by'],0,'compete with A for B = B를 두고 A와 경쟁하다.'),
+G('과거분사 후치수식',10,'needed for growth','____ for growth',B+' (need)',['needed','needing','needs','to need'],0,'the water and sunlight를 뒤에서 수식하여 “성장에 필요한”.'),
+G('as you can see',11,'As you can see','As you can ____',B+' (see)',['see','sees','seeing','seen'],0,'조동사 can 뒤에는 동사원형. As you can see = 보다시피.'),
+G('be able to',11,'is only able to reproduce','is only able ____ reproduce',B,['to','for','of','at'],0,'be able to + 동사원형.'),
+G('조건 접속사',11,'provided that there is fire','provided that there ____ fire',B,['is','will be','being','to be'],0,'provided that = if. 조건 부사절은 현재시제로 미래를 나타냅니다.'),
+G('조동사 would',12,'would you find','would you ____',B+' (find)',['find','found','finding','to find'],0,'조동사 would 뒤에는 동사원형. 의문사 + 조동사 + 주어 + 동사원형.'),
+G('to부정사 목적',13,'to find it','____ find it',B,['to','for','of','by'],0,'“찾기 위해”는 목적을 나타내는 to부정사.')]}
+];
+const K='eng2_l3_gram';let S={};try{S=JSON.parse(localStorage.getItem(K))||{}}catch(e){}
+const sv=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}},$=document.getElementById('app'),
+nm=x=>String(x).toLowerCase().replace(/[^a-z0-9가-힣]/g,''),esc=x=>String(x).replace(/</g,'&lt;'),
+st=i=>S[i]||(S[i]={f:{},q:D[i].q.map((_,j)=>j)}),cnt=i=>S[i]?Object.values(S[i].f).filter(Boolean).length:0,
+sh=(i,q)=>`<div class=ps><small>지문 ${q.n}번 문장</small><br>${P[i][q.n-1].replace(q.r[0],q.r[1])}</div>`,
+pv=i=>`<details><summary>📖 전체 지문 보기</summary><div class=ps>${P[i].map((x,k)=>`<b>${k+1}</b> ${x}`).join(' ')}</div></details>`;
+function home(){let t=0,n=0,h='<h2>영어Ⅱ 3과 어법 집중 테스트</h2><small>문장 속 어법 포인트를 유형별로 연습해요.</small>';
+D.forEach((d,i)=>{const s=S[i],a=s?Object.keys(s.f).length:0,c=cnt(i),N=d.q.length,dn=s&&!s.q.length;t+=c;n+=N;
+h+=`<div class=card><small>${d.k}</small><br><b>${d.n}</b><div class=bar><i style="width:${a/N*100}%"></i></div><small>${a}/${N} 풀이 · ${dn?'완료 · 점수 '+c+'/'+N:'첫 시도 정답 '+c}</small><button class=p onclick="ask(${i})">${dn?'결과 보기':a?'이어서 풀기':'시작'}</button>${a?`<button onclick="rs(${i})">처음부터 다시</button>`:''}</div>`});
+$.innerHTML=h+`<div class=card>전체 점수(첫 시도 기준): <b>${t}/${n}</b></div>`}
+function rs(i){if(confirm('이 섹션의 기록을 지우고 처음부터 할까요?')){delete S[i];sv();home()}}
+function ask(i){const d=D[i],s=st(i);
+if(!s.q.length){$.innerHTML=`<div class=card><h2>${d.n}</h2><h1>${cnt(i)} / ${d.q.length}</h1><p>모든 문제를 맞혔습니다. 틀린 문제도 다시 풀어 정답을 확인했어요.</p><button class=p onclick=home()>홈으로</button></div>`;return}
+const j=s.q[0],q=d.q[j],r=s.f[j]===false;
+let h=`<div class=card><small>${d.n} · 남은 문제 ${s.q.length}</small><br><span class=tag>${q.t}</span>${r?'<span class=tag style="background:var(--no)">다시 풀기</span>':''}${sh(i,q)}<p>${q.q}</p>`;
+h+=q.o?q.o.map((o,k)=>`<button onclick="ans(${i},${j},${k})">${q.o===N?'':'①②③④⑤'[k]+' '}${o}</button>`).join(''):`<input id=v autocomplete=off autocapitalize=off placeholder="정답 입력"><button class=p onclick="ans(${i},${j},document.getElementById('v').value)">확인</button>`;
+$.innerHTML=h+pv(i)+'<button onclick=home()>← 홈으로 (진행 상황 저장됨)</button></div>'}
+function ans(i,j,v){const q=D[i].q[j],s=st(i),ok=q.o?v===q.a:q.a.some(x=>nm(x)==nm(v));
+if(s.f[j]===undefined)s.f[j]=ok;s.q.shift();if(!ok)s.q.push(j);sv();
+let h=`<div class=card><span class=tag>${q.t}</span>${sh(i,q)}<p>${q.q}</p>`;
+if(q.o)h+=q.o.map((o,k)=>`<div class="card ${k==q.a?'ok':k==v?'no':''}" style="padding:8px 12px;margin:5px 0">${q.o===N?'':'①②③④⑤'[k]+' '}${o}</div>`).join('');
+h+=`<h3>${ok?'⭕ 정답입니다!':'❌ 오답입니다'}</h3>`;
+if(!ok)h+=`<p>${q.o?'':'내 답: '+esc(v)+'\n'}정답: <b>${q.o?q.o[q.a]:q.a[0]}</b></p>`;
+h+=`<p class=ex>${q.e}</p>${ok?'':'<small>이 문제는 섹션 끝에서 다시 나옵니다.</small>'}<button class=p onclick="ask(${i})">${s.q.length?'다음 문제':'결과 보기'}</button></div>`;$.innerHTML=h}
+home();
+</script></body></html>
