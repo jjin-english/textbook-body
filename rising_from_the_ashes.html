@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rising from the Ashes · 문장 삽입</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --primary-border: #93c5fd;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --success-border: #6ee7b7;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --danger-border: #fca5a5;
+      --target-bg: #fffbeb;
+      --target-border: #f59e0b;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0 0 64px 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+
+    /* 상단 고정 헤더 */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .header-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .header-title {
+      margin: 0;
+      font-size: 17.5px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-soft);
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-top {
+      appearance: none;
+      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-sub);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-top:hover {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    .btn-top.share-btn {
+      background: #fef08a;
+      border-color: #eab308;
+      color: #422006;
+      font-weight: 700;
+    }
+
+    .btn-top.share-btn:hover {
+      background: #fde047;
+    }
+
+    /* 메인 컨테이너 */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 18px 16px 0 16px;
+    }
+
+    /* 토스트 알림 */
+    .toast {
+      display: none;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    /* 문제 카드 리스트 */
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .q-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      transition: border-color 0.2s ease;
+    }
+
+    .q-card.is-correct {
+      border-color: var(--success-border);
+    }
+
+    .q-card.is-wrong {
+      border-color: var(--danger-border);
+    }
+
+    .q-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .q-num {
+      display: inline-block;
+      background: var(--text);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .q-prompt {
+      margin: 0;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* 주어진 삽입 문장 박스 */
+    .target-box {
+      background: var(--target-bg);
+      border: 1.5px solid var(--target-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 16.5px;
+      font-weight: 600;
+      line-height: 1.65;
+      color: #1e293b;
+      word-break: normal;
+    }
+
+    /* 본문 지문 박스 */
+    .passage-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 16px;
+      margin-bottom: 16px;
+      font-size: 16.5px;
+      line-height: 1.9;
+      color: #1e293b;
+      word-break: normal;
+    }
+
+    /* 지문 내 클릭 가능한 슬롯 배지 */
+    .inline-slot {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      margin: 0 4px;
+      padding: 2px 9px;
+      min-width: 36px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .inline-slot:hover:not(:disabled) {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .inline-slot.selected {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .inline-slot.correct-slot {
+      border-color: var(--success);
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    .inline-slot.wrong-slot {
+      border-color: var(--danger);
+      background: var(--danger);
+      color: #ffffff;
+    }
+
+    .inline-slot:disabled {
+      cursor: default;
+    }
+
+    /* 하단 ①~⑤ 큰 터치 선택 버튼 */
+    .option-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .option-btn {
+      appearance: none;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 12px 0;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .option-btn.correct-opt {
+      border-color: var(--success);
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    .option-btn.wrong-opt {
+      border-color: var(--danger);
+      background: var(--danger);
+      color: #ffffff;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    /* 하단 액션 버튼 */
+    .q-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      appearance: none;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-retry {
+      appearance: none;
+      border: 1.5px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 11px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-retry:hover {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    /* 정답 확인 해설 박스 */
+    .result-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .result-box.correct {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+      color: #064e3b;
+    }
+
+    .result-box.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: #7f1d1d;
+    }
+
+    .result-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .result-item {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .result-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .result-label {
+      display: inline-block;
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    /* 하단 요약 카드 */
+    .summary-card {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .summary-score {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .summary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .header-title {
+        font-size: 16px;
+      }
+      .q-card {
+        padding: 18px 15px;
+      }
+      .target-box,
+      .passage-box {
+        font-size: 15.5px;
+        padding: 14px;
+      }
+      .option-btn {
+        padding: 11px 0;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 상단 고정 헤더 -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="header-top-row">
+        <h1 class="header-title">Rising from the Ashes · 문장 삽입</h1>
+        <div id="score-pill" class="score-pill">0 / 7문제 · 0점</div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn-top" onclick="retryWrongAll()">틀린 문제 다시 풀기</button>
+        <button type="button" class="btn-top" onclick="resetAll()">전체 초기화</button>
+        <button type="button" class="btn-top share-btn" onclick="copyShareLink()">링크 복사 (카톡 공유)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 알림 토스트 -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- 7문항 문제 카드 목록 -->
+    <section id="question-list" class="question-list" aria-label="문장 삽입 연습 문제"></section>
+
+    <!-- 하단 점수 요약 -->
+    <section class="summary-card" aria-label="학습 결과 요약">
+      <p id="bottom-score" class="summary-score">현재 성적: 0 / 7문제 정답 (0점)</p>
+      <div class="summary-actions">
+        <button type="button" class="btn-retry" onclick="retryWrongAll()">틀린 문제 다시 풀기</button>
+        <button type="button" class="btn-retry" onclick="resetAll()">전체 초기화</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const CIRCLED = ['', '①', '②', '③', '④', '⑤'];
+
+    /**
+     * Rising from the Ashes (영어Ⅱ 천재 조수경 3과 6번 지문, 문장 1~11)
+     * 시험 출제 가능성이 가장 높은 핵심 7문항
+     */
+    const QUESTIONS = [
+      {
+        id: 1,
+        target: 'However, some plants only release their seeds after enduring an extreme experience.',
+        answer: 1,
+        segments: [
+          'In most cases, mature seeds are automatically separated from the parent plant.',
+          'Eucalyptus is one such example.',
+          'Eucalyptus seeds are as tiny as grains of sand, but they are bound together in firm capsules.',
+          'Birds cannot eat them because they are securely protected by a strong shell.',
+          'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.'
+        ],
+        reason: '역접 연결어 However가 핵심 단서입니다. ① 앞 문장에서 대부분의 식물은 성숙한 씨앗이 저절로 분리된다고 설명한 뒤, ①에서 이와 대조적으로 극심한 경험을 견딘 후에야 씨앗을 방출하는 식물이 있다고 전환해야 ② 뒤의 "Eucalyptus가 그러한 한 예"로 자연스럽게 이어집니다.',
+        translation: '그러나 일부 식물들은 극심한 경험을 견딘 후에야 씨앗을 방출한다.'
+      },
+      {
+        id: 2,
+        target: 'Eucalyptus is one such example.',
+        answer: 2,
+        segments: [
+          'In most cases, mature seeds are automatically separated from the parent plant.',
+          'However, some plants only release their seeds after enduring an extreme experience.',
+          'Eucalyptus seeds are as tiny as grains of sand, but they are bound together in firm capsules.',
+          'Birds cannot eat them because they are securely protected by a strong shell.',
+          'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.'
+        ],
+        reason: '지시 표현 one such example(그러한 한 예)이 앞 문장의 "극심한 경험을 견딘 후에야 씨앗을 방출하는 식물들(some plants ~)"을 가리킵니다. 또한 ② 뒤에 Eucalyptus seeds의 구체적 특징이 이어지므로 ②에 들어가야 합니다.',
+        translation: '유칼립투스가 그러한 한 예이다.'
+      },
+      {
+        id: 3,
+        target: 'Birds cannot eat them because they are securely protected by a strong shell.',
+        answer: 3,
+        segments: [
+          'Eucalyptus is one such example.',
+          'Eucalyptus seeds are as tiny as grains of sand, but they are bound together in firm capsules.',
+          'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.',
+          'The extreme heat from the fire causes the shell to crack open.',
+          'Finally, the seeds come out of the shell, hit the ground, and begin to grow.'
+        ],
+        reason: '주어진 문장의 대명사 them과 they는 ③ 앞 문장의 Eucalyptus seeds를 가리킵니다. 또한 주어진 문장에서 처음 언급된 "strong shell(단단한 껍질)"을 ④ 뒤 문장이 "the shell"로 받아 설명하므로 ③이 가장 적절합니다.',
+        translation: '새들은 그것들이 강한 껍질에 의해 단단히 보호되고 있기 때문에 그것들을 먹을 수 없다.'
+      },
+      {
+        id: 4,
+        target: 'The extreme heat from the fire causes the shell to crack open.',
+        answer: 4,
+        segments: [
+          'Eucalyptus seeds are as tiny as grains of sand, but they are bound together in firm capsules.',
+          'Birds cannot eat them because they are securely protected by a strong shell.',
+          'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.',
+          'Finally, the seeds come out of the shell, hit the ground, and begin to grow.',
+          'The fallen seeds are conveniently concealed in the soft ash left over after the fire, which protects them from the harsh environment.'
+        ],
+        reason: '정관사 the가 결정적 단서입니다. ④ 앞 문장에서 유칼립투스 잎에 불이 붙는(catch fire) 상황이 먼저 제시되어야 "the fire(그 불)"로 받을 수 있고, 껍질이 갈라져 열려야(crack open) ⑤ 뒤 문장의 "껍질에서 씨앗이 나온다(come out of the shell)"로 이어집니다.',
+        translation: '그 불에서 나온 극심한 열기가 그 껍질을 갈라져 열리게 만든다.'
+      },
+      {
+        id: 5,
+        target: 'Finally, the seeds come out of the shell, hit the ground, and begin to grow.',
+        answer: 3,
+        segments: [
+          'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.',
+          'The extreme heat from the fire causes the shell to crack open.',
+          'The fallen seeds are conveniently concealed in the soft ash left over after the fire, which protects them from the harsh environment.',
+          'Wildfire, often started by the parent tree, also burns practically everything on the ground, destroying other plants that would compete with the seeds for the water and sunlight needed for growth.',
+          'As you can see, eucalyptus is only able to reproduce provided that there is fire.'
+        ],
+        reason: '순서 연결어 Finally와 인과 흐름이 단서입니다. ③ 앞 문장에서 불의 열기로 껍질이 갈라져 열린(crack open) 결과로 마침내 씨앗이 껍질에서 나와 땅에 떨어지고(hit the ground), ④ 뒤 문장이 이를 "The fallen seeds(떨어진 씨앗들)"로 이어받습니다.',
+        translation: '마침내, 그 씨앗들은 껍질에서 나와 땅에 떨어져서 자라기 시작한다.'
+      },
+      {
+        id: 6,
+        target: 'The fallen seeds are conveniently concealed in the soft ash left over after the fire, which protects them from the harsh environment.',
+        answer: 3,
+        segments: [
+          'The extreme heat from the fire causes the shell to crack open.',
+          'Finally, the seeds come out of the shell, hit the ground, and begin to grow.',
+          'Wildfire, often started by the parent tree, also burns practically everything on the ground, destroying other plants that would compete with the seeds for the water and sunlight needed for growth.',
+          'As you can see, eucalyptus is only able to reproduce provided that there is fire.'
+        ],
+        singlePassageAfter: true,
+        reason: '지시 표현 The fallen seeds가 ③ 앞 문장의 "hit the ground(땅에 떨어지다)"를 바로 받아줍니다. 또한 주어진 문장에서 불이 씨앗을 보호해 주는 첫 번째 이점을 말한 뒤, ④ 뒤 문장이 "also(또한)"를 써서 경쟁 식물을 없애 주는 두 번째 이점을 추가하므로 ③이 정확합니다.',
+        translation: '떨어진 씨앗들은 불이 난 뒤에 남은 부드러운 재 속에 편리하게 숨겨지며, 이는 거친 환경으로부터 씨앗들을 보호해 준다.'
+      },
+      {
+        id: 7,
+        target: 'Wildfire, often started by the parent tree, also burns practically everything on the ground, destroying other plants that would compete with the seeds for the water and sunlight needed for growth.',
+        answer: 4,
+        segments: [
+          'The extreme heat from the fire causes the shell to crack open.',
+          'Finally, the seeds come out of the shell, hit the ground, and begin to grow.',
+          'The fallen seeds are conveniently concealed in the soft ash left over after the fire, which protects them from the harsh environment.',
+          'As you can see, eucalyptus is only able to reproduce provided that there is fire.'
+        ],
+        singlePassageAfter: true,
+        reason: '첨가 연결어 also(또한)가 핵심입니다. ④ 앞 문장에서 불이 남긴 재가 씨앗을 보호해 주는 첫 번째 장점을 설명한 뒤, ④에 주어진 문장이 들어가 불이 경쟁 식물을 제거해 주는 두 번째 장점을 덧붙여야 ⑤ 뒤의 "As you can see(보시다시피)" 결론으로 자연스럽게 마무리됩니다.',
+        translation: '종종 모체 나무에 의해 시작되는 산불은 또한 땅 위의 거의 모든 것을 태워, 성장을 위해 필요한 물과 햇빛을 두고 씨앗들과 경쟁할 다른 식물들을 파괴한다.'
+      }
+    ];
+
+    // Q6, Q7은 지문 끝부분이라 5개 슬롯을 유지하기 위해 앞 문장 1개를 보강하여 5개 슬롯(①~⑤)으로 통일
+    QUESTIONS[5].segments = [
+      'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.',
+      'The extreme heat from the fire causes the shell to crack open.',
+      'Finally, the seeds come out of the shell, hit the ground, and begin to grow.',
+      'Wildfire, often started by the parent tree, also burns practically everything on the ground, destroying other plants that would compete with the seeds for the water and sunlight needed for growth.',
+      'As you can see, eucalyptus is only able to reproduce provided that there is fire.'
+    ];
+    QUESTIONS[5].answer = 4;
+    QUESTIONS[5].reason = '지시 표현 The fallen seeds가 ④ 앞 문장의 "hit the ground(땅에 떨어지다)"를 바로 받아줍니다. 또한 주어진 문장에서 재가 씨앗을 보호해 주는 첫 번째 이점을 말한 뒤, ⑤ 뒤 문장이 "also(또한)"를 써서 경쟁 식물을 없애 주는 두 번째 이점을 추가하므로 ④가 정확합니다.';
+
+    QUESTIONS[6].segments = [
+      'In long periods of hot and dry weather, eucalyptus leaves rub together and naturally catch fire because the leaves contain highly flammable oil.',
+      'The extreme heat from the fire causes the shell to crack open.',
+      'Finally, the seeds come out of the shell, hit the ground, and begin to grow.',
+      'The fallen seeds are conveniently concealed in the soft ash left over after the fire, which protects them from the harsh environment.',
+      'As you can see, eucalyptus is only able to reproduce provided that there is fire.'
+    ];
+    QUESTIONS[6].answer = 5;
+    QUESTIONS[6].reason = '첨가 연결어 also(또한)가 핵심입니다. ⑤ 앞 문장에서 불이 남긴 재가 씨앗을 보호해 주는 첫 번째 장점을 설명한 뒤, ⑤에 주어진 문장이 들어가 불이 경쟁 식물을 제거해 주는 두 번째 장점을 덧붙여야 마지막 문장("As you can see ~")의 결론으로 자연스럽게 마무리됩니다.';
+
+    /**
+     * 문항별 상태
+     * selected: null | 1..5
+     * checked: boolean
+     */
+    const state = {};
+    QUESTIONS.forEach((q) => {
+      state[q.id] = {
+        selected: null,
+        checked: false
+      };
+    });
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.classList.remove('show');
+      }, 3000);
+    }
+
+    /**
+     * 카카오톡 공유용 링크 복사
+     */
+    function copyShareLink() {
+      const url = window.location.href && window.location.href !== 'about:blank'
+        ? window.location.href
+        : 'Rising from the Ashes · 문장 삽입 연습';
+
+      const input = document.createElement('input');
+      input.value = url;
+      document.body.appendChild(input);
+      input.select();
+      input.setSelectionRange(0, 99999);
+
+      let copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (e) {
+        copied = false;
+      }
+      document.body.removeChild(input);
+
+      if (copied) {
+        showToast('링크가 복사되었습니다. 카카오톡 채팅방에 붙여넣어 바로 공유하세요.');
+      } else {
+        showToast('브라우저 주소창의 링크를 길게 눌러 복사한 뒤 카카오톡에 붙여넣어 주세요.');
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /**
+     * 지문 내 슬롯(①~⑤) 생성
+     * segments[0] 뒤에 ①, segments[1] 뒤에 ②, ..., segments[4] 뒤에 ⑤ 배치
+     */
+    function buildPassageHtml(q, s) {
+      let html = '';
+      for (let i = 0; i < q.segments.length; i++) {
+        const slotNum = i + 1;
+        let slotClass = 'inline-slot';
+
+        if (!s.checked) {
+          if (s.selected === slotNum) slotClass += ' selected';
+        } else {
+          if (slotNum === q.answer) {
+            slotClass += ' correct-slot';
+          } else if (slotNum === s.selected && s.selected !== q.answer) {
+            slotClass += ' wrong-slot';
+          }
+        }
+
+        html += `${escapeHtml(q.segments[i])} `;
+        html += `<button type="button" class="${slotClass}" ${s.checked ? 'disabled' : ''} onclick="selectOption(${q.id}, ${slotNum})" aria-label="${slotNum}번 위치 선택">${CIRCLED[slotNum]}</button> `;
+      }
+      return html.trim();
+    }
+
+    /**
+     * 전체 문제 렌더링
+     */
+    function renderQuestions() {
+      const list = document.getElementById('question-list');
+      list.innerHTML = '';
+
+      QUESTIONS.forEach((q) => {
+        const s = state[q.id];
+        const isCorrect = s.checked && s.selected === q.answer;
+        const isWrong = s.checked && s.selected !== q.answer;
+
+        const card = document.createElement('article');
+        card.id = `card-${q.id}`;
+        card.className = 'q-card';
+        if (isCorrect) card.classList.add('is-correct');
+        if (isWrong) card.classList.add('is-wrong');
+
+        // ①~⑤ 선택 버튼 HTML
+        let optionButtonsHtml = '';
+        for (let num = 1; num <= 5; num++) {
+          let btnClass = 'option-btn';
+          if (!s.checked) {
+            if (s.selected === num) btnClass += ' selected';
+          } else {
+            if (num === q.answer) {
+              btnClass += ' correct-opt';
+            } else if (num === s.selected && s.selected !== q.answer) {
+              btnClass += ' wrong-opt';
+            }
+          }
+
+          optionButtonsHtml += `
+            <button
+              type="button"
+              class="${btnClass}"
+              ${s.checked ? 'disabled' : ''}
+              onclick="selectOption(${q.id}, ${num})"
+            >${CIRCLED[num]}</button>
+          `;
+        }
+
+        // 정답 확인 시 해설 영역
+        let resultHtml = '';
+        if (s.checked) {
+          resultHtml = `
+            <div class="result-box ${isCorrect ? 'correct' : 'wrong'}">
+              <div class="result-title">
+                ${
+                  isCorrect
+                    ? `정답입니다! (${CIRCLED[q.answer]})`
+                    : `오답입니다. 정답은 ${CIRCLED[q.answer]} 입니다.`
+                }
+              </div>
+              <div class="result-item">
+                <span class="result-label">정답 이유</span>${escapeHtml(q.reason)}
+              </div>
+              <div class="result-item">
+                <span class="result-label">주어진 문장 해석</span>${escapeHtml(q.translation)}
+              </div>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="q-header">
+            <span class="q-num">Q${q.id}</span>
+            <h2 class="q-prompt">주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.</h2>
+          </div>
+
+          <div class="target-box">${escapeHtml(q.target)}</div>
+
+          <div class="passage-box">${buildPassageHtml(q, s)}</div>
+
+          <div class="option-row" role="group" aria-label="위치 선택">
+            ${optionButtonsHtml}
+          </div>
+
+          <div class="q-actions">
+            ${
+              !s.checked
+                ? `<button type="button" class="btn-primary" onclick="checkAnswer(${q.id})">정답 확인</button>`
+                : ''
+            }
+            ${
+              isWrong
+                ? `<button type="button" class="btn-retry" onclick="retryOne(${q.id})">이 문제 다시 풀기</button>`
+                : ''
+            }
+          </div>
+
+          ${resultHtml}
+        `;
+
+        list.appendChild(card);
+      });
+    }
+
+    /**
+     * 위치 번호(1~5) 선택
+     */
+    function selectOption(id, num) {
+      if (state[id].checked) return;
+      state[id].selected = num;
+      renderQuestions();
+    }
+
+    /**
+     * 개별 문항 정답 확인
+     */
+    function checkAnswer(id) {
+      if (state[id].selected === null) {
+        showToast('지문 속 번호(①~⑤) 또는 하단 버튼을 먼저 선택하세요.');
+        return;
+      }
+      state[id].checked = true;
+      updateScore();
+      renderQuestions();
+    }
+
+    /**
+     * 개별 오답 문항 다시 풀기
+     */
+    function retryOne(id) {
+      state[id].selected = null;
+      state[id].checked = false;
+      updateScore();
+      renderQuestions();
+    }
+
+    /**
+     * 틀린 문제만 일괄 초기화
+     */
+    function retryWrongAll() {
+      const wrongIds = QUESTIONS.filter(
+        (q) => state[q.id].checked && state[q.id].selected !== q.answer
+      ).map((q) => q.id);
+
+      if (wrongIds.length === 0) {
+        showToast('현재 틀린 문제가 없습니다.');
+        return;
+      }
+
+      wrongIds.forEach((id) => {
+        state[id].selected = null;
+        state[id].checked = false;
+      });
+
+      updateScore();
+      renderQuestions();
+
+      const firstWrongCard = document.getElementById(`card-${wrongIds[0]}`);
+      if (firstWrongCard) {
+        firstWrongCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      showToast(`틀린 ${wrongIds.length}문제를 초기화했습니다.`);
+    }
+
+    /**
+     * 전체 초기화
+     */
+    function resetAll() {
+      QUESTIONS.forEach((q) => {
+        state[q.id].selected = null;
+        state[q.id].checked = false;
+      });
+      updateScore();
+      renderQuestions();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('모든 문제를 초기화했습니다.');
+    }
+
+    /**
+     * 점수 갱신
+     */
+    function updateScore() {
+      const total = QUESTIONS.length;
+      let correct = 0;
+
+      QUESTIONS.forEach((q) => {
+        if (state[q.id].checked && state[q.id].selected === q.answer) {
+          correct += 1;
+        }
+      });
+
+      const score = Math.round((correct / total) * 100);
+      document.getElementById('score-pill').textContent = `${correct} / ${total}문제 · ${score}점`;
+      document.getElementById('bottom-score').textContent = `현재 성적: ${correct} / ${total}문제 정답 (${score}점)`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateScore();
+      renderQuestions();
+    });
+  </script>
+</body>
+</html>
