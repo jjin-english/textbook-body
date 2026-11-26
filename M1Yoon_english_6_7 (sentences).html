@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>중1 영어 동아(윤정미) 6·7과 단계별 영작 마스터</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Noto Sans KR', 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .en-font {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .chip-btn {
+      transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .chip-btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
+
+  <!-- Top Navigation Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-extrabold text-base shadow-xs shrink-0">
+          EN
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">
+            중1 영어 영작 트레이닝
+          </h1>
+          <p class="text-xs text-slate-500">동아(윤정미) 22개정 · Lesson 6 &amp; 7</p>
+        </div>
+      </div>
+
+      <nav class="flex items-center gap-1.5 sm:gap-2">
+        <button id="nav-btn-study" onclick="switchTopView('study')"
+          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-xs transition">
+          학습하기
+        </button>
+        <button id="nav-btn-report" onclick="switchTopView('report')"
+          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          결과 리포트
+        </button>
+        <button id="nav-btn-review" onclick="switchTopView('review')"
+          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition flex items-center gap-1.5">
+          <span>오답 복습</span>
+          <span id="wrong-count-badge" class="px-1.5 py-0.5 text-[11px] font-extrabold rounded-full bg-rose-600 text-white">0</span>
+        </button>
+        <button onclick="openResetModal()"
+          class="px-2.5 py-2 rounded-xl text-xs font-medium text-slate-500 hover:text-slate-700 hover:bg-slate-100 border border-slate-200 transition"
+          title="진도 초기화">
+          진도 초기화
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-5 space-y-4">
+
+    <!-- Resume Learning Banner -->
+    <div id="resume-banner" class="hidden bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-2xl p-4 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] font-extrabold uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-md">학습 이어하기</span>
+          <span id="resume-time" class="text-xs text-indigo-100"></span>
+        </div>
+        <p id="resume-desc" class="text-sm sm:text-base font-bold leading-snug"></p>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+        <button onclick="dismissResumeBanner()" class="px-3 py-2 rounded-xl text-xs font-semibold text-indigo-100 hover:bg-white/10 transition">
+          닫기
+        </button>
+        <button onclick="applyResume()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-indigo-700 hover:bg-indigo-50 shadow-xs transition">
+          바로 이어하기 &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Step-by-Step Selector Panel (Shown in Study & Report Views) -->
+    <section id="selector-panel" class="space-y-3">
+      <!-- 1. Lesson Tabs -->
+      <div class="grid grid-cols-2 gap-2 bg-slate-200/80 p-1.5 rounded-2xl">
+        <button id="tab-lesson-6" onclick="selectLesson('6')"
+          class="py-2.5 px-3 rounded-xl text-sm sm:text-base font-bold transition flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+          <span>Lesson 6</span>
+          <span class="text-xs font-normal opacity-80">Good for the Earth, Good for Us</span>
+        </button>
+        <button id="tab-lesson-7" onclick="selectLesson('7')"
+          class="py-2.5 px-3 rounded-xl text-sm sm:text-base font-bold transition flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+          <span>Lesson 7</span>
+          <span class="text-xs font-normal opacity-80">Find Your Dream</span>
+        </button>
+      </div>
+
+      <!-- 2. Grammar & Source & Mode Card -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-4">
+        <!-- Grammar Selection -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">1. 문법 선택</span>
+            <span id="lesson-progress-label" class="text-xs font-bold text-indigo-600">진도율 0%</span>
+          </div>
+          <div id="grammar-buttons-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Source Type Selection -->
+        <div class="space-y-2 pt-3 border-t border-slate-100">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">2. 문장 유형 선택 (파트별 최고·최근 점수 표시)</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button id="btn-part-textbook" onclick="selectPart('textbook')"
+              class="p-3.5 rounded-xl border text-left transition flex flex-col justify-between gap-1.5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs sm:text-sm font-bold">교과서 핵심 문장</span>
+                <span id="badge-part-textbook" class="text-xs font-bold px-2 py-0.5 rounded-full">0/0</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-500">대화문·본문 필수 문장</span>
+                <span id="score-part-textbook" class="font-bold text-slate-400">미응시</span>
+              </div>
+            </button>
+
+            <button id="btn-part-application" onclick="selectPart('application')"
+              class="p-3.5 rounded-xl border text-left transition flex flex-col justify-between gap-1.5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs sm:text-sm font-bold">단어 활용 응용 영작 (10문항)</span>
+                <span id="badge-part-application" class="text-xs font-bold px-2 py-0.5 rounded-full">0/10</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-500">단원 어휘 응용 연습</span>
+                <span id="score-part-application" class="font-bold text-slate-400">미응시</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Difficulty Mode Selection -->
+        <div class="space-y-2 pt-3 border-t border-slate-100">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">3. 영작 난이도 단계 선택</span>
+          <div class="grid grid-cols-3 gap-2">
+            <button id="btn-mode-1" onclick="selectMode(1)"
+              class="p-2.5 sm:p-3 rounded-xl border text-center transition flex flex-col items-center gap-1">
+              <div class="flex items-center gap-1 flex-wrap justify-center">
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">1단계</span>
+                <span id="score-badge-mode-1" class="hidden text-[11px] font-extrabold px-1.5 py-0.5 rounded-md bg-indigo-600 text-white">100점</span>
+              </div>
+              <span class="text-xs sm:text-sm font-bold">빈칸 넣기</span>
+              <span id="prog-mode-1" class="text-[11px] text-slate-500">0/0 완료</span>
+            </button>
+
+            <button id="btn-mode-2" onclick="selectMode(2)"
+              class="p-2.5 sm:p-3 rounded-xl border text-center transition flex flex-col items-center gap-1">
+              <div class="flex items-center gap-1 flex-wrap justify-center">
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800">2단계</span>
+                <span id="score-badge-mode-2" class="hidden text-[11px] font-extrabold px-1.5 py-0.5 rounded-md bg-indigo-600 text-white">100점</span>
+              </div>
+              <span class="text-xs sm:text-sm font-bold">단어 정렬하기</span>
+              <span id="prog-mode-2" class="text-[11px] text-slate-500">0/0 완료</span>
+            </button>
+
+            <button id="btn-mode-3" onclick="selectMode(3)"
+              class="p-2.5 sm:p-3 rounded-xl border text-center transition flex flex-col items-center gap-1">
+              <div class="flex items-center gap-1 flex-wrap justify-center">
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800">3단계</span>
+                <span id="score-badge-mode-3" class="hidden text-[11px] font-extrabold px-1.5 py-0.5 rounded-md bg-indigo-600 text-white">100점</span>
+              </div>
+              <span class="text-xs sm:text-sm font-bold">직접 영작하기</span>
+              <span id="prog-mode-3" class="text-[11px] text-slate-500">0/0 완료</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Review Mode Banner (Shown only when topView === 'review') -->
+    <section id="review-banner-panel" class="hidden bg-rose-50 border border-rose-200 rounded-2xl p-4 space-y-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-rose-900">오답 집중 복습 모드</h2>
+          <p class="text-xs sm:text-sm text-rose-700">틀렸던 문장을 1~3단계 중 원하는 유형으로 다시 연습하세요.</p>
+        </div>
+        <button onclick="switchTopView('study')"
+          class="px-3.5 py-2 rounded-xl bg-white border border-rose-200 text-rose-700 text-xs sm:text-sm font-bold hover:bg-rose-100 transition self-start sm:self-auto">
+          일반 학습으로 돌아가기
+        </button>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 pt-1">
+        <span class="text-xs font-bold text-rose-800">복습 유형:</span>
+        <button onclick="setReviewModeType(1)" id="rev-type-1" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition">1단계 빈칸 넣기</button>
+        <button onclick="setReviewModeType(2)" id="rev-type-2" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition">2단계 단어 정렬</button>
+        <button onclick="setReviewModeType(3)" id="rev-type-3" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition">3단계 직접 영작</button>
+      </div>
+    </section>
+
+    <!-- Main Workspace Card (Question Practice OR Result Report) -->
+    <section id="workspace-card" class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+      <!-- Top Status Bar -->
+      <div class="bg-slate-50 border-b border-slate-200 px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span id="card-tag-lesson" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-100 text-indigo-800">Lesson 6</span>
+          <span id="card-tag-part" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-200 text-slate-700">교과서 핵심 문장</span>
+          <span id="card-tag-done" class="hidden px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-700">학습 완료 ✓</span>
+        </div>
+
+        <div id="card-nav-controls" class="flex items-center gap-2">
+          <span id="card-counter" class="text-xs sm:text-sm font-bold text-slate-700">1 / 3</span>
+          <select id="card-jump-select" onchange="jumpToQuestion(this.value)"
+            class="text-xs border border-slate-300 rounded-lg px-2 py-1 bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </select>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full h-1.5 bg-slate-100">
+        <div id="card-progress-bar" class="h-full bg-indigo-600 transition-all duration-300" style="width: 0%"></div>
+      </div>
+
+      <!-- VIEW A: Empty Review State -->
+      <div id="view-review-empty" class="hidden p-10 text-center space-y-3">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-xl font-extrabold">
+          ✓
+        </div>
+        <h3 class="text-base font-bold text-slate-800">오답 복습 목록이 비어 있습니다!</h3>
+        <p class="text-sm text-slate-500">아직 틀린 문장이 없거나 오답 문장을 모두 복습했습니다.</p>
+        <button onclick="switchTopView('study')" class="mt-2 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-700 transition">
+          학습 화면으로 이동하기
+        </button>
+      </div>
+
+      <!-- VIEW B: Question Practice Body -->
+      <div id="view-question-body" class="p-5 sm:p-6 space-y-5">
+        <!-- Korean Sentence & Hint -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-600">우리말 해석</span>
+            <button id="btn-hint-toggle" onclick="toggleHint()" class="text-xs font-semibold text-slate-500 hover:text-indigo-600 underline">
+              핵심 어휘 힌트 보기
+            </button>
+          </div>
+          <p id="prompt-korean" class="text-lg sm:text-xl font-bold text-slate-900 leading-snug"></p>
+          <div id="hint-container" class="hidden mt-2 p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-amber-900">
+            <span class="font-bold">어휘 힌트:</span> <span id="prompt-hint" class="en-font"></span>
+          </div>
+        </div>
+
+        <!-- Mode 1: Fill in the Blanks -->
+        <div id="stage-1-area" class="hidden space-y-3">
+          <div id="blank-sentence-box"
+            class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-lg en-font leading-relaxed font-medium text-slate-800">
+          </div>
+          <p class="text-xs text-slate-500">* 빈칸에 알맞은 영어 단어를 입력한 후 [정답 확인] 또는 Enter 키를 누르세요.</p>
+        </div>
+
+        <!-- Mode 2: Word Scramble -->
+        <div id="stage-2-area" class="hidden space-y-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-500">아래 단어 카드를 순서대로 클릭하여 문장을 완성하세요 (배치된 카드 클릭 시 취소):</span>
+              <button onclick="resetScramble()" class="text-xs font-bold text-rose-600 hover:text-rose-700">
+                초기화 ↺
+              </button>
+            </div>
+            <div id="scramble-answer-zone"
+              class="min-h-[64px] p-3 rounded-xl bg-indigo-50/60 border-2 border-dashed border-indigo-200 flex flex-wrap items-center gap-2">
+            </div>
+          </div>
+          <div id="scramble-pool-zone"
+            class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap gap-2">
+          </div>
+        </div>
+
+        <!-- Mode 3: Full Sentence Writing -->
+        <div id="stage-3-area" class="hidden space-y-2">
+          <label for="full-input-box" class="text-xs font-semibold text-slate-500 block">
+            우리말 뜻에 맞는 전체 영어 문장을 직접 작성하세요 (축약형·대소문자 유연 채점):
+          </label>
+          <input type="text" id="full-input-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            placeholder="영어 문장을 입력하세요..."
+            class="w-full p-3.5 rounded-xl border-2 border-slate-300 focus:border-indigo-600 focus:outline-none text-base sm:text-lg en-font font-medium text-slate-900 bg-white transition" />
+        </div>
+
+        <!-- Instant Feedback Panel -->
+        <div id="feedback-panel" class="hidden rounded-xl p-4 border space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span id="fb-badge-icon" class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-extrabold text-white"></span>
+              <span id="fb-title-text" class="font-bold text-sm sm:text-base"></span>
+            </div>
+            <button id="btn-remove-wrong" onclick="removeCurrentFromWrong()"
+              class="hidden px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition">
+              오답 목록에서 제거 ✓
+            </button>
+          </div>
+          <div class="text-sm space-y-1 pt-1">
+            <p class="text-xs font-semibold text-slate-500">모범 정답 문장:</p>
+            <p id="fb-model-answer" class="en-font font-bold text-base text-slate-900"></p>
+            <p id="fb-grammar-explanation" class="text-xs sm:text-sm text-slate-700 bg-white/90 p-2.5 rounded-lg border border-slate-200/80 mt-2"></p>
+          </div>
+        </div>
+
+        <!-- Bottom Action Buttons -->
+        <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <button id="btn-prev-q" onclick="prevQuestion()"
+              class="px-3.5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-50 disabled:opacity-40 transition">
+              &larr; 이전 문항
+            </button>
+            <button id="btn-next-q" onclick="nextQuestion()"
+              class="px-3.5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-50 transition">
+              다음 문항 &rarr;
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2 ml-auto">
+            <button id="btn-skip-answer" onclick="revealAnswer()"
+              class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-600 text-xs sm:text-sm font-semibold hover:bg-slate-200 transition">
+              정답 보기
+            </button>
+            <button id="btn-submit-answer" onclick="checkAnswer()"
+              class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-xs sm:text-sm font-bold hover:bg-indigo-700 shadow-xs transition">
+              정답 확인
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW C: Part Test Result Score Report -->
+      <div id="view-result-report" class="hidden p-5 sm:p-7 space-y-6 bg-white">
+        <div class="text-center space-y-3 pb-4 border-b border-slate-100">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold">
+            <span id="report-subtitle">Lesson 6 · 교과서 핵심 문장 · 1단계 빈칸 넣기</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">파트 영작 테스트 결과 리포트</h2>
+
+          <!-- 100-Point Score Circle & Grade Card -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <div class="w-32 h-32 rounded-full border-8 border-indigo-600 bg-indigo-50/40 flex flex-col items-center justify-center shadow-xs">
+              <span class="text-xs font-semibold text-slate-500">테스트 점수</span>
+              <div class="flex items-baseline">
+                <span id="report-score-value" class="text-3xl sm:text-4xl font-extrabold text-indigo-700">0</span>
+                <span class="text-sm font-bold text-indigo-600 ml-0.5">점</span>
+              </div>
+            </div>
+
+            <div class="text-center sm:text-left space-y-1.5 bg-slate-50 px-5 py-3.5 rounded-2xl border border-slate-200/80 min-w-[220px]">
+              <div class="flex items-center justify-center sm:justify-start gap-2">
+                <span class="text-xs font-semibold text-slate-500">성취 등급:</span>
+                <span id="report-grade-badge" class="px-2.5 py-0.5 rounded-md text-xs font-extrabold bg-emerald-600 text-white">S 등급</span>
+              </div>
+              <p class="text-sm font-bold text-slate-800">
+                정답 수: <span id="report-correct-num" class="text-indigo-600">0</span> / <span id="report-total-num">0</span> 문항
+              </p>
+              <p id="report-best-label" class="text-xs text-slate-500">역대 최고 점수: 0점</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item-by-Item Breakdown Table -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-slate-800">문항별 상세 정오표 (O / X)</h3>
+            <span class="text-xs text-slate-500">내 답안과 모범 정답을 확인하세요</span>
+          </div>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                  <th class="py-2.5 px-3 font-bold w-12 text-center">번호</th>
+                  <th class="py-2.5 px-3 font-bold">우리말 / 모범 정답</th>
+                  <th class="py-2.5 px-3 font-bold">내가 작성한 답안</th>
+                  <th class="py-2.5 px-3 font-bold w-14 text-center">결과</th>
+                </tr>
+              </thead>
+              <tbody id="report-table-body" class="divide-y divide-slate-100">
+                <!-- Rows injected by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Report Action Buttons -->
+        <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5">
+          <button onclick="switchTopView('study')"
+            class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs sm:text-sm font-bold hover:bg-slate-50 transition">
+            학습 화면으로 돌아가기
+          </button>
+
+          <div class="flex flex-wrap items-center gap-2 ml-auto">
+            <button id="btn-report-retry-wrong" onclick="retryWrongInCurrentPart()"
+              class="px-4 py-2.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs sm:text-sm font-bold hover:bg-rose-100 transition">
+              오답만 다시 풀기
+            </button>
+            <button onclick="restartCurrentPart()"
+              class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs sm:text-sm font-bold hover:bg-slate-200 transition">
+              이 파트 처음부터 다시 풀기
+            </button>
+            <button id="btn-report-next-stage" onclick="goToNextStage()"
+              class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-xs sm:text-sm font-bold hover:bg-indigo-700 shadow-xs transition">
+              다음 단계로 이동 &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grammar Point Reference Card -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs">
+      <button onclick="toggleGrammarGuide()" class="w-full flex items-center justify-between text-left">
+        <span class="text-sm font-bold text-slate-800">현재 선택된 문법 핵심 개념 정리 보기</span>
+        <span id="grammar-guide-toggle-text" class="text-xs font-bold text-indigo-600">펼치기 ▼</span>
+      </button>
+      <div id="grammar-guide-body" class="hidden mt-3 pt-3 border-t border-slate-100 text-xs sm:text-sm text-slate-700 space-y-2 leading-relaxed">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Reset Confirmation Modal -->
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-xl space-y-4">
+      <h3 class="text-base font-bold text-slate-900">학습 진도 초기화</h3>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        모든 단원의 학습 기록, 테스트 점수, 이어하기 위치, 오답 복습 목록이 초기화됩니다. 계속하시겠습니까?
+      </p>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeResetModal()" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition">
+          취소
+        </button>
+        <button onclick="confirmResetAll()" class="px-4 py-2 rounded-xl text-sm font-bold bg-rose-600 text-white hover:bg-rose-700 transition">
+          초기화 실행
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Message -->
+  <div id="toast-box" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden bg-slate-900 text-white text-xs sm:text-sm font-medium px-4 py-2.5 rounded-xl shadow-lg">
+  </div>
+
+  <script>
+    /**
+     * ============================================================================
+     * 1. CURRICULUM DATASET (Dong-A Yoon Jung-mi 2022 Revised - Lesson 6 & 7)
+     * All English strings with apostrophes are enclosed in double quotes ("...")
+     * to guarantee 100% valid JavaScript parsing.
+     * ============================================================================
+     */
+    const CURRICULUM_DATA = {
+      "6": {
+        title: "Lesson 6. Good for the Earth, Good for Us",
+        grammars: {
+          "6_g1": {
+            id: "6_g1",
+            name: "문법 1: to부정사의 명사적 용법 (~하는 것)",
+            shortName: "to부정사 명사적 용법",
+            guide: `
+              <p><strong>1. 형태와 의미:</strong> <code class="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-700">to + 동사원형</code>이 명사처럼 쓰여 <strong>'~하는 것, ~하기'</strong>로 해석됩니다.</p>
+              <p><strong>2. 주요 쓰임:</strong> <code>want, hope, plan, decide, like, need, promise, forget</code> 등의 동사 뒤에서 <strong>목적어</strong> 역할을 하거나, <code>It is ~ to ...</code>(가주어-진주어) 구문으로 쓰입니다.</p>
+            `,
+            textbook: [
+              {
+                id: "6_g1_tb_1",
+                en: "Do you want to save the Earth?",
+                ko: "너는 지구를 구하고 싶니?",
+                blanks: ["want", "to", "save"],
+                hint: "want (~하기를 원하다), save (구하다), Earth (지구)",
+                note: "동사 want의 목적어 자리에 to부정사(to save: 구하는 것)가 쓰인 명사적 용법입니다."
+              },
+              {
+                id: "6_g1_tb_2",
+                en: "Somebody forgot to turn off the water.",
+                ko: "어떤 사람이 물을 끄는 것을 깜빡했다.",
+                blanks: ["forgot", "to", "turn", "off"],
+                hint: "somebody (어떤 사람), forgot (잊었다), turn off (끄다)",
+                note: "forget + to부정사는 '(앞으로 할 일을) ~하는 것을 잊다'라는 의미의 명사적 용법입니다."
+              },
+              {
+                id: "6_g1_tb_3",
+                en: "I don't want to go out now.",
+                ko: "나는 지금 밖에 나가고 싶지 않아.",
+                blanks: ["want", "to", "go"],
+                hint: "want (~을 원하다), go out (밖에 나가다), now (지금)",
+                note: "부정문 don't want 뒤에 목적어로 to go(~가는 것)가 이어집니다."
+              }
+            ],
+            application: [
+              {
+                id: "6_g1_app_1",
+                en: "We need to recycle plastic bottles.",
+                ko: "우리는 플라스틱 병을 재활용할 필요가 있다.",
+                blanks: ["need", "to", "recycle"],
+                hint: "need (~할 필요가 있다), recycle (재활용하다), plastic bottle (플라스틱 병)",
+                note: "need의 목적어로 to recycle(재활용하는 것)이 쓰였습니다."
+              },
+              {
+                id: "6_g1_app_2",
+                en: "She decided to join the plogging club.",
+                ko: "그녀는 플로깅 동아리에 가입하기로 결심했다.",
+                blanks: ["decided", "to", "join"],
+                hint: "decide (결심하다), join (가입하다), plogging club (플로깅 동아리)",
+                note: "decide는 to부정사(to join)를 목적어로 취하는 대표 동사입니다."
+              },
+              {
+                id: "6_g1_app_3",
+                en: "It is important to protect our Earth.",
+                ko: "우리의 지구를 보호하는 것은 중요하다.",
+                blanks: ["important", "to", "protect"],
+                hint: "important (중요한), protect (보호하다), Earth (지구)",
+                note: "It은 가주어이고, 진주어(to protect our Earth: 우리의 지구를 보호하는 것)로 쓰인 명사적 용법입니다."
+              },
+              {
+                id: "6_g1_app_4",
+                en: "I plan to use a reusable cup every day.",
+                ko: "나는 매일 다회용 컵을 사용할 계획이다.",
+                blanks: ["plan", "to", "use"],
+                hint: "plan (계획하다), reusable cup (다회용 컵), every day (매일)",
+                note: "plan 뒤에 목적어로 to use(사용하는 것)가 이어집니다."
+              },
+              {
+                id: "6_g1_app_5",
+                en: "They started to pick up trash in the park.",
+                ko: "그들은 공원에서 쓰레기를 줍기 시작했다.",
+                blanks: ["started", "to", "pick", "up"],
+                hint: "start (시작하다), pick up (줍다), trash (쓰레기)",
+                note: "started의 목적어로 to pick up(줍는 것)이 쓰였습니다."
+              },
+              {
+                id: "6_g1_app_6",
+                en: "He hopes to fix his old bike.",
+                ko: "그는 그의 낡은 자전거를 고치기를 희망한다.",
+                blanks: ["hopes", "to", "fix"],
+                hint: "hope (희망하다), fix (고치다), old bike (낡은 자전거)",
+                note: "3인칭 단수 주어 He에 맞춰 hopes를 쓰고 목적어로 to fix를 연결했습니다."
+              },
+              {
+                id: "6_g1_app_7",
+                en: "My goal is to reduce single-use plastic.",
+                ko: "내 목표는 일회용 플라스틱을 줄이는 것이다.",
+                blanks: ["is", "to", "reduce"],
+                hint: "goal (목표), reduce (줄이다), single-use plastic (일회용 플라스틱)",
+                note: "be동사(is) 뒤에서 주어를 보충 설명하는 보어 역할(~하는 것이다)의 명사적 용법입니다."
+              },
+              {
+                id: "6_g1_app_8",
+                en: "We agreed to turn off the lights early.",
+                ko: "우리는 일찍 불을 끄기로 동의했다.",
+                blanks: ["agreed", "to", "turn", "off"],
+                hint: "agree (동의하다), turn off (끄다), light (불, 조명)",
+                note: "agree는 to부정사(to turn off)를 목적어로 취합니다."
+              },
+              {
+                id: "6_g1_app_9",
+                en: "Do you like to ride a bike to school?",
+                ko: "너는 학교에 자전거 타는 것을 좋아하니?",
+                blanks: ["like", "to", "ride"],
+                hint: "like (좋아하다), ride a bike (자전거를 타다)",
+                note: "like의 목적어 자리에 to ride(타는 것)가 쓰였습니다."
+              },
+              {
+                id: "6_g1_app_10",
+                en: "I promise to carry my own shopping bag.",
+                ko: "나는 내 장바구니를 들고 다니겠다고 약속한다.",
+                blanks: ["promise", "to", "carry"],
+                hint: "promise (약속하다), carry (나르다, 들고 다니다), shopping bag (장바구니)",
+                note: "promise + to부정사: '~하는 것을 약속하다'의 명사적 용법입니다."
+              }
+            ]
+          },
+          "6_g2": {
+            id: "6_g2",
+            name: "문법 2: 접속사 that절 (~라는 것)",
+            shortName: "접속사 that절",
+            guide: `
+              <p><strong>1. 형태와 의미:</strong> <code class="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-700">주어 + 동사 + that + 주어 + 동사</code> 구조로, <strong>'~라는 것'</strong>의 의미를 나타내는 명사절을 이끕니다.</p>
+              <p><strong>2. 특징:</strong> <code>think, know, hear, believe, say, hope</code> 등의 동사 뒤에서 목적어 역할을 하며, 목적어절을 이끄는 <strong>that은 생략</strong>할 수 있습니다.</p>
+            `,
+            textbook: [
+              {
+                id: "6_g2_tb_1",
+                en: "I heard that plastic never goes away completely.",
+                ko: "나는 플라스틱이 완전히 사라지지 않는다는 것을 들었다.",
+                blanks: ["heard", "that", "plastic", "never"],
+                hint: "heard (들었다), go away (사라지다), completely (완전히)",
+                note: "동사 heard의 목적어절을 접속사 that이 이끌며 뒤에 완전한 문장(주어+동사)이 옵니다."
+              },
+              {
+                id: "6_g2_tb_2",
+                en: "I think that we should help the Earth.",
+                ko: "나는 우리가 지구를 도와야 한다고 생각한다.",
+                blanks: ["think", "that", "we", "should"],
+                hint: "think (생각하다), should (~해야 한다), help (돕다)",
+                note: "think의 목적어로 '~라는 것'을 의미하는 that절이 연결되었습니다."
+              },
+              {
+                id: "6_g2_tb_3",
+                en: "Everyone knows that recycling is very important.",
+                ko: "모두가 재활용이 매우 중요하다는 것을 안다.",
+                blanks: ["knows", "that", "recycling", "is"],
+                hint: "everyone (모두 - 단수 취급), recycling (재활용), important (중요한)",
+                note: "Everyone은 단수 취급하므로 knows를 쓰고, 목적어절을 접속사 that이 이끕니다."
+              }
+            ],
+            application: [
+              {
+                id: "6_g2_app_1",
+                en: "I believe that small actions can save the Earth.",
+                ko: "나는 작은 행동들이 지구를 구할 수 있다고 믿는다.",
+                blanks: ["believe", "that", "small", "actions"],
+                hint: "believe (믿다), small action (작은 행동), save (구하다)",
+                note: "believe 뒤에 목적어 역할을 하는 명사절(that + 주어 + 동사)이 쓰였습니다."
+              },
+              {
+                id: "6_g2_app_2",
+                en: "We learned that plogging is good for our health.",
+                ko: "우리는 플로깅이 우리 건강에 좋다는 것을 배웠다.",
+                blanks: ["learned", "that", "plogging", "is"],
+                hint: "learn (배우다), be good for (~에 좋다), health (건강)",
+                note: "learned의 목적어절을 접속사 that이 연결합니다."
+              },
+              {
+                id: "6_g2_app_3",
+                en: "She said that the trash bag was too heavy.",
+                ko: "그녀는 그 쓰레기봉투가 너무 무겁다고 말했다.",
+                blanks: ["said", "that", "the", "trash"],
+                hint: "said (말했다), trash bag (쓰레기봉투), heavy (무거운)",
+                note: "주절 동사(said)가 과거시제이므로 종속절의 동사도 과거형(was)을 썼습니다."
+              },
+              {
+                id: "6_g2_app_4",
+                en: "Do you know that this café uses glass cups?",
+                ko: "너는 이 카페가 유리컵을 사용한다는 것을 아니?",
+                blanks: ["know", "that", "this", "café"],
+                hint: "know (알다), café (카페), glass cup (유리컵)",
+                note: "의문문 Do you know 뒤에 목적어절(that + 주어 + 동사)이 이어집니다."
+              },
+              {
+                id: "6_g2_app_5",
+                en: "I hope that people stop using plastic straws.",
+                ko: "나는 사람들이 플라스틱 빨대 사용을 멈추기를 바란다.",
+                blanks: ["hope", "that", "people", "stop"],
+                hint: "hope (바라다), stop -ing (~하는 것을 멈추다), plastic straw (플라스틱 빨대)",
+                note: "hope 뒤에 that절이 와서 바라는 내용을 나타냅니다."
+              },
+              {
+                id: "6_g2_app_6",
+                en: "He thinks that riding a bike is fun.",
+                ko: "그는 자전거를 타는 것이 재미있다고 생각한다.",
+                blanks: ["thinks", "that", "riding", "a"],
+                hint: "riding a bike (자전거를 타는 것), fun (재미있는)",
+                note: "that절 안의 주어가 동명사구(riding a bike)이므로 단수동사 is를 사용합니다."
+              },
+              {
+                id: "6_g2_app_7",
+                en: "They found that many sea animals eat plastic.",
+                ko: "그들은 많은 바다 동물들이 플라스틱을 먹는다는 것을 발견했다.",
+                blanks: ["found", "that", "many", "sea"],
+                hint: "find - found (발견하다), sea animal (바다 동물)",
+                note: "found의 목적어 역할을 하는 완전한 절을 접속사 that이 이끌고 있습니다."
+              },
+              {
+                id: "6_g2_app_8",
+                en: "I am sure that we can make a clean town.",
+                ko: "나는 우리가 깨끗한 마을을 만들 수 있다고 확신한다.",
+                blanks: ["sure", "that", "we", "can"],
+                hint: "be sure that (~을 확신하다), clean town (깨끗한 마을)",
+                note: "감정·확신을 나타내는 형용사 sure 뒤에 접속사 that절이 이어졌습니다."
+              },
+              {
+                id: "6_g2_app_9",
+                en: "Remember that you should turn off the air conditioner.",
+                ko: "네가 에어컨을 꺼야 한다는 것을 기억해라.",
+                blanks: ["Remember", "that", "you", "should"],
+                hint: "remember (기억하다), turn off (끄다), air conditioner (에어컨)",
+                note: "명령문 Remember의 목적어절을 접속사 that이 이끌고 있습니다."
+              },
+              {
+                id: "6_g2_app_10",
+                en: "We know that the Zero-Waste Challenge starts today.",
+                ko: "우리는 제로 웨이스트 챌린지가 오늘 시작한다는 것을 안다.",
+                blanks: ["know", "that", "the", "Zero-Waste"],
+                hint: "Zero-Waste Challenge (제로 웨이스트 챌린지), start (시작하다)",
+                note: "know의 목적어로 '~라는 것'을 뜻하는 that절이 쓰였습니다."
+              }
+            ]
+          }
+        }
+      },
+      "7": {
+        title: "Lesson 7. Find Your Dream",
+        grammars: {
+          "7_g1": {
+            id: "7_g1",
+            name: "문법 1: to부정사의 부사적 용법 (목적: ~하기 위해서)",
+            shortName: "to부정사 부사적 용법(목적)",
+            guide: `
+              <p><strong>1. 형태와 의미:</strong> <code class="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-700">to + 동사원형</code>이 동사를 수식하며 <strong>'~하기 위해서'</strong>라는 행동의 목적을 나타냅니다.</p>
+              <p><strong>2. 위치와 특징:</strong> 문장 뒤에 올 수도 있고, 문장 맨 앞에 올 때는 뒤에 <strong>콤마(,)</strong>를 찍습니다. (<code>in order to + 동사원형</code>으로 바꿔 쓸 수 있습니다.)</p>
+            `,
+            textbook: [
+              {
+                id: "7_g1_tb_1",
+                en: "A lot of people are working hard to create this movie.",
+                ko: "많은 사람들이 이 영화를 만들기 위해 열심히 일하고 있다.",
+                blanks: ["to", "create", "this", "movie"],
+                hint: "work hard (열심히 일하다), create (만들다), movie (영화)",
+                note: "열심히 일하는 목적(~하기 위해서)을 나타내는 to부정사 부사적 용법(to create)입니다."
+              },
+              {
+                id: "7_g1_tb_2",
+                en: "To capture their happy moments, I'm going to use drones.",
+                ko: "그들의 행복한 순간들을 포착하기 위해, 나는 드론을 사용할 것이다.",
+                blanks: ["To", "capture", "their", "happy"],
+                hint: "capture (포착하다), moment (순간), drone (드론)",
+                note: "목적의 to부정사구(To capture ~)가 문장 맨 앞에 쓰여 콤마(,)로 구분되었습니다."
+              },
+              {
+                id: "7_g1_tb_3",
+                en: "So, I use hand signals to calm him.",
+                ko: "그래서, 나는 그를 진정시키기 위해 수신호를 사용한다.",
+                blanks: ["to", "calm", "him"],
+                hint: "hand signal (수신호), calm (진정시키다)",
+                note: "수신호를 사용하는 목적(~하기 위해서)을 설명하는 부사적 용법(to calm)입니다."
+              },
+              {
+                id: "7_g1_tb_4",
+                en: "To create a better story, I can change the order of scenes.",
+                ko: "더 나은 이야기를 만들기 위해, 나는 장면의 순서를 바꿀 수 있다.",
+                blanks: ["To", "create", "a", "better"],
+                hint: "order (순서), scene (장면), better (더 나은)",
+                note: "문두에 쓰인 목적의 to부정사(To create ~: 더 나은 이야기를 만들기 위해)입니다."
+              }
+            ],
+            application: [
+              {
+                id: "7_g1_app_1",
+                en: "I went to the beach to find a shooting location.",
+                ko: "나는 촬영 장소를 찾기 위해 해변에 갔다.",
+                blanks: ["to", "find", "a", "shooting"],
+                hint: "beach (해변), shooting location (촬영 장소)",
+                note: "해변에 간 목적(~하기 위해서)을 나타내는 부사적 용법(to find)입니다."
+              },
+              {
+                id: "7_g1_app_2",
+                en: "She practices every day to become a great photographer.",
+                ko: "그녀는 훌륭한 사진작가가 되기 위해 매일 연습한다.",
+                blanks: ["to", "become", "a", "great"],
+                hint: "practice (연습하다), become (~이 되다), photographer (사진작가)",
+                note: "연습하는 목적을 설명하는 to become이 쓰였습니다."
+              },
+              {
+                id: "7_g1_app_3",
+                en: "The Foley artist used rice to make wave sounds.",
+                ko: "음향 효과 제작자는 파도 소리를 만들기 위해 쌀을 사용했다.",
+                blanks: ["to", "make", "wave", "sounds"],
+                hint: "Foley artist (음향 효과 제작자), rice (쌀), wave sound (파도 소리)",
+                note: "쌀을 사용한 목적(~하기 위해서)을 to make로 표현했습니다."
+              },
+              {
+                id: "7_g1_app_4",
+                en: "He studied computer programs to write awesome songs.",
+                ko: "그는 멋진 노래를 작곡하기 위해 컴퓨터 프로그램을 공부했다.",
+                blanks: ["to", "write", "awesome", "songs"],
+                hint: "computer program (컴퓨터 프로그램), write a song (작곡하다), awesome (멋진)",
+                note: "공부한 목적을 나타내는 부사적 용법(to write)입니다."
+              },
+              {
+                id: "7_g1_app_5",
+                en: "We visited the studio to meet the movie director.",
+                ko: "우리는 영화감독을 만나기 위해 스튜디오를 방문했다.",
+                blanks: ["to", "meet", "the", "movie"],
+                hint: "studio (스튜디오), movie director (영화감독)",
+                note: "스튜디오를 방문한 목적(~하기 위해서)을 나타내는 to meet입니다."
+              },
+              {
+                id: "7_g1_app_6",
+                en: "The trainer brought snacks to train the dog actor.",
+                ko: "조련사는 개 배우를 훈련시키기 위해 간식을 가져왔다.",
+                blanks: ["to", "train", "the", "dog"],
+                hint: "trainer (조련사), snack (간식), train (훈련시키다)",
+                note: "간식을 가져온 목적을 설명하는 to train이 쓰였습니다."
+              },
+              {
+                id: "7_g1_app_7",
+                en: "She reads many books to improve her storytelling skills.",
+                ko: "그녀는 스토리텔링 능력을 향상시키기 위해 많은 책을 읽는다.",
+                blanks: ["to", "improve", "her", "storytelling"],
+                hint: "improve (향상시키다), storytelling skill (스토리텔링 능력)",
+                note: "책을 읽는 목적(~하기 위해서)을 나타내는 to improve입니다."
+              },
+              {
+                id: "7_g1_app_8",
+                en: "They checked all cameras to prepare for the shooting.",
+                ko: "그들은 촬영을 준비하기 위해 모든 카메라를 점검했다.",
+                blanks: ["to", "prepare", "for", "the"],
+                hint: "check (점검하다), prepare for (~을 준비하다), shooting (촬영)",
+                note: "카메라를 점검한 목적을 나타내는 부사적 용법(to prepare)입니다."
+              },
+              {
+                id: "7_g1_app_9",
+                en: "I am saving money to buy a new drone.",
+                ko: "나는 새 드론을 사기 위해 돈을 모으고 있다.",
+                blanks: ["to", "buy", "a", "new"],
+                hint: "save money (돈을 모으다), buy (사다), drone (드론)",
+                note: "돈을 모으는 목적(~하기 위해서)을 나타내는 to buy가 쓰였습니다."
+              },
+              {
+                id: "7_g1_app_10",
+                en: "He drew many sketches to design cool clothes.",
+                ko: "그는 멋진 옷을 디자인하기 위해 많은 스케치를 그렸다.",
+                blanks: ["to", "design", "cool", "clothes"],
+                hint: "draw - drew (그리다), design (디자인하다), clothes (옷)",
+                note: "스케치를 그린 목적을 설명하는 to design입니다."
+              }
+            ]
+          },
+          "7_g2": {
+            id: "7_g2",
+            name: "문법 2: 시간의 접속사 (when, before, after)",
+            shortName: "시간의 접속사 (when/before/after)",
+            guide: `
+              <p><strong>1. 종류와 의미:</strong> <code class="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-700">when</code> (~할 때), <code class="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-700">before</code> (~하기 전에), <code class="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-700">after</code> (~한 후에)</p>
+              <p><strong>2. 문장 구조와 시제:</strong> 접속사 뒤에는 <strong>[주어 + 동사]</strong>가 옵니다. 접속사절이 문장 앞에 올 때는 뒤에 <strong>콤마(,)</strong>를 찍으며, 미래의 일이라도 시간 부사절 안에서는 <strong>현재시제</strong>를 씁니다.</p>
+            `,
+            textbook: [
+              {
+                id: "7_g2_tb_1",
+                en: "Max sometimes gets too excited when a lot of people are around.",
+                ko: "맥스는 주변에 많은 사람들이 있을 때 가끔 너무 흥분한다.",
+                blanks: ["when", "a", "lot", "of"],
+                hint: "get excited (흥분하다), a lot of (많은), around (주변에)",
+                note: "접속사 when(~할 때)이 이끄는 시간 부사절이 주절 뒤에 이어집니다."
+              },
+              {
+                id: "7_g2_tb_2",
+                en: "My work begins after the shooting is over.",
+                ko: "내 일은 촬영이 끝난 후에 시작된다.",
+                blanks: ["after", "the", "shooting", "is"],
+                hint: "begin (시작하다), shooting (촬영), be over (끝나다)",
+                note: "접속사 after(~한 후에) 뒤에 [주어(the shooting) + 동사(is)]가 왔습니다."
+              },
+              {
+                id: "7_g2_tb_3",
+                en: "I create sound effects in my studio when recording on location is not easy.",
+                ko: "나는 현장 녹음이 쉽지 않을 때 내 스튜디오에서 음향 효과를 만든다.",
+                blanks: ["when", "recording", "on", "location"],
+                hint: "sound effect (음향 효과), record on location (현장에서 녹음하다)",
+                note: "when절의 주어가 동명사구(recording on location)이므로 단수동사 is를 사용했습니다."
+              }
+            ],
+            application: [
+              {
+                id: "7_g2_app_1",
+                en: "When the director says action, the actors start acting.",
+                ko: "감독이 액션을 외칠 때, 배우들은 연기를 시작한다.",
+                blanks: ["When", "the", "director", "says"],
+                hint: "director (감독), actor (배우), act (연기하다)",
+                note: "접속사 When이 문장 앞에 쓰였으므로 부사절 끝에 콤마(,)를 찍습니다."
+              },
+              {
+                id: "7_g2_app_2",
+                en: "Check the weather before you shoot on the beach.",
+                ko: "해변에서 촬영하기 전에 날씨를 확인해라.",
+                blanks: ["before", "you", "shoot", "on"],
+                hint: "weather (날씨), before (~하기 전에), shoot (촬영하다)",
+                note: "명령문 뒤에 시간 접속사 before + 주어 + 동사가 연결되었습니다."
+              },
+              {
+                id: "7_g2_app_3",
+                en: "After the editor deletes bad scenes, the movie looks great.",
+                ko: "편집자가 나쁜 장면들을 삭제한 후에, 영화가 멋져 보인다.",
+                blanks: ["After", "the", "editor", "deletes"],
+                hint: "editor (편집자), delete (삭제하다), scene (장면)",
+                note: "After + 단수 주어(the editor)에 맞춰 동사 deletes를 사용했습니다."
+              },
+              {
+                id: "7_g2_app_4",
+                en: "I feel happy when I take pictures of birds.",
+                ko: "나는 새들의 사진을 찍을 때 행복함을 느낀다.",
+                blanks: ["when", "I", "take", "pictures"],
+                hint: "take pictures of (~의 사진을 찍다), bird (새)",
+                note: "주절 뒤에 접속사 when절이 이어질 때는 콤마(,)를 쓰지 않습니다."
+              },
+              {
+                id: "7_g2_app_5",
+                en: "Before the movie starts, please turn off your phone.",
+                ko: "영화가 시작하기 전에, 휴대폰을 꺼 주세요.",
+                blanks: ["Before", "the", "movie", "starts"],
+                hint: "before (~하기 전에), turn off (끄다)",
+                note: "Before절이 문장 앞에 와서 콤마(,) 뒤에 명령문이 이어집니다."
+              },
+              {
+                id: "7_g2_app_6",
+                en: "We cleaned the studio after we finished recording.",
+                ko: "우리는 녹음을 끝낸 후에 스튜디오를 청소했다.",
+                blanks: ["after", "we", "finished", "recording"],
+                hint: "clean (청소하다), finish -ing (~하는 것을 끝내다), record (녹음하다)",
+                note: "과거의 일을 나타내므로 주절(cleaned)과 After절(finished) 모두 과거시제입니다."
+              },
+              {
+                id: "7_g2_app_7",
+                en: "When Tom plays with a ball, Max looks very excited.",
+                ko: "탐이 공을 가지고 놀 때, 맥스는 매우 신나 보인다.",
+                blanks: ["When", "Tom", "plays", "with"],
+                hint: "play with (~을 가지고 놀다), look excited (신나 보이다)",
+                note: "When절의 주어 Tom이 3인칭 단수이므로 동사 plays를 씁니다."
+              },
+              {
+                id: "7_g2_app_8",
+                en: "She always checks her camera before she leaves home.",
+                ko: "그녀는 집을 떠나기 전에 항상 카메라를 확인한다.",
+                blanks: ["before", "she", "leaves", "home"],
+                hint: "check (확인하다), leave home (집을 떠나다)",
+                note: "습관적인 행동을 나타내는 현재시제와 함께 접속사 before가 쓰였습니다."
+              },
+              {
+                id: "7_g2_app_9",
+                en: "After he became a chef, he opened an Italian restaurant.",
+                ko: "그가 요리사가 된 후에, 그는 이탈리아 식당을 열었다.",
+                blanks: ["After", "he", "became", "a"],
+                hint: "become - became (~이 되다), chef (요리사), restaurant (식당)",
+                note: "After절이 문두에 위치하여 부사절 뒤에 콤마(,)를 사용했습니다."
+              },
+              {
+                id: "7_g2_app_10",
+                en: "When you have a clear dream, you work harder.",
+                ko: "네가 분명한 꿈을 가질 때, 너는 더 열심히 노력한다.",
+                blanks: ["When", "you", "have", "a"],
+                hint: "clear (분명한), dream (꿈), harder (더 열심히)",
+                note: "조건·시간을 나타내는 접속사 When(~할 때)이 이끄는 부사절입니다."
+              }
+            ]
+          }
+        }
+      }
+    };
+
+    /**
+     * ============================================================================
+     * 2. STATE MANAGEMENT & LOCAL STORAGE
+     * ============================================================================
+     */
+    const STORAGE_KEY = "donga_yoon_g1_l6_l7_writing_v3";
+
+    let appState = {
+      lesson: "6",
+      grammar: "6_g1",
+      part: "textbook",     // "textbook" | "application"
+      mode: 1,              // 1: Blank, 2: Scramble, 3: Full Writing
+      indices: {},          // key: `${grammar}_${part}_${mode}` -> number
+      completed: {},        // key: `${questionId}_${mode}` -> true
+      attemptRecords: {},   // key: `${sectionKey}` -> { [questionId]: { isCorrect, userAnswer } }
+      partScores: {},       // key: `${sectionKey}` -> { bestScore, lastScore, correctCount, totalCount }
+      wrongItems: [],       // array of { id, lesson, grammar, part, timestamp }
+      lastSession: null     // { lesson, grammar, part, mode, index, timestamp }
+    };
+
+    // Runtime UI state
+    let topView = "study";          // "study" | "report" | "review"
+    let reviewModeType = 1;         // 1 | 2 | 3
+    let reviewIndex = 0;
+    let reviewAttempts = {};        // { [questionId]: { isCorrect, userAnswer } }
+    let retrySubsetIds = null;      // null or string[] when retrying wrong items in current part
+    let scrambleSelected = [];      // [{ word, origIdx }]
+    let scramblePool = [];          // [{ word, origIdx, used }]
+    let currentQuestionChecked = false;
+    let hintVisible = false;
+    let guideExpanded = false;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          appState = {
+            ...appState,
+            ...parsed,
+            indices: parsed.indices || {},
+            completed: parsed.completed || {},
+            attemptRecords: parsed.attemptRecords || {},
+            partScores: parsed.partScores || {},
+            wrongItems: Array.isArray(parsed.wrongItems) ? parsed.wrongItems : []
+          };
+        }
+      } catch (err) {
+        console.error("State load error:", err);
+      }
+    }
+
+    function saveState() {
+      try {
+        const curIdx = getCurrentIndex();
+        appState.lastSession = {
+          lesson: appState.lesson,
+          grammar: appState.grammar,
+          part: appState.part,
+          mode: appState.mode,
+          index: curIdx,
+          timestamp: Date.now()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (err) {
+        console.error("State save error:", err);
+      }
+    }
+
+    /**
+     * ============================================================================
+     * 3. DATA & INDEX HELPERS
+     * ============================================================================
+     */
+    function getSectionKey(grammar = appState.grammar, part = appState.part, mode = appState.mode) {
+      return `${grammar}_${part}_${mode}`;
+    }
+
+    function findQuestionById(qId) {
+      for (const lKey of Object.keys(CURRICULUM_DATA)) {
+        const grammars = CURRICULUM_DATA[lKey].grammars;
+        for (const gKey of Object.keys(grammars)) {
+          const gObj = grammars[gKey];
+          for (const pKey of ["textbook", "application"]) {
+            const found = gObj[pKey].find(item => item.id === qId);
+            if (found) {
+              return { ...found, lesson: lKey, grammar: gKey, part: pKey };
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    function getFullSectionQuestions() {
+      if (topView === "review") {
+        return appState.wrongItems
+          .map(w => findQuestionById(w.id))
+          .filter(Boolean);
+      }
+      const gObj = CURRICULUM_DATA[appState.lesson]?.grammars?.[appState.grammar];
+      return gObj ? gObj[appState.part] : [];
+    }
+
+    function getActiveQuestions() {
+      const fullList = getFullSectionQuestions();
+      if (topView === "study" && Array.isArray(retrySubsetIds) && retrySubsetIds.length > 0) {
+        return fullList.filter(q => retrySubsetIds.includes(q.id));
+      }
+      return fullList;
+    }
+
+    function getCurrentIndex() {
+      const list = getActiveQuestions();
+      if (list.length === 0) return 0;
+      if (topView === "review") {
+        if (reviewIndex >= list.length) reviewIndex = 0;
+        return reviewIndex;
+      }
+      const key = getSectionKey();
+      let idx = appState.indices[key] || 0;
+      if (idx >= list.length || idx < 0) {
+        idx = 0;
+        appState.indices[key] = 0;
+      }
+      return idx;
+    }
+
+    function setCurrentIndex(newIdx) {
+      const list = getActiveQuestions();
+      if (list.length === 0) return;
+      const clamped = Math.max(0, Math.min(newIdx, list.length - 1));
+      if (topView === "review") {
+        reviewIndex = clamped;
+      } else {
+        const key = getSectionKey();
+        appState.indices[key] = clamped;
+        saveState();
+      }
+    }
+
+    /**
+     * Flexible English Answer Normalization
+     * Handles case, trailing punctuation, extra spaces, smart quotes, and common contractions.
+     */
+    function normalizeEnglish(str) {
+      if (!str) return "";
+      let s = str
+        .trim()
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/[\u201C\u201D]/g, '"')
+        .toLowerCase();
+
+      // Expand standard Grade 1 contractions so both forms are accepted as correct
+      const contractions = [
+        [/\bi'm\b/g, "i am"],
+        [/\byou're\b/g, "you are"],
+        [/\bhe's\b/g, "he is"],
+        [/\bshe's\b/g, "she is"],
+        [/\bit's\b/g, "it is"],
+        [/\bwe're\b/g, "we are"],
+        [/\bthey're\b/g, "they are"],
+        [/\bdon't\b/g, "do not"],
+        [/\bdoesn't\b/g, "does not"],
+        [/\bdidn't\b/g, "did not"],
+        [/\bcan't\b/g, "cannot"],
+        [/\bcannot\b/g, "cannot"],
+        [/\bwon't\b/g, "will not"],
+        [/\bi'll\b/g, "i will"],
+        [/\blet's\b/g, "let us"],
+        [/\bisn't\b/g, "is not"],
+        [/\baren't\b/g, "are not"],
+        [/\bwasn't\b/g, "was not"],
+        [/\bweren't\b/g, "were not"]
+      ];
+
+      contractions.forEach(([regex, replacement]) => {
+        s = s.replace(regex, replacement);
+      });
+
+      // Normalize accented 'e' in café -> cafe
+      s = s.replace(/é/g, "e");
+
+      // Remove punctuation except hyphens inside words
+      s = s.replace(/[.,!?;:'"()]/g, "");
+      // Collapse whitespace
+      s = s.replace(/\s+/g, " ").trim();
+      return s;
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById("toast-box");
+      box.textContent = msg;
+      box.classList.remove("hidden");
+      clearTimeout(box._timer);
+      box._timer = setTimeout(() => {
+        box.classList.add("hidden");
+      }, 2400);
+    }
+
+    /**
+     * ============================================================================
+     * 4. NAVIGATION & SELECTION HANDLERS
+     * ============================================================================
+     */
+    function switchTopView(viewName) {
+      topView = viewName;
+      if (viewName === "review") {
+        reviewIndex = 0;
+        reviewAttempts = {};
+        retrySubsetIds = null;
+      } else if (viewName === "report") {
+        computeAndSavePartScore();
+      }
+      renderApp();
+    }
+
+    function selectLesson(lessonId) {
+      appState.lesson = lessonId;
+      retrySubsetIds = null;
+      const gKeys = Object.keys(CURRICULUM_DATA[lessonId].grammars);
+      if (!gKeys.includes(appState.grammar)) {
+        appState.grammar = gKeys[0];
+      }
+      if (topView === "review") topView = "study";
+      saveState();
+      renderApp();
+    }
+
+    function selectGrammar(grammarId) {
+      appState.grammar = grammarId;
+      retrySubsetIds = null;
+      if (topView === "review") topView = "study";
+      saveState();
+      renderApp();
+    }
+
+    function selectPart(partKey) {
+      appState.part = partKey;
+      retrySubsetIds = null;
+      if (topView === "review") topView = "study";
+      saveState();
+      renderApp();
+    }
+
+    function selectMode(modeNum) {
+      appState.mode = modeNum;
+      retrySubsetIds = null;
+      if (topView === "review") topView = "study";
+      saveState();
+      renderApp();
+    }
+
+    function setReviewModeType(modeNum) {
+      reviewModeType = modeNum;
+      reviewAttempts = {};
+      renderApp();
+    }
+
+    function checkResumeBanner() {
+      if (!appState.lastSession) return;
+      const { lesson, grammar, part, mode, index, timestamp } = appState.lastSession;
+      const gData = CURRICULUM_DATA[lesson]?.grammars?.[grammar];
+      if (!gData) return;
+
+      const partText = part === "textbook" ? "교과서 핵심" : "응용 영작";
+      const modeNames = { 1: "1단계 빈칸 넣기", 2: "2단계 단어 정렬하기", 3: "3단계 직접 영작하기" };
+      const qNum = (index || 0) + 1;
+
+      const d = new Date(timestamp);
+      const timeStr = `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")} 저장됨`;
+
+      document.getElementById("resume-time").textContent = timeStr;
+      document.getElementById("resume-desc").textContent =
+        `이어하기: ${lesson}과 > ${gData.shortName} > ${partText} > ${modeNames[mode]} (${qNum}번 문항)`;
+      document.getElementById("resume-banner").classList.remove("hidden");
+    }
+
+    function applyResume() {
+      if (!appState.lastSession) return;
+      topView = "study";
+      retrySubsetIds = null;
+      appState.lesson = appState.lastSession.lesson;
+      appState.grammar = appState.lastSession.grammar;
+      appState.part = appState.lastSession.part;
+      appState.mode = appState.lastSession.mode;
+      const key = getSectionKey();
+      appState.indices[key] = appState.lastSession.index || 0;
+      document.getElementById("resume-banner").classList.add("hidden");
+      renderApp();
+      showToast("이전 학습 위치로 이동했습니다.");
+    }
+
+    function dismissResumeBanner() {
+      document.getElementById("resume-banner").classList.add("hidden");
+    }
+
+    /**
+     * ============================================================================
+     * 5. MASTER UI RENDERING
+     * ============================================================================
+     */
+    function renderApp() {
+      updateTopNavStyles();
+      renderSelectorPanel();
+      renderWorkspaceCard();
+      renderGrammarGuide();
+    }
+
+    function updateTopNavStyles() {
+      document.getElementById("wrong-count-badge").textContent = appState.wrongItems.length;
+
+      const btnStudy = document.getElementById("nav-btn-study");
+      const btnReport = document.getElementById("nav-btn-report");
+      const btnReview = document.getElementById("nav-btn-review");
+
+      btnStudy.className = topView === "study"
+        ? "px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-xs transition"
+        : "px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+
+      btnReport.className = topView === "report"
+        ? "px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-xs transition"
+        : "px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+
+      btnReview.className = topView === "review"
+        ? "px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-rose-600 text-white shadow-xs transition flex items-center gap-1.5"
+        : "px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition flex items-center gap-1.5";
+    }
+
+    function renderSelectorPanel() {
+      const selectorPanel = document.getElementById("selector-panel");
+      const reviewBanner = document.getElementById("review-banner-panel");
+
+      if (topView === "review") {
+        selectorPanel.classList.add("hidden");
+        reviewBanner.classList.remove("hidden");
+
+        [1, 2, 3].forEach(m => {
+          const btn = document.getElementById(`rev-type-${m}`);
+          btn.className = reviewModeType === m
+            ? "px-3 py-1.5 rounded-lg text-xs font-bold border bg-rose-600 text-white border-rose-600 shadow-2xs transition"
+            : "px-3 py-1.5 rounded-lg text-xs font-bold border bg-white text-rose-700 border-rose-200 hover:bg-rose-100 transition";
+        });
+        return;
+      }
+
+      selectorPanel.classList.remove("hidden");
+      reviewBanner.classList.add("hidden");
+
+      // Lesson Tabs
+      ["6", "7"].forEach(l => {
+        const tab = document.getElementById(`tab-lesson-${l}`);
+        tab.className = appState.lesson === l
+          ? "py-2.5 px-3 rounded-xl text-sm sm:text-base font-bold transition flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 bg-white text-indigo-700 shadow-xs"
+          : "py-2.5 px-3 rounded-xl text-sm sm:text-base font-bold transition flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-slate-600 hover:text-slate-900";
+      });
+
+      // Overall Lesson Progress
+      const lessonData = CURRICULUM_DATA[appState.lesson];
+      let totalTasks = 0;
+      let doneTasks = 0;
+      Object.values(lessonData.grammars).forEach(g => {
+        ["textbook", "application"].forEach(p => {
+          g[p].forEach(q => {
+            [1, 2, 3].forEach(m => {
+              totalTasks++;
+              if (appState.completed[`${q.id}_${m}`]) doneTasks++;
+            });
+          });
+        });
+      });
+      const lessonPct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+      document.getElementById("lesson-progress-label").textContent = `Lesson ${appState.lesson} 전체 진도율 ${lessonPct}%`;
+
+      // Grammar Buttons
+      const grammarGrid = document.getElementById("grammar-buttons-grid");
+      grammarGrid.innerHTML = "";
+      Object.values(lessonData.grammars).forEach(g => {
+        let gTotal = 0;
+        let gDone = 0;
+        ["textbook", "application"].forEach(p => {
+          g[p].forEach(q => {
+            [1, 2, 3].forEach(m => {
+              gTotal++;
+              if (appState.completed[`${q.id}_${m}`]) gDone++;
+            });
+          });
+        });
+        const gPct = gTotal > 0 ? Math.round((gDone / gTotal) * 100) : 0;
+        const selected = appState.grammar === g.id;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.onclick = () => selectGrammar(g.id);
+        btn.className = selected
+          ? "p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50/70 text-left transition space-y-2"
+          : "p-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition space-y-2";
+
+        btn.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <span class="text-xs sm:text-sm font-bold ${selected ? "text-indigo-900" : "text-slate-800"} leading-snug">${g.name}</span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${selected ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-600"}">${gPct}%</span>
+          </div>
+          <div class="w-full h-1.5 bg-slate-200/80 rounded-full overflow-hidden">
+            <div class="h-full ${selected ? "bg-indigo-600" : "bg-slate-400"} transition-all" style="width: ${gPct}%"></div>
+          </div>
+        `;
+        grammarGrid.appendChild(btn);
+      });
+
+      // Part Buttons (Textbook vs Application) with Score Badges
+      const curGrammarObj = lessonData.grammars[appState.grammar];
+      ["textbook", "application"].forEach(pKey => {
+        const btn = document.getElementById(`btn-part-${pKey}`);
+        const badge = document.getElementById(`badge-part-${pKey}`);
+        const scoreText = document.getElementById(`score-part-${pKey}`);
+
+        const qList = curGrammarObj[pKey];
+        const doneCount = qList.filter(q => appState.completed[`${q.id}_${appState.mode}`]).length;
+        const secKey = getSectionKey(appState.grammar, pKey, appState.mode);
+        const savedScore = appState.partScores[secKey];
+
+        badge.textContent = `${doneCount}/${qList.length}`;
+        if (savedScore) {
+          scoreText.textContent = `최고 ${savedScore.bestScore}점 · 최근 ${savedScore.lastScore}점`;
+          scoreText.className = savedScore.bestScore >= 80
+            ? "font-extrabold text-emerald-600"
+            : "font-extrabold text-amber-600";
+        } else {
+          scoreText.textContent = "미응시";
+          scoreText.className = "font-semibold text-slate-400";
+        }
+
+        if (appState.part === pKey) {
+          btn.className = "p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 text-left transition flex flex-col justify-between gap-1.5";
+          badge.className = "text-xs font-bold px-2 py-0.5 rounded-full bg-indigo-600 text-white";
+        } else {
+          btn.className = "p-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-left transition flex flex-col justify-between gap-1.5";
+          badge.className = "text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600";
+        }
+      });
+
+      // Mode Buttons (1, 2, 3) with Score Badges
+      const activeList = curGrammarObj[appState.part];
+      [1, 2, 3].forEach(m => {
+        const btn = document.getElementById(`btn-mode-${m}`);
+        const progEl = document.getElementById(`prog-mode-${m}`);
+        const scoreBadge = document.getElementById(`score-badge-mode-${m}`);
+
+        const doneNum = activeList.filter(q => appState.completed[`${q.id}_${m}`]).length;
+        progEl.textContent = `${doneNum}/${activeList.length} 완료`;
+
+        const secKey = getSectionKey(appState.grammar, appState.part, m);
+        const savedScore = appState.partScores[secKey];
+        if (savedScore) {
+          scoreBadge.textContent = `${savedScore.bestScore}점`;
+          scoreBadge.classList.remove("hidden");
+          scoreBadge.className = savedScore.bestScore === 100
+            ? "text-[11px] font-extrabold px-1.5 py-0.5 rounded-md bg-emerald-600 text-white"
+            : "text-[11px] font-extrabold px-1.5 py-0.5 rounded-md bg-indigo-600 text-white";
+        } else {
+          scoreBadge.classList.add("hidden");
+        }
+
+        btn.className = appState.mode === m
+          ? "p-2.5 sm:p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 text-center transition flex flex-col items-center gap-1 shadow-2xs"
+          : "p-2.5 sm:p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-center transition flex flex-col items-center gap-1";
+      });
+    }
+
+    function renderGrammarGuide() {
+      const gObj = CURRICULUM_DATA[appState.lesson]?.grammars?.[appState.grammar];
+      document.getElementById("grammar-guide-body").innerHTML = gObj ? gObj.guide : "";
+    }
+
+    function toggleGrammarGuide() {
+      guideExpanded = !guideExpanded;
+      const body = document.getElementById("grammar-guide-body");
+      const label = document.getElementById("grammar-guide-toggle-text");
+      if (guideExpanded) {
+        body.classList.remove("hidden");
+        label.textContent = "접기 ▲";
+      } else {
+        body.classList.add("hidden");
+        label.textContent = "펼치기 ▼";
+      }
+    }
+
+    /**
+     * ============================================================================
+     * 6. WORKSPACE CARD (QUESTION VIEW VS RESULT REPORT VIEW)
+     * ============================================================================
+     */
+    function renderWorkspaceCard() {
+      const viewEmpty = document.getElementById("view-review-empty");
+      const viewQuestion = document.getElementById("view-question-body");
+      const viewReport = document.getElementById("view-result-report");
+      const navControls = document.getElementById("card-nav-controls");
+
+      if (topView === "report") {
+        viewEmpty.classList.add("hidden");
+        viewQuestion.classList.add("hidden");
+        viewReport.classList.remove("hidden");
+        navControls.classList.add("hidden");
+        document.getElementById("card-tag-done").classList.add("hidden");
+        renderReportView();
+        return;
+      }
+
+      viewReport.classList.add("hidden");
+      navControls.classList.remove("hidden");
+
+      const questions = getActiveQuestions();
+      if (questions.length === 0) {
+        viewEmpty.classList.remove("hidden");
+        viewQuestion.classList.add("hidden");
+        document.getElementById("card-counter").textContent = "0 / 0";
+        document.getElementById("card-jump-select").innerHTML = "";
+        document.getElementById("card-progress-bar").style.width = "0%";
+        return;
+      }
+
+      viewEmpty.classList.add("hidden");
+      viewQuestion.classList.remove("hidden");
+
+      const idx = getCurrentIndex();
+      const q = questions[idx];
+      const activeMode = topView === "review" ? reviewModeType : appState.mode;
+
+      // Reset current question UI states
+      currentQuestionChecked = false;
+      hintVisible = false;
+      document.getElementById("hint-container").classList.add("hidden");
+      document.getElementById("btn-hint-toggle").textContent = "핵심 어휘 힌트 보기";
+      document.getElementById("feedback-panel").classList.add("hidden");
+      document.getElementById("btn-remove-wrong").classList.add("hidden");
+
+      const btnSubmit = document.getElementById("btn-submit-answer");
+      btnSubmit.disabled = false;
+      btnSubmit.classList.remove("opacity-50");
+
+      // Header Tags
+      const lessonNum = q.lesson || appState.lesson;
+      const partKey = q.part || appState.part;
+      document.getElementById("card-tag-lesson").textContent = `Lesson ${lessonNum}`;
+      const isSubset = topView === "study" && Array.isArray(retrySubsetIds) && retrySubsetIds.length > 0;
+      document.getElementById("card-tag-part").textContent = isSubset
+        ? "오답만 다시 풀기"
+        : (partKey === "textbook" ? "교과서 핵심 문장" : "단어 활용 응용 영작");
+
+      const doneBadge = document.getElementById("card-tag-done");
+      if (appState.completed[`${q.id}_${activeMode}`]) {
+        doneBadge.classList.remove("hidden");
+      } else {
+        doneBadge.classList.add("hidden");
+      }
+
+      // Counter & Progress Bar
+      document.getElementById("card-counter").textContent = `${idx + 1} / ${questions.length}`;
+      const pct = Math.round(((idx + 1) / questions.length) * 100);
+      document.getElementById("card-progress-bar").style.width = `${pct}%`;
+
+      // Jump Dropdown
+      const selectEl = document.getElementById("card-jump-select");
+      selectEl.innerHTML = "";
+      questions.forEach((item, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        const mark = appState.completed[`${item.id}_${activeMode}`] ? "✓ " : "";
+        opt.textContent = `${mark}${i + 1}번 문항`;
+        if (i === idx) opt.selected = true;
+        selectEl.appendChild(opt);
+      });
+
+      // Prev / Next Buttons
+      document.getElementById("btn-prev-q").disabled = idx === 0;
+      const btnNext = document.getElementById("btn-next-q");
+      if (idx === questions.length - 1) {
+        btnNext.innerHTML = "결과 보기 &rarr;";
+        btnNext.className = "px-3.5 py-2.5 rounded-xl border border-indigo-300 bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-bold hover:bg-indigo-100 transition";
+      } else {
+        btnNext.innerHTML = "다음 문항 &rarr;";
+        btnNext.className = "px-3.5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-50 transition";
+      }
+
+      // Prompt & Hint
+      document.getElementById("prompt-korean").textContent = q.ko;
+      document.getElementById("prompt-hint").textContent = q.hint;
+
+      // Render Active Stage Area
+      document.getElementById("stage-1-area").classList.add("hidden");
+      document.getElementById("stage-2-area").classList.add("hidden");
+      document.getElementById("stage-3-area").classList.add("hidden");
+
+      if (activeMode === 1) {
+        renderStage1Blanks(q);
+      } else if (activeMode === 2) {
+        renderStage2Scramble(q);
+      } else {
+        renderStage3FullWriting(q);
+      }
+    }
+
+    function toggleHint() {
+      hintVisible = !hintVisible;
+      const box = document.getElementById("hint-container");
+      const btn = document.getElementById("btn-hint-toggle");
+      if (hintVisible) {
+        box.classList.remove("hidden");
+        btn.textContent = "핵심 어휘 힌트 숨기기";
+      } else {
+        box.classList.add("hidden");
+        btn.textContent = "핵심 어휘 힌트 보기";
+      }
+    }
+
+    /**
+     * STAGE 1: Fill in the Blanks
+     */
+    function renderStage1Blanks(q) {
+      const area = document.getElementById("stage-1-area");
+      const box = document.getElementById("blank-sentence-box");
+      area.classList.remove("hidden");
+      box.innerHTML = "";
+
+      const tokens = q.en.split(" ");
+      const targetBlanks = [...q.blanks];
+      let blankIdx = 0;
+
+      tokens.forEach(token => {
+        const match = token.match(/^([^a-zA-Z0-9'-]*)([a-zA-Z0-9'-]+)([^a-zA-Z0-9'-]*)$/);
+        if (match && blankIdx < targetBlanks.length) {
+          const [, prefix, wordCore, suffix] = match;
+          if (wordCore.toLowerCase() === targetBlanks[blankIdx].toLowerCase()) {
+            if (prefix) box.appendChild(document.createTextNode(prefix));
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.autocomplete = "off";
+            input.autocorrect = "off";
+            input.autocapitalize = "off";
+            input.spellcheck = false;
+            input.dataset.answer = wordCore;
+            input.placeholder = `${wordCore[0]}${"_".repeat(Math.max(2, wordCore.length - 1))}`;
+            input.style.width = `${Math.max(76, wordCore.length * 13 + 22)}px`;
+            input.className = "blank-field mx-1 my-1 px-2 py-1 text-center border-b-2 border-indigo-500 bg-white rounded-md text-indigo-900 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-400";
+
+            input.addEventListener("keydown", e => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                if (!currentQuestionChecked) {
+                  checkAnswer();
+                } else {
+                  nextQuestion();
+                }
+              }
+            });
+
+            box.appendChild(input);
+            if (suffix) box.appendChild(document.createTextNode(suffix));
+            box.appendChild(document.createTextNode(" "));
+            blankIdx++;
+            return;
+          }
+        }
+
+        const span = document.createElement("span");
+        span.textContent = token + " ";
+        box.appendChild(span);
+      });
+
+      const firstField = box.querySelector("input");
+      if (firstField) setTimeout(() => firstField.focus(), 40);
+    }
+
+    /**
+     * STAGE 2: Word Scramble
+     */
+    function renderStage2Scramble(q) {
+      const area = document.getElementById("stage-2-area");
+      area.classList.remove("hidden");
+
+      const words = q.en.split(" ");
+      scrambleSelected = [];
+      scramblePool = words.map((w, idx) => ({
+        word: w,
+        origIdx: idx,
+        used: false
+      }));
+
+      if (scramblePool.length > 1) {
+        let tries = 0;
+        do {
+          for (let i = scramblePool.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [scramblePool[i], scramblePool[j]] = [scramblePool[j], scramblePool[i]];
+          }
+          tries++;
+        } while (tries < 12 && scramblePool.map(x => x.word).join(" ") === q.en);
+      }
+
+      renderScrambleZones();
+    }
+
+    function renderScrambleZones() {
+      const answerZone = document.getElementById("scramble-answer-zone");
+      const poolZone = document.getElementById("scramble-pool-zone");
+
+      answerZone.innerHTML = "";
+      if (scrambleSelected.length === 0) {
+        answerZone.innerHTML = '<span class="text-xs text-slate-400 select-none">단어 카드를 클릭하면 이곳에 순서대로 배치됩니다.</span>';
+      } else {
+        scrambleSelected.forEach((item, idx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = item.word;
+          btn.className = "chip-btn px-3 py-1.5 rounded-xl bg-indigo-600 text-white en-font font-semibold text-sm sm:text-base shadow-2xs hover:bg-indigo-700";
+          btn.onclick = () => {
+            if (currentQuestionChecked) return;
+            const poolObj = scramblePool.find(p => p.origIdx === item.origIdx);
+            if (poolObj) poolObj.used = false;
+            scrambleSelected.splice(idx, 1);
+            renderScrambleZones();
+          };
+          answerZone.appendChild(btn);
+        });
+      }
+
+      poolZone.innerHTML = "";
+      scramblePool.forEach(item => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = item.word;
+        if (item.used) {
+          btn.disabled = true;
+          btn.className = "px-3 py-1.5 rounded-xl bg-slate-200/70 text-slate-400 en-font font-semibold text-sm sm:text-base border border-slate-200 cursor-default";
+        } else {
+          btn.className = "chip-btn px-3 py-1.5 rounded-xl bg-white text-slate-800 en-font font-semibold text-sm sm:text-base border border-slate-300 shadow-2xs hover:border-indigo-500 hover:text-indigo-700";
+          btn.onclick = () => {
+            if (currentQuestionChecked) return;
+            item.used = true;
+            scrambleSelected.push({ word: item.word, origIdx: item.origIdx });
+            renderScrambleZones();
+          };
+        }
+        poolZone.appendChild(btn);
+      });
+    }
+
+    function resetScramble() {
+      if (currentQuestionChecked) return;
+      scrambleSelected = [];
+      scramblePool.forEach(p => (p.used = false));
+      renderScrambleZones();
+    }
+
+    /**
+     * STAGE 3: Full Sentence Writing
+     */
+    function renderStage3FullWriting(q) {
+      const area = document.getElementById("stage-3-area");
+      const input = document.getElementById("full-input-box");
+      area.classList.remove("hidden");
+      input.value = "";
+      input.disabled = false;
+      input.className = "w-full p-3.5 rounded-xl border-2 border-slate-300 focus:border-indigo-600 focus:outline-none text-base sm:text-lg en-font font-medium text-slate-900 bg-white transition";
+      setTimeout(() => input.focus(), 40);
+    }
+
+    /**
+     * ============================================================================
+     * 7. ANSWER EVALUATION & FEEDBACK
+     * ============================================================================
+     */
+    function checkAnswer() {
+      const questions = getActiveQuestions();
+      if (questions.length === 0) return;
+      const idx = getCurrentIndex();
+      const q = questions[idx];
+      const activeMode = topView === "review" ? reviewModeType : appState.mode;
+
+      let isCorrect = false;
+      let userAnswerStr = "";
+
+      if (activeMode === 1) {
+        const fields = Array.from(document.querySelectorAll("#blank-sentence-box .blank-field"));
+        if (fields.some(f => !f.value.trim())) {
+          showToast("모든 빈칸을 입력해 주세요.");
+          return;
+        }
+        isCorrect = true;
+        userAnswerStr = fields.map(f => f.value.trim()).join(" / ");
+        fields.forEach(f => {
+          const uVal = normalizeEnglish(f.value);
+          const aVal = normalizeEnglish(f.dataset.answer);
+          if (uVal === aVal) {
+            f.classList.remove("border-indigo-500", "border-rose-500", "bg-rose-50");
+            f.classList.add("border-emerald-600", "bg-emerald-50", "text-emerald-800");
+          } else {
+            isCorrect = false;
+            f.classList.remove("border-indigo-500", "border-emerald-600", "bg-emerald-50");
+            f.classList.add("border-rose-500", "bg-rose-50", "text-rose-800");
+          }
+          f.disabled = true;
+        });
+      } else if (activeMode === 2) {
+        if (scrambleSelected.length < scramblePool.length) {
+          showToast("모든 단어 카드를 순서대로 배치해 주세요.");
+          return;
+        }
+        userAnswerStr = scrambleSelected.map(x => x.word).join(" ");
+        isCorrect = normalizeEnglish(userAnswerStr) === normalizeEnglish(q.en);
+      } else {
+        const input = document.getElementById("full-input-box");
+        if (!input.value.trim()) {
+          showToast("영어 문장을 입력해 주세요.");
+          return;
+        }
+        userAnswerStr = input.value.trim();
+        isCorrect = normalizeEnglish(userAnswerStr) === normalizeEnglish(q.en);
+        input.disabled = true;
+        input.classList.add(isCorrect ? "border-emerald-500" : "border-rose-500");
+        input.classList.add(isCorrect ? "bg-emerald-50/40" : "bg-rose-50/40");
+      }
+
+      processAttemptResult(q, activeMode, isCorrect, false, userAnswerStr);
+    }
+
+    function revealAnswer() {
+      const questions = getActiveQuestions();
+      if (questions.length === 0) return;
+      const idx = getCurrentIndex();
+      const q = questions[idx];
+      const activeMode = topView === "review" ? reviewModeType : appState.mode;
+
+      if (activeMode === 1) {
+        document.querySelectorAll("#blank-sentence-box .blank-field").forEach(f => {
+          f.value = f.dataset.answer;
+          f.disabled = true;
+          f.classList.add("bg-slate-100", "text-slate-700");
+        });
+      } else if (activeMode === 3) {
+        document.getElementById("full-input-box").disabled = true;
+      }
+
+      processAttemptResult(q, activeMode, false, true, "(정답 바로 확인)");
+    }
+
+    function processAttemptResult(q, activeMode, isCorrect, wasSkipped, userAnswerStr) {
+      currentQuestionChecked = true;
+      const btnSubmit = document.getElementById("btn-submit-answer");
+      btnSubmit.disabled = true;
+      btnSubmit.classList.add("opacity-50");
+
+      // Record user attempt
+      if (topView === "review") {
+        reviewAttempts[q.id] = { isCorrect, userAnswer: userAnswerStr || "(미입력)" };
+      } else {
+        const secKey = getSectionKey();
+        if (!appState.attemptRecords[secKey]) {
+          appState.attemptRecords[secKey] = {};
+        }
+        appState.attemptRecords[secKey][q.id] = {
+          isCorrect,
+          userAnswer: userAnswerStr || "(미입력)"
+        };
+      }
+
+      const fbPanel = document.getElementById("feedback-panel");
+      const fbIcon = document.getElementById("fb-badge-icon");
+      const fbTitle = document.getElementById("fb-title-text");
+      const fbModel = document.getElementById("fb-model-answer");
+      const fbExp = document.getElementById("fb-grammar-explanation");
+      const btnRemoveWrong = document.getElementById("btn-remove-wrong");
+
+      fbPanel.classList.remove("hidden", "bg-emerald-50", "border-emerald-200", "bg-rose-50", "border-rose-200");
+
+      if (isCorrect) {
+        appState.completed[`${q.id}_${activeMode}`] = true;
+        document.getElementById("card-tag-done").classList.remove("hidden");
+
+        fbPanel.classList.add("bg-emerald-50", "border-emerald-200");
+        fbIcon.className = "w-6 h-6 rounded-full flex items-center justify-center text-xs font-extrabold text-white bg-emerald-600";
+        fbIcon.textContent = "✓";
+        fbTitle.className = "font-bold text-sm sm:text-base text-emerald-900";
+        fbTitle.textContent = "정답입니다! 아주 잘했어요.";
+
+        if (appState.wrongItems.some(w => w.id === q.id)) {
+          btnRemoveWrong.classList.remove("hidden");
+        }
+      } else {
+        if (!appState.wrongItems.some(w => w.id === q.id)) {
+          appState.wrongItems.push({
+            id: q.id,
+            lesson: q.lesson || appState.lesson,
+            grammar: q.grammar || appState.grammar,
+            part: q.part || appState.part,
+            timestamp: Date.now()
+          });
+        }
+
+        fbPanel.classList.add("bg-rose-50", "border-rose-200");
+        fbIcon.className = "w-6 h-6 rounded-full flex items-center justify-center text-xs font-extrabold text-white bg-rose-600";
+        fbIcon.textContent = "!";
+        fbTitle.className = "font-bold text-sm sm:text-base text-rose-900";
+        fbTitle.textContent = wasSkipped
+          ? "모범 정답을 확인했습니다. (오답 복습 목록에 자동 추가됨)"
+          : "오답입니다! 오답 복습 목록에 자동 저장되었습니다.";
+      }
+
+      fbModel.textContent = q.en;
+      fbExp.innerHTML = `<strong class="text-indigo-700">[문법 포인트]</strong> ${q.note}`;
+
+      computeAndSavePartScore();
+      saveState();
+      updateTopNavStyles();
+      if (topView === "study") {
+        renderSelectorPanel();
+      }
+    }
+
+    function removeCurrentFromWrong() {
+      const questions = getActiveQuestions();
+      if (questions.length === 0) return;
+      const q = questions[getCurrentIndex()];
+
+      appState.wrongItems = appState.wrongItems.filter(w => w.id !== q.id);
+      saveState();
+      updateTopNavStyles();
+      showToast("오답 복습 목록에서 제거되었습니다.");
+
+      if (topView === "review") {
+        renderWorkspaceCard();
+      } else {
+        document.getElementById("btn-remove-wrong").classList.add("hidden");
+      }
+    }
+
+    /**
+     * ============================================================================
+     * 8. SCORE CALCULATION & REPORT VIEW RENDERING
+     * ============================================================================
+     */
+    function computeAndSavePartScore() {
+      if (topView === "review") return;
+      const fullList = getFullSectionQuestions();
+      if (fullList.length === 0) return;
+
+      const secKey = getSectionKey();
+      const records = appState.attemptRecords[secKey] || {};
+      const attemptedCount = Object.keys(records).length;
+      if (attemptedCount === 0) return;
+
+      let correctCount = 0;
+      fullList.forEach(item => {
+        if (records[item.id]?.isCorrect) correctCount++;
+      });
+
+      const score = Math.round((correctCount / fullList.length) * 100);
+      const prevBest = appState.partScores[secKey]?.bestScore ?? 0;
+
+      appState.partScores[secKey] = {
+        bestScore: Math.max(prevBest, score),
+        lastScore: score,
+        correctCount,
+        totalCount: fullList.length
+      };
+    }
+
+    function renderReportView() {
+      const fullList = getFullSectionQuestions();
+      const secKey = getSectionKey();
+      const records = appState.attemptRecords[secKey] || {};
+
+      let correctCount = 0;
+      fullList.forEach(item => {
+        if (records[item.id]?.isCorrect) correctCount++;
+      });
+
+      const totalCount = fullList.length;
+      const score = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0;
+
+      const gObj = CURRICULUM_DATA[appState.lesson].grammars[appState.grammar];
+      const partLabel = appState.part === "textbook" ? "교과서 핵심 문장" : "단어 활용 응용 영작";
+      const modeLabels = { 1: "1단계 빈칸 넣기", 2: "2단계 단어 정렬하기", 3: "3단계 직접 영작하기" };
+
+      document.getElementById("card-tag-lesson").textContent = `Lesson ${appState.lesson}`;
+      document.getElementById("card-tag-part").textContent = `${partLabel} · 성적표`;
+      document.getElementById("report-subtitle").textContent =
+        `Lesson ${appState.lesson} · ${gObj.shortName} · ${partLabel} · ${modeLabels[appState.mode]}`;
+
+      document.getElementById("report-score-value").textContent = score;
+      document.getElementById("report-correct-num").textContent = correctCount;
+      document.getElementById("report-total-num").textContent = totalCount;
+
+      const gradeBadge = document.getElementById("report-grade-badge");
+      if (score >= 90) {
+        gradeBadge.textContent = "S 등급 (최우수)";
+        gradeBadge.className = "px-2.5 py-0.5 rounded-md text-xs font-extrabold bg-emerald-600 text-white";
+      } else if (score >= 80) {
+        gradeBadge.textContent = "A 등급 (우수)";
+        gradeBadge.className = "px-2.5 py-0.5 rounded-md text-xs font-extrabold bg-indigo-600 text-white";
+      } else if (score >= 60) {
+        gradeBadge.textContent = "B 등급 (보통)";
+        gradeBadge.className = "px-2.5 py-0.5 rounded-md text-xs font-extrabold bg-amber-500 text-white";
+      } else {
+        gradeBadge.textContent = "C 등급 (복습 필요)";
+        gradeBadge.className = "px-2.5 py-0.5 rounded-md text-xs font-extrabold bg-rose-600 text-white";
+      }
+
+      const bestScoreVal = appState.partScores[secKey]?.bestScore ?? score;
+      document.getElementById("report-best-label").textContent = `역대 최고 점수: ${bestScoreVal}점`;
+
+      // Breakdown Table
+      const tbody = document.getElementById("report-table-body");
+      tbody.innerHTML = "";
+      const wrongIds = [];
+
+      fullList.forEach((q, idx) => {
+        const rec = records[q.id];
+        const isCorrect = rec ? rec.isCorrect : false;
+        if (!isCorrect) wrongIds.push(q.id);
+
+        const tr = document.createElement("tr");
+        tr.className = isCorrect ? "bg-white" : "bg-rose-50/40";
+        tr.innerHTML = `
+          <td class="py-3 px-3 text-center font-bold text-slate-600">${idx + 1}</td>
+          <td class="py-3 px-3 space-y-0.5">
+            <p class="font-semibold text-slate-800">${q.ko}</p>
+            <p class="en-font text-xs font-bold text-indigo-700">${q.en}</p>
+          </td>
+          <td class="py-3 px-3 en-font text-xs ${isCorrect ? "text-emerald-700 font-semibold" : "text-rose-700 font-medium"}">
+            ${rec ? rec.userAnswer : '<span class="text-slate-400 italic">미응시</span>'}
+          </td>
+          <td class="py-3 px-3 text-center">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-extrabold ${isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"}">
+              ${isCorrect ? "O" : "X"}
+            </span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const btnRetryWrong = document.getElementById("btn-report-retry-wrong");
+      if (wrongIds.length > 0) {
+        btnRetryWrong.classList.remove("hidden");
+        btnRetryWrong.textContent = `오답만 다시 풀기 (${wrongIds.length}문항)`;
+      } else {
+        btnRetryWrong.classList.add("hidden");
+      }
+
+      const btnNextStage = document.getElementById("btn-report-next-stage");
+      if (appState.mode < 3) {
+        btnNextStage.innerHTML = `${appState.mode + 1}단계로 이동 &rarr;`;
+      } else if (appState.part === "textbook") {
+        btnNextStage.innerHTML = "단어 활용 응용 영작으로 이동 &rarr;";
+      } else {
+        btnNextStage.innerHTML = "다음 문법 파트로 이동 &rarr;";
+      }
+    }
+
+    function retryWrongInCurrentPart() {
+      const fullList = getFullSectionQuestions();
+      const secKey = getSectionKey();
+      const records = appState.attemptRecords[secKey] || {};
+      const wrongIds = fullList.filter(q => !records[q.id]?.isCorrect).map(q => q.id);
+
+      if (wrongIds.length === 0) {
+        showToast("다시 풀 오답 문항이 없습니다.");
+        return;
+      }
+
+      retrySubsetIds = wrongIds;
+      appState.indices[secKey] = 0;
+      topView = "study";
+      renderApp();
+      showToast(`틀린 ${wrongIds.length}문항만 집중 연습합니다.`);
+    }
+
+    function restartCurrentPart() {
+      retrySubsetIds = null;
+      const secKey = getSectionKey();
+      appState.attemptRecords[secKey] = {};
+      appState.indices[secKey] = 0;
+      topView = "study";
+      saveState();
+      renderApp();
+      showToast("이 파트의 1번 문항부터 다시 시작합니다.");
+    }
+
+    function goToNextStage() {
+      retrySubsetIds = null;
+      topView = "study";
+      if (appState.mode < 3) {
+        selectMode(appState.mode + 1);
+      } else if (appState.part === "textbook") {
+        appState.mode = 1;
+        selectPart("application");
+      } else {
+        const gKeys = Object.keys(CURRICULUM_DATA[appState.lesson].grammars);
+        const curIdx = gKeys.indexOf(appState.grammar);
+        if (curIdx < gKeys.length - 1) {
+          appState.part = "textbook";
+          appState.mode = 1;
+          selectGrammar(gKeys[curIdx + 1]);
+        } else if (appState.lesson === "6") {
+          appState.part = "textbook";
+          appState.mode = 1;
+          selectLesson("7");
+        } else {
+          showToast("6과와 7과의 모든 학습 과정을 완료했습니다!");
+          renderApp();
+        }
+      }
+    }
+
+    /**
+     * ============================================================================
+     * 9. QUESTION PAGINATION & MODAL CONTROLS
+     * ============================================================================
+     */
+    function prevQuestion() {
+      const idx = getCurrentIndex();
+      if (idx > 0) {
+        setCurrentIndex(idx - 1);
+        renderWorkspaceCard();
+      }
+    }
+
+    function nextQuestion() {
+      const list = getActiveQuestions();
+      const idx = getCurrentIndex();
+      if (idx < list.length - 1) {
+        setCurrentIndex(idx + 1);
+        renderWorkspaceCard();
+      } else {
+        if (topView === "review") {
+          showToast("오답 복습 목록의 마지막 문항입니다.");
+        } else {
+          switchTopView("report");
+        }
+      }
+    }
+
+    function jumpToQuestion(valStr) {
+      const num = parseInt(valStr, 10);
+      if (!isNaN(num)) {
+        setCurrentIndex(num);
+        renderWorkspaceCard();
+      }
+    }
+
+    function openResetModal() {
+      document.getElementById("reset-modal").classList.remove("hidden");
+    }
+
+    function closeResetModal() {
+      document.getElementById("reset-modal").classList.add("hidden");
+    }
+
+    function confirmResetAll() {
+      localStorage.removeItem(STORAGE_KEY);
+      appState = {
+        lesson: "6",
+        grammar: "6_g1",
+        part: "textbook",
+        mode: 1,
+        indices: {},
+        completed: {},
+        attemptRecords: {},
+        partScores: {},
+        wrongItems: [],
+        lastSession: null
+      };
+      topView = "study";
+      reviewIndex = 0;
+      reviewAttempts = {};
+      retrySubsetIds = null;
+      closeResetModal();
+      document.getElementById("resume-banner").classList.add("hidden");
+      renderApp();
+      showToast("모든 학습 진도와 점수가 초기화되었습니다.");
+    }
+
+    /**
+     * ============================================================================
+     * 10. INITIALIZATION
+     * ============================================================================
+     */
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      checkResumeBanner();
+      renderApp();
+
+      const fullInput = document.getElementById("full-input-box");
+      if (fullInput) {
+        fullInput.addEventListener("keydown", e => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (!currentQuestionChecked) {
+              checkAnswer();
+            } else {
+              nextQuestion();
+            }
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
