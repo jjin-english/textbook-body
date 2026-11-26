@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deceptive Seeds · 9번 문장 서술형 연습</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-sub: #475569;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --success-border: #a7f3d0;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --danger-border: #fecaca;
+      --highlight-bg: #fef3c7;
+      --highlight-border: #f59e0b;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0 0 64px 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    /* 상단 고정 헤더 */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .header-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-ghost {
+      appearance: none;
+      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-ghost:hover {
+      background: #f1f5f9;
+    }
+
+    .btn-ghost:active {
+      background: #e2e8f0;
+    }
+
+    /* 메인 컨테이너 */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 18px 18px 0 18px;
+    }
+
+    /* 토스트 알림 */
+    .toast {
+      display: none;
+      margin-bottom: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    /* 컴팩트 점수 바 */
+    .score-bar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .score-stats {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+
+    .score-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .score-count {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    .score-progress-wrap {
+      flex: 1;
+      max-width: 180px;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .score-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    /* 문제 카드 */
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .q-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      transition: border-color 0.2s ease;
+    }
+
+    .q-card.is-correct {
+      border-color: var(--success-border);
+    }
+
+    .q-card.is-wrong {
+      border-color: var(--danger-border);
+    }
+
+    .q-prompt {
+      margin: 0 0 14px 0;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .q-sentence-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 15px 16px;
+      margin-bottom: 16px;
+      font-size: 16.5px;
+      line-height: 1.75;
+      color: #1e293b;
+      word-break: normal;
+    }
+
+    .hl {
+      background: var(--highlight-bg);
+      border-bottom: 2px solid var(--highlight-border);
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-weight: 700;
+      color: #92400e;
+    }
+
+    .blank-slot {
+      display: inline-block;
+      min-width: 96px;
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+      text-align: center;
+      padding: 0 6px;
+    }
+
+    /* 입력창 */
+    .q-input {
+      width: 100%;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--text);
+      background: #ffffff;
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .q-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    /* 선택형 단어 칩 영역 */
+    .chip-toggle-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-text-link {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 2px;
+      cursor: pointer;
+    }
+
+    .btn-text-link:hover {
+      color: var(--primary);
+    }
+
+    .word-bank {
+      display: none;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .word-bank.open {
+      display: flex;
+    }
+
+    .word-chip {
+      appearance: none;
+      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background-color 0.12s ease, border-color 0.12s ease;
+    }
+
+    .word-chip:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    /* 버튼 행 */
+    .q-actions {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      appearance: none;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      appearance: none;
+      border: 1px solid var(--border-strong);
+      background: #ffffff;
+      color: var(--text-sub);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    /* 정답 확인 후 나타나는 해설 박스 */
+    .result-box {
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .result-box.correct {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+      color: #064e3b;
+    }
+
+    .result-box.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: #7f1d1d;
+    }
+
+    .result-status {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .result-answer-line {
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .result-answer-line strong {
+      font-weight: 700;
+    }
+
+    .result-bullets {
+      margin: 0;
+      padding-left: 18px;
+      color: #1e293b;
+    }
+
+    .result-bullets li {
+      margin-bottom: 6px;
+    }
+
+    .result-bullets li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 하단 최종 결과 카드 */
+    .final-card {
+      margin-top: 26px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+
+    .final-title {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .final-summary {
+      margin: 0 0 18px 0;
+      font-size: 15.5px;
+      color: var(--text-sub);
+    }
+
+    .final-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .header-title {
+        font-size: 16px;
+      }
+      .btn-ghost {
+        padding: 7px 10px;
+        font-size: 12.5px;
+      }
+      .q-card {
+        padding: 20px 16px;
+      }
+      .q-prompt {
+        font-size: 16px;
+      }
+      .q-sentence-box {
+        font-size: 15.5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 상단 헤더 -->
+  <header class="top-header">
+    <div class="header-inner">
+      <h1 class="header-title">Deceptive Seeds · 9번 문장 서술형 연습</h1>
+      <div class="header-actions">
+        <button type="button" class="btn-ghost" onclick="copyShareLink()">링크 복사</button>
+        <button type="button" class="btn-ghost" onclick="saveAsHtml()">파일 저장</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 알림 토스트 -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- 컴팩트 점수 바 -->
+    <section class="score-bar" aria-label="현재 점수">
+      <div class="score-stats">
+        <span id="top-score" class="score-num">0점</span>
+        <span id="top-count" class="score-count">0 / 10문항 정답</span>
+      </div>
+      <div class="score-progress-wrap" aria-hidden="true">
+        <div id="top-progress" class="score-progress-fill"></div>
+      </div>
+    </section>
+
+    <!-- 연습 문제 목록 -->
+    <section id="question-list" class="question-list" aria-label="서술형 연습 문제">
+      <!-- JavaScript로 10문항 즉시 렌더링 -->
+    </section>
+
+    <!-- 하단 최종 결과 카드 -->
+    <section id="final-card" class="final-card" aria-label="최종 결과">
+      <h2 id="final-title" class="final-title">최종 점수: 0점 (0 / 10문항 정답)</h2>
+      <p id="final-summary" class="final-summary">
+        문제를 풀고 각 문항의 [정답 확인] 버튼을 누르면 이유와 해설이 바로 표시됩니다.
+      </p>
+      <div class="final-buttons">
+        <button type="button" class="btn-primary" onclick="showAllResults()">전체 결과 보기</button>
+        <button type="button" class="btn-secondary" onclick="retryWrongOnly()">틀린 문제만 다시 풀기</button>
+        <button type="button" class="btn-secondary" onclick="resetAll()">전체 다시 풀기</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /**
+     * Deceptive Seeds 9번 문장 서술형 10문항 데이터
+     * 원문: "When they try to eat the seeds or lay eggs inside of them, however, the confused beetles will realize they cannot."
+     */
+    const QUESTIONS = [
+      {
+        id: 1,
+        prompt: '1. 밑줄 친 cannot 뒤에 생략된 말을 본문에서 찾아 8단어로 쓰시오.',
+        sentenceHtml:
+          'When they try to eat the seeds or lay eggs inside of them, however, the confused beetles will realize they <span class="hl">cannot</span> <span class="blank-slot">8단어</span>.',
+        chips: ['eat', 'the', 'seeds', 'or', 'lay', 'eggs', 'inside', 'of', 'them'],
+        answers: ['eat the seeds or lay eggs inside of them'],
+        canonical: 'eat the seeds or lay eggs inside of them',
+        reasons: [
+          '앞절의 try to 뒤에 나온 동사구(eat the seeds or lay eggs inside of them)가 반복되는 것을 피하기 위해 조동사 cannot 뒤에서 생략되었습니다.',
+          '조동사 cannot 뒤에는 동사원형이 와야 하므로 to 없이 동사원형 eat부터 them까지 8단어를 그대로 씁니다.',
+          '해석: 하지만 쇠똥구리들이 그 씨앗들을 먹으려고 하거나 그 안에 알을 낳으려고 할 때, 혼란스러워진 쇠똥구리들은 (그 씨앗들을 먹거나 그 안에 알을 낳을) 수 없다는 것을 깨달을 것입니다.'
+        ]
+      },
+      {
+        id: 2,
+        prompt: '2. 밑줄 친 cannot 뒤에 생략된 말을 of를 제외하고 7단어로 쓰시오.',
+        sentenceHtml:
+          'When they try to eat the seeds or lay eggs inside of them, however, the confused beetles will realize they <span class="hl">cannot</span> <span class="blank-slot">7단어</span>.',
+        chips: ['eat', 'the', 'seeds', 'or', 'lay', 'eggs', 'inside', 'them'],
+        answers: ['eat the seeds or lay eggs inside them'],
+        canonical: 'eat the seeds or lay eggs inside them',
+        reasons: [
+          '전치사 inside는 뒤에 of 없이 바로 목적어를 취할 수 있어 inside of them을 inside them으로 줄여 쓸 수 있습니다.',
+          '따라서 단어 수 조건이 7단어로 주어질 때는 of를 제외한 eat the seeds or lay eggs inside them이 정답이 됩니다.',
+          '해석: 혼란스러워진 쇠똥구리들은 그 씨앗들을 먹거나 그 안에 알을 낳을 수 없다는 것을 깨달을 것입니다.'
+        ]
+      },
+      {
+        id: 3,
+        prompt: '3. 밑줄 친 cannot 뒤에 생략된 두 가지 행위 중 첫 번째 행위만 3단어로 쓰시오.',
+        sentenceHtml:
+          'When they try to eat the seeds or lay eggs inside of them, however, the confused beetles will realize they <span class="hl">cannot</span> <span class="blank-slot">3단어</span> (or lay eggs inside of them).',
+        chips: ['eat', 'the', 'seeds', 'lay', 'eggs'],
+        answers: ['eat the seeds'],
+        canonical: 'eat the seeds',
+        reasons: [
+          '병렬 연결된 두 행위(eat the seeds / lay eggs inside of them) 중 앞부분에 해당하는 동사구는 eat the seeds입니다.',
+          '쇠똥구리가 씨앗을 배설물로 착각해 먹으려 하지만 단단해서 먹을 수 없다는 문맥을 나타냅니다.',
+          '해석: 그 씨앗들을 먹다'
+        ]
+      },
+      {
+        id: 4,
+        prompt: '4. 밑줄 친 cannot 뒤에 생략된 두 가지 행위 중 두 번째 행위만 5단어로 쓰시오.',
+        sentenceHtml:
+          'When they try to eat the seeds or lay eggs inside of them, however, the confused beetles will realize they <span class="hl">cannot</span> (eat the seeds or) <span class="blank-slot">5단어</span>.',
+        chips: ['lay', 'eggs', 'inside', 'of', 'them'],
+        answers: ['lay eggs inside of them', 'lay eggs inside them'],
+        canonical: 'lay eggs inside of them',
+        reasons: [
+          '등위접속사 or 뒤에 이어지는 두 번째 병렬 동사구는 lay eggs inside of them(5단어)입니다.',
+          '조동사 cannot에 이어지므로 동사원형 lay로 시작해야 합니다.',
+          '해석: 그것들(씨앗들) 안에 알을 낳다'
+        ]
+      },
+      {
+        id: 5,
+        prompt: '5. 생략된 부분을 모두 복원하여 realize 뒤의 목적어절을 they로 시작하는 11단어로 완성하시오.',
+        sentenceHtml:
+          'When they try to eat the seeds or lay eggs inside of them, however, the confused beetles will realize <span class="blank-slot">they로 시작 · 11단어</span>.',
+        chips: ['they', 'cannot', 'eat', 'the', 'seeds', 'or', 'lay', 'eggs', 'inside', 'of', 'them'],
+        answers: [
+          'they cannot eat the seeds or lay eggs inside of them',
+          'they cannot eat the seeds or lay eggs inside them'
+        ],
+        canonical: 'they cannot eat the seeds or lay eggs inside of them',
+        reasons: [
+          '생략된 동사구를 복원해 완전한 절 형태로 고쳐 쓰는 서술형 유형입니다.',
+          '주어(they) + 조동사(cannot) 뒤에 동사원형 병렬 구조(eat the seeds or lay eggs inside of them)를 이어 총 11단어로 완성합니다.',
+          '해석: 그들이 그 씨앗들을 먹거나 그 안에 알을 낳을 수 없다는 것을'
+        ]
+      },
+      {
+        id: 6,
+        prompt: '6. 밑줄 친 lay 앞에 병렬 구조상 반복을 피해 생략된 1단어를 쓰시오.',
+        sentenceHtml:
+          'When they try to eat the seeds or <span class="blank-slot">1단어</span> <span class="hl">lay</span> eggs inside of them, however, the confused beetles will realize they cannot.',
+        chips: ['to', 'try', 'will', 'can'],
+        answers: ['to'],
+        canonical: 'to',
+        reasons: [
+          'try to [eat the seeds] or [to lay eggs inside of them] 구조에서 등위접속사 or 앞의 to가 뒤의 동사원형 lay에도 공통으로 걸리므로 두 번째 to가 생략되었습니다.',
+          '이 때문에 lay는 앞의 eat과 병렬을 이루는 동사원형 형태를 유지합니다.',
+          '해석: 그 씨앗들을 먹으려고 하거나 그 안에 알을 낳으려고 할 때'
+        ]
+      },
+      {
+        id: 7,
+        prompt: '7. 밑줄 친 realize와 they 사이에 생략된 접속사 1단어를 쓰시오.',
+        sentenceHtml:
+          'When they try to eat the seeds or lay eggs inside of them, however, the confused beetles will realize <span class="blank-slot">1단어</span> <span class="hl">they cannot</span>.',
+        chips: ['that', 'what', 'which', 'whether'],
+        answers: ['that'],
+        canonical: 'that',
+        reasons: [
+          '타동사 realize의 목적어 역할을 하는 완전한 절(they cannot ~)을 이끄는 명사절 접속사 that이 생략되었습니다.',
+          '목적어절을 이끄는 접속사 that은 문장에서 자주 생략되며, 생략된 접속사를 복원하는 서술형 문제로 출제됩니다.',
+          '해석: 혼란스러워진 쇠똥구리들은 (~라는 것을) 깨달을 것입니다.'
+        ]
+      },
+      {
+        id: 8,
+        prompt: '8. 밑줄 친 them이 가리키는 말을 같은 문장에서 찾아 2단어로 쓰시오.',
+        sentenceHtml:
+          'When they try to eat the seeds or lay eggs inside of <span class="hl">them</span>, however, the confused beetles will realize they cannot.',
+        chips: ['the', 'seeds', 'confused', 'beetles', 'eggs'],
+        answers: ['the seeds'],
+        canonical: 'the seeds',
+        reasons: [
+          '앞부분의 eat the seeds에 언급된 복수 명사구 the seeds를 받아 복수 대명사 them으로 표현했습니다.',
+          '쇠똥구리가 영양의 배설물인 줄 알고 굴려 온 silver arrow-reed의 씨앗들을 의미합니다.',
+          '해석: 그 씨앗들'
+        ]
+      },
+      {
+        id: 9,
+        prompt: '9. 밑줄 친 they가 가리키는 대상을 같은 문장에서 찾아 3단어로 쓰시오.',
+        sentenceHtml:
+          'When <span class="hl">they</span> try to eat the seeds or lay eggs inside of them, however, <span class="hl">they</span> confused beetles will realize they cannot.',
+        chips: ['the', 'confused', 'beetles', 'dung', 'seeds'],
+        answers: ['the confused beetles', 'dung beetles'],
+        canonical: 'the confused beetles',
+        reasons: [
+          '같은 문장 주절의 주어인 the confused beetles(3단어)를 가리킵니다. (앞 문장의 dung beetles와 같은 대상입니다.)',
+          '씨앗을 배설물로 착각해 먹거나 알을 낳으려다 실패하는 주체입니다.',
+          '해석: 그 혼란스러워진 쇠똥구리들'
+        ]
+      },
+      {
+        id: 10,
+        prompt: '10. 부사절을 분사구문(When trying ~)으로 바꿀 때 When 뒤에 생략된 2단어를 쓰시오.',
+        sentenceHtml:
+          'When <span class="blank-slot">2단어</span> <span class="hl">trying</span> to eat the seeds or lay eggs inside of them, however, the confused beetles will realize they cannot.',
+        chips: ['they', 'are', 'were', 'it', 'is'],
+        answers: ['they are'],
+        canonical: 'they are',
+        reasons: [
+          '시간을 나타내는 접속사 When 뒤에 [주어 + be동사]가 생략되어 접속사를 남긴 분사구문(When trying ~)으로 전환할 수 있습니다.',
+          '주절과 부사절의 주어가 동일(they)하고 문장 전체 시제가 현재이므로 생략된 2단어는 they are입니다.',
+          '해석: 그들이 ~하려고 할 때'
+        ]
+      }
+    ];
+
+    /**
+     * 문항별 상태 저장
+     * status: 'unanswered' | 'correct' | 'wrong'
+     */
+    const state = {};
+    QUESTIONS.forEach((q) => {
+      state[q.id] = {
+        input: '',
+        status: 'unanswered',
+        chipOpen: false
+      };
+    });
+
+    /**
+     * 답안 문자열 정규화 (대소문자 무시, 연속 공백 정리, 끝 문장부호 제거)
+     */
+    function normalize(text) {
+      return String(text || '')
+        .toLowerCase()
+        .replace(/[.?!,;]+$/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    /**
+     * 상단 알림 메시지 표시
+     */
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.classList.remove('show');
+      }, 3200);
+    }
+
+    /**
+     * 카카오톡 공유용 링크 복사
+     */
+    function copyShareLink() {
+      const url = window.location.href && window.location.href !== 'about:blank'
+        ? window.location.href
+        : 'Deceptive Seeds · 9번 문장 서술형 연습';
+
+      const temp = document.createElement('input');
+      temp.value = url;
+      document.body.appendChild(temp);
+      temp.select();
+      temp.setSelectionRange(0, 99999);
+
+      let ok = false;
+      try {
+        ok = document.execCommand('copy');
+      } catch (e) {
+        ok = false;
+      }
+      document.body.removeChild(temp);
+
+      if (ok) {
+        showToast('링크가 복사되었습니다. 카카오톡에 붙여넣어 바로 공유하세요.');
+      } else {
+        showToast('주소창의 링크를 길게 눌러 복사한 뒤 카카오톡에 붙여넣어 주세요.');
+      }
+    }
+
+    /**
+     * 단일 HTML 파일 저장
+     */
+    function saveAsHtml() {
+      try {
+        const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'deceptive-seeds-9-practice.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        showToast('HTML 파일이 저장되었습니다.');
+      } catch (e) {
+        showToast('브라우저 메뉴에서 [페이지 저장]을 이용해 주세요.');
+      }
+    }
+
+    /**
+     * 문제 카드 렌더링
+     */
+    function renderQuestions() {
+      const list = document.getElementById('question-list');
+      list.innerHTML = '';
+
+      QUESTIONS.forEach((q) => {
+        const s = state[q.id];
+        const card = document.createElement('article');
+        card.id = `card-${q.id}`;
+        card.className = 'q-card';
+        if (s.status === 'correct') card.classList.add('is-correct');
+        if (s.status === 'wrong') card.classList.add('is-wrong');
+
+        // 단어 칩 HTML
+        const chipsHtml = q.chips
+          .map(
+            (word) =>
+              `<button type="button" class="word-chip" onclick="addChipWord(${q.id}, '${word.replace(/'/g, "\\'")}')">${escapeHtml(word)}</button>`
+          )
+          .join('');
+
+        // 정답 확인 후에만 노출되는 해설 박스
+        let resultHtml = '';
+        if (s.status !== 'unanswered') {
+          const isCorrect = s.status === 'correct';
+          const bulletsHtml = q.reasons
+            .map((line) => `<li>${escapeHtml(line)}</li>`)
+            .join('');
+
+          resultHtml = `
+            <div class="result-box ${isCorrect ? 'correct' : 'wrong'}">
+              <div class="result-status">
+                ${isCorrect ? '정답입니다!' : '오답입니다. 아래 해설을 확인한 뒤 다시 풀어보세요.'}
+              </div>
+              <div class="result-answer-line">
+                <strong>정답:</strong> ${escapeHtml(q.canonical)}
+              </div>
+              <ul class="result-bullets">
+                ${bulletsHtml}
+              </ul>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <h2 class="q-prompt">${escapeHtml(q.prompt)}</h2>
+          <div class="q-sentence-box">${q.sentenceHtml}</div>
+
+          <input
+            id="input-${q.id}"
+            class="q-input"
+            type="text"
+            value="${escapeAttr(s.input)}"
+            placeholder="정답을 입력하세요"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            oninput="onInput(${q.id}, this.value)"
+            onkeydown="onKeyDown(event, ${q.id})"
+          />
+
+          <div class="chip-toggle-row">
+            <button type="button" class="btn-text-link" onclick="toggleWordBank(${q.id})">
+              ${s.chipOpen ? '단어 선택 닫기 ▲' : '단어 선택으로 입력하기 ▼'}
+            </button>
+          </div>
+
+          <div id="bank-${q.id}" class="word-bank ${s.chipOpen ? 'open' : ''}">
+            ${chipsHtml}
+          </div>
+
+          <div class="q-actions">
+            <button type="button" class="btn-primary" onclick="checkAnswer(${q.id})">정답 확인</button>
+            ${
+              s.status !== 'unanswered'
+                ? `<button type="button" class="btn-secondary" onclick="retryOne(${q.id})">다시 풀기</button>`
+                : ''
+            }
+          </div>
+
+          ${resultHtml}
+        `;
+
+        list.appendChild(card);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str).replace(/'/g, '&#39;');
+    }
+
+    function onInput(id, val) {
+      state[id].input = val;
+    }
+
+    function onKeyDown(e, id) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        checkAnswer(id);
+      }
+    }
+
+    function toggleWordBank(id) {
+      state[id].chipOpen = !state[id].chipOpen;
+      const bank = document.getElementById(`bank-${id}`);
+      if (bank) {
+        bank.classList.toggle('open', state[id].chipOpen);
+      }
+      renderQuestions();
+    }
+
+    function addChipWord(id, word) {
+      const prev = (state[id].input || '').trim();
+      const next = prev ? `${prev} ${word}` : word;
+      state[id].input = next;
+      const inputEl = document.getElementById(`input-${id}`);
+      if (inputEl) {
+        inputEl.value = next;
+        inputEl.focus();
+      }
+    }
+
+    /**
+     * 개별 문항 정답 확인
+     */
+    function checkAnswer(id) {
+      const q = QUESTIONS.find((item) => item.id === id);
+      if (!q) return;
+
+      const inputEl = document.getElementById(`input-${id}`);
+      const val = inputEl ? inputEl.value : state[id].input;
+      state[id].input = val;
+
+      const userNorm = normalize(val);
+      const isRight =
+        userNorm.length > 0 &&
+        q.answers.some((ans) => normalize(ans) === userNorm);
+
+      state[id].status = isRight ? 'correct' : 'wrong';
+
+      updateScoreBar();
+      renderQuestions();
+    }
+
+    /**
+     * 개별 문항 다시 풀기
+     */
+    function retryOne(id) {
+      state[id].input = '';
+      state[id].status = 'unanswered';
+      updateScoreBar();
+      renderQuestions();
+
+      const inputEl = document.getElementById(`input-${id}`);
+      if (inputEl) inputEl.focus();
+    }
+
+    /**
+     * 틀린 문제만 초기화 후 첫 오답 문항으로 이동
+     */
+    function retryWrongOnly() {
+      const wrongIds = QUESTIONS.filter((q) => state[q.id].status === 'wrong').map((q) => q.id);
+      if (wrongIds.length === 0) {
+        showToast('현재 틀린 문제가 없습니다.');
+        return;
+      }
+
+      wrongIds.forEach((id) => {
+        state[id].input = '';
+        state[id].status = 'unanswered';
+      });
+
+      updateScoreBar();
+      renderQuestions();
+
+      const firstCard = document.getElementById(`card-${wrongIds[0]}`);
+      if (firstCard) {
+        firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      showToast(`틀린 ${wrongIds.length}문항을 초기화했습니다. 다시 풀어보세요.`);
+    }
+
+    /**
+     * 전체 다시 풀기
+     */
+    function resetAll() {
+      QUESTIONS.forEach((q) => {
+        state[q.id].input = '';
+        state[q.id].status = 'unanswered';
+      });
+      updateScoreBar();
+      renderQuestions();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('전체 문항이 초기화되었습니다.');
+    }
+
+    /**
+     * 전체 결과 보기 (미채점 문항 일괄 채점 후 하단 결과 카드로 스크롤)
+     */
+    function showAllResults() {
+      QUESTIONS.forEach((q) => {
+        if (state[q.id].status === 'unanswered') {
+          const userNorm = normalize(state[q.id].input);
+          const isRight =
+            userNorm.length > 0 &&
+            q.answers.some((ans) => normalize(ans) === userNorm);
+          state[q.id].status = isRight ? 'correct' : 'wrong';
+        }
+      });
+
+      updateScoreBar();
+      renderQuestions();
+
+      const finalCard = document.getElementById('final-card');
+      if (finalCard) {
+        finalCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    /**
+     * 상단 점수 바 & 하단 최종 결과 갱신
+     */
+    function updateScoreBar() {
+      const total = QUESTIONS.length;
+      let correct = 0;
+      let answered = 0;
+
+      QUESTIONS.forEach((q) => {
+        if (state[q.id].status === 'correct') {
+          correct += 1;
+          answered += 1;
+        } else if (state[q.id].status === 'wrong') {
+          answered += 1;
+        }
+      });
+
+      const score = Math.round((correct / total) * 100);
+      document.getElementById('top-score').textContent = `${score}점`;
+      document.getElementById('top-count').textContent = `${correct} / ${total}문항 정답`;
+      document.getElementById('top-progress').style.width = `${Math.round((answered / total) * 100)}%`;
+
+      document.getElementById('final-title').textContent =
+        `최종 점수: ${score}점 (${correct} / ${total}문항 정답)`;
+
+      let summary = '문제를 풀고 각 문항의 [정답 확인] 버튼을 누르면 이유와 해설이 바로 표시됩니다.';
+      if (answered === total) {
+        if (score === 100) {
+          summary = '완벽합니다! 9번 문장에서 나올 수 있는 모든 생략 서술형 유형을 정확히 맞혔습니다.';
+        } else if (score >= 80) {
+          summary = `잘했습니다! ${total - correct}문항만 다시 확인하면 100점을 달성할 수 있습니다.`;
+        } else {
+          summary = '오답 문항의 해설을 읽어본 뒤 [틀린 문제만 다시 풀기]로 반복 연습해 보세요.';
+        }
+      } else if (answered > 0) {
+        summary = `현재 ${answered}문항을 확인했습니다. 남은 ${total - answered}문항도 이어서 풀어보세요.`;
+      }
+      document.getElementById('final-summary').textContent = summary;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateScoreBar();
+      renderQuestions();
+    });
+  </script>
+</body>
+</html>
