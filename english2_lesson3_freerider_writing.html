@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>영어Ⅱ 3과 The Worst Free Rider 서술형 영작</title>
+<style>
+:root{--bg:#eef3ee;--c:#fff;--t:#1d2b22;--p:#2f7d4f;--ok:#1a9d5c;--no:#c9372c;--b:#cfdcd2;--m:#fff1a8}
+@media(prefers-color-scheme:dark){:root{--bg:#141a16;--c:#1e2721;--t:#e8f0ea;--p:#4fae78;--b:#33423a;--m:#6b5d12}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:16px/1.65 'Noto Sans KR','Malgun Gothic',system-ui,sans-serif}
+#app{max-width:640px;margin:auto;padding:16px}h2{margin:.4em 0}
+.card{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:14px;margin:10px 0}
+button{font:inherit;cursor:pointer;border:1px solid var(--b);background:var(--c);color:var(--t);border-radius:10px;padding:10px 14px;width:100%;text-align:left;margin:5px 0}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--p)}
+.p{background:var(--p);color:#fff;border:0;text-align:center;font-weight:700}
+.ch{display:inline-block;width:auto;margin:3px;padding:6px 11px;font-family:Georgia,serif;font-size:17px}
+.tag{display:inline-block;background:var(--p);color:#fff;border-radius:6px;padding:0 8px;font-size:13px;margin-right:4px}
+textarea{font:17px/1.5 Georgia,serif;width:100%;padding:10px;border-radius:10px;border:1px solid var(--b);background:var(--c);color:var(--t)}
+.bar{height:6px;background:var(--b);border-radius:4px;margin:6px 0}.bar i{display:block;height:100%;background:var(--p);border-radius:4px}
+p{white-space:pre-wrap;margin:.6em 0}.ex{font-size:15px;border-left:4px solid var(--p);padding-left:10px}
+.ps{background:rgba(47,125,79,.09);border-radius:10px;padding:10px 12px;margin:8px 0;font-family:Georgia,serif;font-size:17px}
+mark{background:var(--m);color:inherit;padding:0 3px;border-radius:4px;font-weight:700}
+</style></head><body><div id="app"></div><script>
+const L=[
+{ko:'많은 식물들은 동물들에게 먹이를 제공함으로써 씨앗을 흩뿌리기로 하지만, 모든 식물들이 그런 것은 아닙니다.',en:'Many plants opt to scatter their seeds by providing food to animals, but not all of them do.',h:'opt to ~(~하기로 선택하다), by + -ing, not all(부분부정), 대동사 do',e:'opt to + 동사원형, by + -ing(~함으로써), not all(부분부정). 마지막 do는 앞의 opt to scatter ... animals를 대신하는 대동사입니다.'},
+{ko:'어떤 식물들은 지나가는 동물들에게 씨앗들을 붙여서, 아무런 보답 없이 그것들을 퍼뜨립니다.',en:'Some plants attach their seeds to passing animals, spreading them without any return benefit.',alt:['Some plants attach their seeds to passing animals, spreading the seeds without any return benefit.'],h:'attach A to B, passing, 분사구문 spreading, without any return benefit',e:'attach A to B, 현재분사 passing이 animals를 수식, spreading them ...은 결과/동시동작의 분사구문, without + 명사(~없이).'},
+{ko:'구미가 당기는 달콤한 과일 대신, 이 씨앗들은 날카로운 갈고리나 바늘을 갖추고 있습니다.',en:'Instead of tempting sweet fruits, these seeds are equipped with sharp hooks or needles.',h:'instead of ~, tempting(구미가 당기는), be equipped with ~',e:'instead of + 명사구, tempting은 fruits를 꾸미는 현재분사, be equipped with ~ = ~을 갖추고 있다.'},
+{ko:'devil’s claw는 이러한 식물들 중 가장 악랄한 것으로 눈에 띕니다.',en:'Devil’s claw stands out as the most vicious of these plants.',h:'stand out as ~, 최상급 the most vicious, of these plants',e:'stand out as ~(~로 눈에 띄다), 최상급 the most vicious of + 복수명사.'},
+{ko:'devil’s claw는 주로 남아프리카의 칼라하리 사막, 나미비아, 보츠와나에 서식합니다.',en:'Devil’s claw primarily inhabits the Kalahari Desert in South Africa, Namibia, and Botswana.',h:'primarily(주로), inhabit(서식하다), 장소 나열',e:'inhabit은 타동사라 전치사 없이 바로 장소가 옵니다(inhabits the Kalahari Desert).'},
+{ko:'분홍색 트럼펫을 닮은 이 식물의 꽃은 결국 많은 갈고리가 있는 열매로 변합니다.',en:'Its blossoms resembling pink trumpets eventually transform into fruits with many hooks.',h:'blossoms resembling ~(현재분사 후치수식), eventually, transform into ~',e:'resembling pink trumpets가 blossoms를 뒤에서 수식(= that resemble)하고, 본동사는 transform into입니다.'},
+{ko:'이 열매들은 마르는 동안에, 단단해지고, 갈고리들은 동물의 몸에 달라붙을 만큼 단단해집니다.',en:'As these fruits dry, they become solid, and their hooks become tough enough to attach to the bodies of animals.',h:'as ~, become + 형용사, 형용사 + enough to V, attach to ~',e:'as 시간 부사절, become + 형용사, tough enough to attach to ~ = ~에 붙을 만큼 충분히 단단한(형용사 + enough + to V).'},
+{ko:'동물들이 옆을 지나는 동안에, 사방으로 뻗은 갈고리들이 말라버린 열매를 그들의 털에 단단히 붙어있게 할 것입니다.',en:'As animals pass by, the hooks extending in all directions will keep the dried fruit firmly attached to their fur.',h:'pass by, hooks extending ~(현재분사), keep + O + 과거분사, firmly attached to ~',e:'extending in all directions는 hooks를 수식하는 현재분사구, keep + 목적어 + 과거분사(attached) = ~가 붙은 채로 있게 하다, dried는 과거분사 형용사.'},
+{ko:'동물들이 이동하면서, 열매에서 나온 씨앗들은 여러 장소에 흩어지게 될 것입니다.',en:'As the animals move away, the seeds from the fruit will be scattered in various locations.',h:'move away, will be + 과거분사(수동), in various locations',e:'will be scattered는 미래 수동태, as 부사절은 현재시제(move)를 씁니다.'},
+{ko:'붙어 있는 갈고리들은 동물들에게 심한 통증을 유발하여, 악마가 섬뜩한 발톱으로 그들을 할퀴고 있는 것 같이 느끼게 합니다.',en:'The attached hooks cause severe pain to the animals, making them feel like the devil is scratching them with its horrifying claws.',alt:['The attached hooks cause severe pain to the animals, making the animals feel like the devil is scratching them with its horrifying claws.'],h:'cause severe pain to ~, 분사구문 making, make + O + 원형, feel like + 절',e:'cause severe pain to ~, making them feel(사역동사 make + O + 동사원형)은 결과의 분사구문, feel like + 주어 + 동사 = 마치 ~인 것처럼 느끼다.'},
+{ko:'이렇게 해서 devil’s claw는 최악의 무임승차자로 알려지게 되었습니다.',en:'That is how devil’s claw became known as the worst free rider.',h:'That is how ~, become known as ~, the worst free rider',e:'That is how + 주어 + 동사 = 그렇게 해서 ~하게 되었다. became known as = ~로 알려지게 되었다.'}
+].map((l,k)=>({...l,no:k+1}));
+const mk=(t,mode)=>L.map(l=>({t,mode,...l}));
+const X=[
+{t:'문장 합치기',mode:'mrg',ins:'as를 사용하여 두 문장을 한 문장으로 쓰시오.',src:['Devil’s claw is the most vicious of these plants.','It stands out.'],en:'Devil’s claw stands out as the most vicious of these plants.',e:'stand out as ~ = ~로 눈에 띄다. 최상급 the most vicious of + 복수명사.'},
+{t:'문장 합치기',mode:'mrg',ins:'현재분사 resembling을 사용하여 한 문장으로 쓰시오. (Its blossoms로 시작)',src:['Its blossoms resemble pink trumpets.','They eventually transform into fruits with many hooks.'],en:'Its blossoms resembling pink trumpets eventually transform into fruits with many hooks.',e:'주어를 수식하는 현재분사구는 명사 바로 뒤에 두고(= that resemble ...), 본동사는 transform.'},
+{t:'문장 합치기',mode:'mrg',ins:'분사구문 making을 사용하여 한 문장으로 쓰시오.',src:['The attached hooks cause severe pain to the animals.','They make the animals feel like the devil is scratching them with its horrifying claws.'],en:'The attached hooks cause severe pain to the animals, making them feel like the devil is scratching them with its horrifying claws.',alt:['The attached hooks cause severe pain to the animals, making the animals feel like the devil is scratching them with its horrifying claws.'],e:', + 현재분사(making ...)는 앞 내용의 결과를 나타내는 분사구문입니다.'},
+{t:'문장 합치기',mode:'mrg',ins:'분사구문 spreading을 사용하여 한 문장으로 쓰시오. (them 사용)',src:['Some plants attach their seeds to passing animals.','They spread the seeds without any return benefit.'],en:'Some plants attach their seeds to passing animals, spreading them without any return benefit.',alt:['Some plants attach their seeds to passing animals, spreading the seeds without any return benefit.'],e:'접속사와 반복되는 주어를 없애고 동사를 -ing로 바꾼 분사구문. 앞 문장의 seeds는 them으로 받습니다.'},
+{t:'문장 합치기',mode:'mrg',ins:'As로 시작하고 extending을 사용하여 한 문장으로 쓰시오.',src:['Animals pass by.','The hooks extend in all directions.','The hooks will keep the dried fruit firmly attached to their fur.'],en:'As animals pass by, the hooks extending in all directions will keep the dried fruit firmly attached to their fur.',e:'extending in all directions가 hooks를 뒤에서 수식. keep + 목적어 + 과거분사(attached).'},
+{t:'문장 전환',mode:'mrg',ins:'That is how로 시작하여 같은 의미의 문장으로 쓰시오.',src:['Devil’s claw became known as the worst free rider.'],en:'That is how devil’s claw became known as the worst free rider.',e:'That is how + 주어 + 동사 = 그렇게 해서 ~하게 되었다.'}
+];
+const D=[
+{n:'① 단어 배열',k:'흩어진 단어를 눌러 문장 완성',q:mk('단어 배열','arr')},
+{n:'② 우리말 → 영작',k:'한 문장 전체 쓰기',q:mk('영작','wr')},
+{n:'③ 뒷부분 영작',k:'앞부분 제공 · 나머지 쓰기',q:mk('뒷부분 영작','half')},
+{n:'④ 문장 합치기·전환',k:'조건에 맞게 한 문장으로',q:X}];
+const K='eng2_l3_frw';let S={},C=[];try{S=JSON.parse(localStorage.getItem(K))||{}}catch(e){}
+const sv=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}},$=document.getElementById('app'),
+nz=x=>String(x).toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9'\s]/g,' ').replace(/\s+/g,' ').trim(),
+esc=x=>String(x).replace(/</g,'&lt;'),
+df=(a,b)=>{const c={},m=[];a.forEach(w=>c[w]=(c[w]||0)+1);b.forEach(w=>c[w]?c[w]--:m.push(w));return m},
+pre=en=>{const i=en.indexOf(',');if(i>0){const p=en.slice(0,i+1);if(p.split(' ').length<=9)return p}return en.split(' ').slice(0,4).join(' ')},
+shf=(a,s)=>{a=a.map((w,i)=>({w,i}));let r=s*9301+49297;for(let i=a.length-1;i>0;i--){r=(r*9301+49297)%233280;const j=Math.floor(r/233280*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a},
+st=i=>S[i]||(S[i]={f:{},q:D[i].q.map((_,j)=>j)}),cnt=i=>S[i]?Object.values(S[i].f).filter(Boolean).length:0;
+function home(){let t=0,n=0,h='<h2>The Worst Free Rider 서술형 영작</h2><small>본문 3번의 중요 문장을 직접 쓰고 배열해 보세요.</small>';
+D.forEach((d,i)=>{const s=S[i],a=s?Object.keys(s.f).length:0,c=cnt(i),N=d.q.length,dn=s&&!s.q.length;t+=c;n+=N;
+h+=`<div class=card><small>${d.k}</small><br><b>${d.n}</b><div class=bar><i style="width:${a/N*100}%"></i></div><small>${a}/${N} 풀이 · ${dn?'완료 · 점수 '+c+'/'+N:'첫 시도 정답 '+c}</small><button class=p onclick="ask(${i})">${dn?'결과 보기':a?'이어서 풀기':'시작'}</button>${a?`<button onclick="rs(${i})">처음부터 다시</button>`:''}</div>`});
+$.innerHTML=h+`<div class=card>전체 점수(첫 시도 기준): <b>${t}/${n}</b></div>`}
+function rs(i){if(confirm('이 섹션의 기록을 지우고 처음부터 할까요?')){delete S[i];sv();home()}}
+function drawA(i,j){const q=D[i].q[j],w=q.en.split(' '),o=shf(w,j+1);
+document.getElementById('ab').innerHTML=C.map(k=>`<button class=ch onclick="un(${i},${j},${k})">${w[k]}</button>`).join('')||'<small>아래 단어를 눌러 문장을 만드세요 (누르면 취소)</small>';
+document.getElementById('pb').innerHTML=o.filter(x=>!C.includes(x.i)).map(x=>`<button class=ch onclick="pk(${i},${j},${x.i})">${x.w}</button>`).join('')}
+function pk(i,j,k){C.push(k);drawA(i,j)}
+function un(i,j,k){C=C.filter(x=>x!=k);drawA(i,j)}
+function subA(i,j){const w=D[i].q[j].en.split(' ');ans(i,j,C.map(k=>w[k]).join(' '))}
+function ask(i){const d=D[i],s=st(i);
+if(!s.q.length){$.innerHTML=`<div class=card><h2>${d.n}</h2><h1>${cnt(i)} / ${d.q.length}</h1><p>모든 문제를 맞혔습니다. 틀린 문제도 다시 풀어 정답을 확인했어요.</p><button class=p onclick=home()>홈으로</button></div>`;return}
+const j=s.q[0],q=d.q[j],r=s.f[j]===false;C=[];
+let h=`<div class=card><small>${d.n} · 남은 문제 ${s.q.length}</small><br><span class=tag>${q.t}</span>${q.no?`<span class=tag>본문 ${q.no}번째 문장</span>`:''}${r?'<span class=tag style="background:var(--no)">다시 풀기</span>':''}`;
+if(q.mode=='mrg')h+=`<p><b>${q.ins}</b></p>`+q.src.map(x=>`<div class=ps>${x}</div>`).join('');
+else h+=`<p>${q.ko}</p>`;
+if(q.mode=='wr')h+=`<p><small>💡 핵심 표현: ${q.h}</small></p>`;
+if(q.mode=='half')h+=`<div class=ps><small>주어진 앞부분 (뒷부분만 쓰세요)</small><br><b>${pre(q.en)}</b> …</div>`;
+h+=q.mode=='arr'?`<div class=ps id=ab style="min-height:58px"></div><div id=pb></div><button onclick="C=[];drawA(${i},${j})">↺ 모두 지우기</button><button class=p onclick="subA(${i},${j})">제출</button>`:`<textarea id=v rows=4 autocomplete=off autocapitalize=off spellcheck=false placeholder="영어로 쓰세요"></textarea><button class=p onclick="ans(${i},${j},document.getElementById('v').value)">제출</button>`;
+$.innerHTML=h+'<button onclick=home()>← 홈으로 (진행 상황 저장됨)</button></div>';if(q.mode=='arr')drawA(i,j)}
+function ans(i,j,v){const q=D[i].q[j],s=st(i),full=q.mode=='half'?pre(q.en)+' '+v:v,u=nz(full),ok=[q.en,...(q.alt||[])].some(x=>nz(x)==u);
+if(s.f[j]===undefined)s.f[j]=ok;s.q.shift();if(!ok)s.q.push(j);sv();
+const uw=u.split(' ').filter(Boolean),aw=nz(q.en).split(' '),ms=df(uw,aw),ex=df(aw,uw);
+let h=`<div class=card><span class=tag>${q.t}</span><h3>${ok?'⭕ 정답입니다!':'❌ 오답입니다'}</h3><p>내 답: ${esc(full.trim())||'(비어 있음)'}</p><p>모범 답안: <b>${q.en}</b></p>`;
+if(!ok)h+=`<p>${ms.length?'빠졌거나 다르게 쓴 단어: <mark>'+ms.join(', ')+'</mark>\n':''}${ex.length?'불필요하거나 틀린 단어: <mark>'+ex.join(', ')+'</mark>':''}${ms.length+ex.length?'':'단어는 모두 맞지만 어순이 달라요.'}</p>`;
+h+=`<p class=ex>${q.e}</p>${ok?'':'<small>이 문제는 섹션 끝에서 다시 나옵니다.</small>'}<button class=p onclick="ask(${i})">${s.q.length?'다음 문제':'결과 보기'}</button></div>`;$.innerHTML=h}
+home();
+</script></body></html>
